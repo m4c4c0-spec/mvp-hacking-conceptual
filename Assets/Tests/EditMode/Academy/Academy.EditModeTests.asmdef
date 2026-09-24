@@ -1,0 +1,6 @@
+{
+  "name": "Academy.EditModeTests",
+  "references": ["Academy.Runtime"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

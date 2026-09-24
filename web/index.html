@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blue / Red · Analyst Academy</title>
+    <link rel="stylesheet" href="./css/app.css">
+  </head>
+  <body>
+    <a class="skip" href="#office">Saltar al escritorio</a>
+
+    <section id="boot" class="boot">
+      <div class="crt">
+        <p class="boot-kicker">Blue / Red Team Trainer</p>
+        <h1 id="boot-title">Analyst Academy</h1>
+        <p class="boot-copy">
+          Laboratorio narrativo. Investigas sistemas ficticios, documentas hallazgos
+          y cierras con defensas. No hay exploits, payloads ni herramientas reales.
+        </p>
+        <p id="boot-status" class="boot-status">cargando misiones…</p>
+        <button id="enter" class="solid" disabled>Entrar al escritorio</button>
+        <p class="hint">Enter · Alt+G glosario · la terminal entiende <code>help</code></p>
+      </div>
+    </section>
+
+    <section id="office" hidden>
+      <header class="hud">
+        <div>
+          <p class="brand">BRT · escritorio junior</p>
+          <p id="hud-rank">Junior · escritorio 4</p>
+        </div>
+        <div class="hud-right">
+          <span id="hud-concepts">0/8 conceptos</span>
+          <time id="hud-clock">00:00</time>
+        </div>
+      </header>
+
+      <div class="stage">
+        <div class="wall">
+          <div class="board interactable" data-id="board" role="region" aria-label="Pizarra de misiones">
+            <p class="board-label">Asignaciones</p>
+            <div id="board-tickets" class="tickets"></div>
+          </div>
+          <div class="window" aria-hidden="true"></div>
+        </div>
+
+        <div class="desk">
+          <button class="interactable mailbox" data-id="mailbox" type="button">
+            <span>Buzón</span>
+            <small>Elegir misión</small>
+          </button>
+          <button class="interactable laptop" data-id="laptop" type="button">
+            <span>Laptop</span>
+            <small>Abrir terminal</small>
+          </button>
+          <button class="interactable notes" data-id="notes" type="button">
+            <span>Cuaderno</span>
+            <small>Notas y hallazgos</small>
+          </button>
+          <button class="interactable usb" data-id="usb" type="button">
+            <span>USB</span>
+            <small>Evidencia inerte</small>
+          </button>
+        </div>
+        <div class="lamp" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <div id="overlay" class="overlay" hidden></div>
+    <div id="glossary" class="glossary" hidden></div>
+    <div id="toast" class="toast" data-show="0" role="status"></div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "Academy.Runtime",
+  "rootNamespace": "Academy",
+  "references": ["Unity.ugui", "Unity.InputSystem"]
+}

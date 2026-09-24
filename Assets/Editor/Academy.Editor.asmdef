@@ -1,0 +1,6 @@
+{
+  "name": "Academy.Editor",
+  "rootNamespace": "Academy.Editor",
+  "references": ["Academy.Runtime"],
+  "includePlatforms": ["Editor"]
+}

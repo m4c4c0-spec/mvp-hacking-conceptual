@@ -1,0 +1,22 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+.vs/
+.idea/
+*.csproj
+*.sln
+# Harness .NET fuera de Unity (scripts/test-dotnet.sh): estos csproj sí se versionan.
+!Tools/**/*.csproj
+Tools/**/bin/
+Tools/**/obj/
+*.user
+*.pidb
+*.booproj
+*.unitypackage
+.DS_Store
+__pycache__/
+docs/.colab-state.json
+web/.cache

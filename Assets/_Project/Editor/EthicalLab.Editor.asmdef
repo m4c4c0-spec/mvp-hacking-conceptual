@@ -1,0 +1,13 @@
+{
+  "name": "EthicalLab.Editor",
+  "rootNamespace": "EthicalLab.Editor",
+  "references": ["Academy.Runtime"],
+  "includePlatforms": ["Editor"],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

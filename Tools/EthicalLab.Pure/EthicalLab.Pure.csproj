@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Capas puras de EthicalLab compiladas fuera de Unity.
+    netstandard2.1 + C# 9 = la superficie que Unity 6 expone a los asmdef con noEngineReferences.
+    Si algo compila aquí y no en Unity (o al revés), el problema es de API, no de sintaxis.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AssemblyName>EthicalLab.Pure</AssemblyName>
+    <RootNamespace>EthicalLab</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../Assets/_Project/Shared/**/*.cs" />
+    <Compile Include="../../Assets/_Project/Domain/**/*.cs" />
+    <Compile Include="../../Assets/_Project/Application/**/*.cs" />
+  </ItemGroup>
+
+</Project>

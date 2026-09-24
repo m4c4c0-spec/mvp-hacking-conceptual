@@ -1,0 +1,22 @@
+{
+  "name": "EthicalLab.Presentation",
+  "rootNamespace": "EthicalLab.Presentation",
+  "references": [
+    "EthicalLab.Domain",
+    "EthicalLab.Application",
+    "EthicalLab.Infrastructure",
+    "EthicalLab.Shared",
+    "Unity.ugui",
+    "Unity.InputSystem"
+  ],
+  "optionalUnityReferences": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

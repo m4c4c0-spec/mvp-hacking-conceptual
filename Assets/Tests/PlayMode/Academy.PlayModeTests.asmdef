@@ -1,0 +1,5 @@
+{
+  "name": "Academy.PlayModeTests",
+  "references": ["Academy.Runtime", "Unity.ugui"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

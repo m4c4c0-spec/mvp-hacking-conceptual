@@ -1,0 +1,15 @@
+{
+  "name": "EthicalLab.Application",
+  "rootNamespace": "EthicalLab.Application",
+  "references": ["EthicalLab.Domain", "EthicalLab.Shared"],
+  "optionalUnityReferences": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true
+}
