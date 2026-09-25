@@ -16,6 +16,7 @@ namespace EthicalLab.Presentation
         public Transform Root;
         public TextMesh LaptopScreen;
         public TextMesh BoardTitle;
+        public TextMesh BoardObjective;
         public TextMesh TrayHeader;
         public readonly List<InteractableView> Tickets = new List<InteractableView>();
         public readonly List<InteractableView> Folders = new List<InteractableView>();
@@ -140,6 +141,8 @@ namespace EthicalLab.Presentation
             var board = Box(root, "Board", new Vector3(0.9f, 2.2f, 3.13f), new Vector3(3.3f, 1.8f, 0.08f), navy);
             Mark(board, InteractableId.Board, "PIZARRA DE TICKETS · E para ver / aceptar", false);
             scene.BoardTitle = Sign(root, "BLUE / RED · tickets · E para aceptar", new Vector3(0.9f, 2.85f, 3.07f), Quaternion.identity, 0.055f, Paper);
+            scene.BoardObjective = Sign(root, "Acepta un ticket", new Vector3(0.9f, 1.42f, 3.07f), Quaternion.identity, 0.04f, Mint);
+            scene.BoardObjective.anchor = TextAnchor.UpperCenter;
             for (int i = 0; i < 4; i++)
             {
                 var ticket = Box(root, "Ticket " + (i + 1), new Vector3(-0.2f + i * 0.73f, 1.97f, 3.045f), new Vector3(0.55f, 0.53f, 0.025f), amber);

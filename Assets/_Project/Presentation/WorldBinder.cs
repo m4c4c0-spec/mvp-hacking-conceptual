@@ -28,13 +28,21 @@ namespace EthicalLab.Presentation
 
         void PaintBoard()
         {
-            if (Scene.BoardTitle == null) return;
             var mission = App.Active;
             var row = mission != null ? App.Progress.Get(mission.Id.Value) : null;
-            if (row != null && row.Started && !row.Completed)
-                Scene.BoardTitle.text = "CASO · " + mission.Number + "  " + mission.Title;
-            else
-                Scene.BoardTitle.text = "BLUE / RED · tickets · E para aceptar";
+            bool active = row != null && row.Started && !row.Completed;
+            if (Scene.BoardTitle != null)
+            {
+                Scene.BoardTitle.text = active
+                    ? "CASO · " + mission.Number + "  " + mission.Title
+                    : "BLUE / RED · tickets · E para aceptar";
+            }
+            if (Scene.BoardObjective != null)
+            {
+                Scene.BoardObjective.text = active
+                    ? "OBJETIVO · " + mission.Number + "\n" + Wrap(mission.Objective, 40)
+                    : "Acepta un ticket";
+            }
         }
 
         void PaintDoor()
