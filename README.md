@@ -19,12 +19,12 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 **Controles PC (WASD first-person)**:
 - **WASD**: Caminar por la oficina
 - **Mouse**: Mirar alrededor (mantén **botón derecho** para lockear cursor)
-- **E** o **Click izquierdo**: Usar objeto enfocado (pizarra, laptop, cuaderno, bandejas)
+- **E** o **Click izquierdo**: Usar objeto enfocado (pizarra, laptop, cuaderno, bandejas, buzón de informe)
 - **G**: Tomar/soltar carpetas (pistas físicas)
 - **Shift**: Correr
 - **ESC**: Menú (Terminal, Glosario, Expediente)
 
-**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → informe). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Beeps suaves al usar/tomar/toast.
+**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: ✓ documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar.
 
 **Reiniciar demo** (pitch con cliente): ESC → Inicio → «Reiniciar demo» → confirmar «¿Seguro?» — borra progreso guardado, vuelve a Oficina y muestra de nuevo el tip de bienvenida.
 
@@ -35,8 +35,9 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 4. **Bandejas del escritorio**: Con carpeta en mano, E sobre bandeja correcta → observación, luego defensa
 5. **Cuaderno**: E para ver ficha desbloqueada con concepto aprendido
 6. **Laptop**: E para terminal narrativa (comandos conceptuales, no reales)
-7. **Panel ESC**: Informe final + quiz cuando todas las pistas están documentadas
-8. **Servidor "Atlas" rojo**: Fuera de alcance (lección de autorización, sin castigo)
+7. **Buzón de informe** (escritorio): cuando todas las pistas están documentadas, E abre el Expediente (informe + quiz)
+8. **Panel ESC**: mismo Expediente / Terminal / Glosario si prefieres el menú
+9. **Servidor "Atlas" rojo**: Fuera de alcance (lección de autorización, sin castigo)
 
 **Tutorial**: Misión 01 "Antes de tocar nada" (Lumen Studio, 3 pistas, 3 min)  
 **Misión 01**: Misión 02 "No todo es lo que parece" (Nébula, 4 mensajes de email, 4 min)

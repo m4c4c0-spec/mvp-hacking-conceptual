@@ -2,7 +2,7 @@
 
 **Propósito**: Documentar cada elemento significativo del proyecto para que Marco pueda mantenerlo y extenderlo.
 
-**Última actualización**: 2026-09-25 (Hub FP client demo v2 — focus, reset, objetivo, audio)
+**Última actualización**: 2026-09-25 (Hub FP client demo v3 — buzón informe, checklist pistas)
 
 ---
 
@@ -156,9 +156,10 @@
   - `ClueGroups(mission)`: Lista de grupos de evidencia (ej: `["lumen", "scope", "archive"]`)
   - `Collected(mission, progress, group)`: ¿Se leyó la pista?
   - `Documented(mission, progress, group)`: ¿Se completaron observe + defend?
+  - `AllDocumented(mission, progress)`: ¿Todas las pistas del caso activo están documentadas?
   - `Pending(mission, progress, group)`: Siguiente paso sin completar (observe o defend)
   - `Clue(mission, group)`: Paso `.clue` del grupo
-- **Cómo se usa**: `WorldBinder` pinta carpetas según este estado; `LabBootstrap` traduce interacciones físicas
+- **Cómo se usa**: `WorldBinder` pinta carpetas/checklist/buzón según este estado; `LabBootstrap` y `HubGuide` traducen interacciones físicas
 
 ### NarrativeTerminal.cs
 - **Clase estática**: `NarrativeTerminal`
@@ -218,7 +219,7 @@
   - Crea `HubHud` (UI) y `WorldBinder` (sincroniza estado → objetos 3D)
   - Conecta eventos de `PcInteractor` (Used, Grabbed, Released) a casos de uso
 - **Start**: Toast de bienvenida one-shot (`PlayerPrefs` `HubGuide.WelcomePrefsKey`) si no hay misión empezada — `HubGuide.WelcomeTip`
-- **Audio**: `HubAudio.Ensure` en Awake; `PlayUse` / `PlayGrab` en OnUsed / OnGrabbed
+- **Audio**: `HubAudio.Ensure` en Awake; `PlayUse` / `PlayGrab` en OnUsed / OnGrabbed; `PlayDocumented` al cerrar observe+defend de una pista
 - **AutoStart**: Solo en escenas `Boot` / `Hub` (no Academy). Build settings: Boot=0, Hub=1, Academy deshabilitada
 - **Métodos de interacción**:
   - `OnUsed(InteractableId)`: Traduce E/click en objeto → caso de uso (ej: ticket → `StartMission`)
@@ -227,7 +228,8 @@
 - **Métodos de flujo**:
   - `AcceptTicket(missionId)`: `StartMission`, toast con alcance
   - `ReadClue(group)`: `CompleteStep` para `.clue`, muestra panel de lectura
-  - `Classify(trayArg)`: Con carpeta en mano, `CompleteStep` para `.observe`/`.defend`
+  - `Classify(trayArg)`: Con carpeta en mano, `CompleteStep` para `.observe`/`.defend`; si `AllDocumented`, toast apunta al buzón
+  - `OpenReportInbox()`: E en buzón → si pistas documentadas, `hud.Open("case")`; si no, toast guía
   - `OutOfScope()`: Mensaje educativo al interactuar con servidor Atlas
 - **Update**: Autosave cada 20s
 - **Cómo extender**: Agregar nuevos `InteractableId.Kind` y sus handlers en `OnUsed`
@@ -236,13 +238,13 @@
 - **Clase estática**: `HubOffice`
 - **Método principal**: `Build()`: Crea oficina 3D proceduralmente (sin assets externos)
 - **Qué crea**:
-  - **Sala principal** (x: -4..4): Escritorio, laptop, cuaderno, bandejas clasificación, pizarra tickets
+  - **Sala principal** (x: -4..4): Escritorio, laptop, cuaderno, bandejas clasificación, **buzón de informe**, pizarra tickets, **checklist de pistas** (panel pared)
   - **Archivo** (x: 4..8): Mesa con carpetas (pistas), puerta con bisagra + rótulo "ARCHIVO →"
   - **Cajón**: Carpeta adicional (USB de utilería)
   - **Servidor Atlas**: Fuera de alcance (educativo)
   - **Jugador**: CharacterController + cámara first-person + `PcInteractor`
   - **Iluminación**: Luz direccional + point light en archivo + fog
-- **Devuelve**: `HubScene` (referencias a objetos interactivos)
+- **Devuelve**: `HubScene` (referencias a objetos interactivos; incluye `ReportInbox`, `ClueChecklist`)
 - **Primitivas**: Todo con `GameObject.CreatePrimitive` y materiales procedurales
 - **Cómo extender**: Modificar geometría/posiciones aquí; para nuevos objetos, agregar a `HubScene` y `WorldBinder`
 
@@ -251,9 +253,10 @@
 - **Qué es**: DTO con referencias a todos los objetos interactivos del mundo
 - **Propiedades**:
   - `Camera`, `Person` (PcInteractor), `Root`
-  - `LaptopScreen`, `BoardTitle`, `BoardObjective`, `TrayHeader`: TextMeshes para estado
+  - `LaptopScreen`, `BoardTitle`, `BoardObjective`, `TrayHeader`, `ClueChecklist`: TextMeshes para estado
   - `Tickets`, `Folders`, `Trays`: Listas de `InteractableView`
   - `OutOfScope`: Servidor Atlas
+  - `ReportInbox`: Buzón de informe (abre expediente cuando todas las pistas están documentadas)
   - `Door`, `Drawer`: `HubMechanism` (bisagra/deslizante)
 
 ### PcInteractor.cs
@@ -294,6 +297,8 @@
   - `PaintFolders()`: Visibilidad, color, label de carpetas según `ClueWorkflow`
   - `PaintTrays()`: Idle = bandejas visibles con hint "espera carpeta"; activas = opciones observe/defend
   - `PaintDoor()`: Prompt de puerta según `HubMechanism.IsOpen`
+  - `PaintReportInbox()`: Color/prompt del buzón (muted / amber / verde listo)
+  - `PaintChecklist()`: Panel pared con ✓ documentada / ○ leída / · pendiente (idle si no hay misión)
 - **Colores**: `HubOffice.Navy`, `.Mint`, `.Amber`, `.Green`, `.Muted`, `.Red`
 - **Cómo extender**: Para nuevos objetos dinámicos, agregar método `Paint<Objeto>()`
 
@@ -318,7 +323,7 @@
 - **Clase estática**: `HubGuide`
 - **Qué hace**: Calcula la pista corta del siguiente paso físico (español) desde `LabUseCases` + `ClueWorkflow` + carpeta en mano
 - **Métodos**:
-  - `NextStep(app, person)`: pizarra → archivo → bandejas → laptop/cuaderno/ESC expediente
+  - `NextStep(app, person)`: pizarra → archivo → bandejas → **buzón de informe** (cuando `AllDocumented`)
   - `AnyMissionStarted(app)`: usado por bienvenida one-shot en `LabBootstrap.Start`
   - `WelcomeTip` / `WelcomePrefsKey`: tip de primera visita y reset de demo
 - **Dónde se usa**: `HubHud.DrawNextStepGuide` (persistente abajo-izquierda en Office), `LabBootstrap` welcome, `HubHud` reinicio demo
@@ -331,7 +336,7 @@
 ### HubAudio.cs
 - **Clase estática**: `HubAudio`
 - **Qué hace**: Beeps procedurales (sine + fade) para Use / Grab / toast exitoso — sin asset packs
-- **Métodos**: `Ensure(host)`, `PlayUse()`, `PlayGrab()`, `PlayToast()`
+- **Métodos**: `Ensure(host)`, `PlayUse()`, `PlayGrab()`, `PlayToast()`, `PlayDocumented()` (beep al documentar una pista completa)
 - **Volumen**: bajo (`PlayOneShot` ~0.45 sobre source 0.22)
 - **Dónde se usa**: `LabBootstrap` (Ensure + Use/Grab), `HubHud.Toast`
 
