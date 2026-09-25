@@ -22,16 +22,13 @@ namespace EthicalLab.Presentation
 
             var groups = ClueWorkflow.ClueGroups(mission);
             bool anyCollected = false;
-            bool allDocumented = groups.Count > 0;
             for (int i = 0; i < groups.Count; i++)
             {
-                string group = groups[i];
-                if (ClueWorkflow.Collected(mission, app.Progress, group)) anyCollected = true;
-                if (!ClueWorkflow.Documented(mission, app.Progress, group)) allDocumented = false;
+                if (ClueWorkflow.Collected(mission, app.Progress, groups[i])) anyCollected = true;
             }
 
-            if (allDocumented)
-                return "Abre la laptop (E) o el cuaderno · luego ESC → Expediente para el informe";
+            if (ClueWorkflow.AllDocumented(mission, app.Progress))
+                return "Acércate al buzón de informe del escritorio · E para el expediente";
 
             var held = person != null ? person.Held : null;
             if (held != null && held.Id.Kind == "clue")

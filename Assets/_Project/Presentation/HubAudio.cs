@@ -11,6 +11,7 @@ namespace EthicalLab.Presentation
         static AudioClip useClip;
         static AudioClip grabClip;
         static AudioClip toastClip;
+        static AudioClip documentedClip;
 
         public static void Ensure(GameObject host)
         {
@@ -24,11 +25,13 @@ namespace EthicalLab.Presentation
             if (useClip == null) useClip = MakeBeep(660f, 0.06f, 0.35f);
             if (grabClip == null) grabClip = MakeBeep(440f, 0.08f, 0.3f);
             if (toastClip == null) toastClip = MakeBeep(880f, 0.1f, 0.28f);
+            if (documentedClip == null) documentedClip = MakeBeep(990f, 0.12f, 0.32f);
         }
 
         public static void PlayUse() => Play(useClip);
         public static void PlayGrab() => Play(grabClip);
         public static void PlayToast() => Play(toastClip);
+        public static void PlayDocumented() => Play(documentedClip);
 
         static void Play(AudioClip clip)
         {

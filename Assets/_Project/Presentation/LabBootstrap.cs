@@ -95,6 +95,9 @@ namespace EthicalLab.Presentation
                 case "drawer":
                     scene.Drawer.Toggle();
                     break;
+                case "report":
+                    OpenReportInbox();
+                    break;
                 default:
                     hud.Toast("Ese objeto no forma parte del caso.");
                     break;
@@ -204,18 +207,34 @@ namespace EthicalLab.Presentation
             }
             var clue = mission.Step(new StepId(group + ".defend"));
             var card = clue != null && clue.UnlocksConcept ? app.Catalog.GetConcept(clue.Unlocks) : null;
+            HubAudio.PlayDocumented();
             hud.Toast("Hallazgo documentado." + (card != null ? "\nFICHA DESBLOQUEADA · " + card.Name + "\n" + card.Defense : "") + "\nCarpeta devuelta al archivo.");
             hud.Reading("");
             scene.Person.Drop();
-            if (AllDocumented(mission)) hud.Toast("Todas las pistas documentadas. Abre la laptop o el cuaderno para redactar el informe.");
+            if (ClueWorkflow.AllDocumented(mission, app.Progress))
+                hud.Toast("Todas las pistas documentadas. Acércate al buzón de informe del escritorio (E).");
         }
 
-        bool AllDocumented(MissionDefinition mission)
+        void OpenReportInbox()
         {
-            var groups = ClueWorkflow.ClueGroups(mission);
-            for (int i = 0; i < groups.Count; i++)
-                if (!ClueWorkflow.Documented(mission, app.Progress, groups[i])) return false;
-            return true;
+            var mission = app.Active;
+            if (mission == null || !app.Progress.Get(mission.Id.Value).Started)
+            {
+                hud.Toast("Acepta un ticket y documenta las pistas antes de entregar el informe.");
+                return;
+            }
+            if (app.Progress.Get(mission.Id.Value).Completed)
+            {
+                hud.Toast("Este caso ya está cerrado. Mira la pizarra para otro ticket.");
+                return;
+            }
+            if (!ClueWorkflow.AllDocumented(mission, app.Progress))
+            {
+                hud.Toast("Aún faltan pistas por documentar. Mira el checklist en la pared.");
+                return;
+            }
+            hud.Toast("Expediente abierto · elige el informe y responde el quiz.");
+            hud.Open("case");
         }
 
         void OutOfScope()
