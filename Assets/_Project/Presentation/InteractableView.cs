@@ -17,6 +17,9 @@ namespace EthicalLab.Presentation
         Renderer surface;
         Color baseColor;
         Collider[] colliders;
+        Color flashColor;
+        float flashUntil;
+        float flashDuration;
 
         void Awake()
         {
@@ -44,9 +47,24 @@ namespace EthicalLab.Presentation
             Paint();
         }
 
+        /// <summary>Destello breve (bandeja correcta/incorrecta). No cambia el tint base.</summary>
+        public void Flash(Color color, float duration = 0.4f)
+        {
+            flashColor = color;
+            flashDuration = Mathf.Max(0.05f, duration);
+            flashUntil = Time.unscaledTime + flashDuration;
+            Paint();
+        }
+
         void Update()
         {
-            if (!focusOn || surface == null) return;
+            if (surface == null) return;
+            if (Time.unscaledTime < flashUntil)
+            {
+                Paint();
+                return;
+            }
+            if (!focusOn) return;
             // Pulso suave para que el cliente vea qué objeto recibe E/G.
             float pulse = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 7f);
             surface.material.color = Color.Lerp(baseColor, Color.white, 0.22f + 0.38f * pulse);
@@ -55,6 +73,12 @@ namespace EthicalLab.Presentation
         void Paint()
         {
             if (surface == null) return;
+            if (Time.unscaledTime < flashUntil && flashDuration > 0f)
+            {
+                float intensity = Mathf.Clamp01((flashUntil - Time.unscaledTime) / flashDuration);
+                surface.material.color = Color.Lerp(baseColor, flashColor, 0.35f + 0.65f * intensity);
+                return;
+            }
             if (focusOn)
                 surface.material.color = Color.Lerp(baseColor, Color.white, 0.35f);
             else

@@ -194,25 +194,36 @@ namespace EthicalLab.Presentation
             app.SaveLoad.Save();
             if (!result.Ok)
             {
-                hud.Toast(result.Error + "\n" + pending.Body);
+                FlashTray(choice, HubOffice.Red);
+                HubAudio.PlayError();
+                hud.Toast("Bandeja incorrecta · " + result.Error + "\nRevisa la pista y prueba otra bandeja.\n" + pending.Body, false);
                 ShowClue(mission, group);
                 return;
             }
+            FlashTray(choice, HubOffice.Green);
             var next = ClueWorkflow.Pending(mission, app.Progress, group);
             if (next != null)
             {
-                hud.Toast("Observación registrada. Ahora la defensa: ¿qué harías al respecto?");
+                HubAudio.PlaySuccess();
+                hud.Toast("Observación registrada · bandeja correcta.\nAhora la defensa: ¿qué harías al respecto?", false);
                 ShowClue(mission, group);
                 return;
             }
             var clue = mission.Step(new StepId(group + ".defend"));
             var card = clue != null && clue.UnlocksConcept ? app.Catalog.GetConcept(clue.Unlocks) : null;
             HubAudio.PlayDocumented();
-            hud.Toast("Hallazgo documentado." + (card != null ? "\nFICHA DESBLOQUEADA · " + card.Name + "\n" + card.Defense : "") + "\nCarpeta devuelta al archivo.");
+            hud.Toast("Hallazgo documentado." + (card != null ? "\nFICHA DESBLOQUEADA · " + card.Name + "\n" + card.Defense : "") + "\nCarpeta devuelta al archivo.", false);
             hud.Reading("");
             scene.Person.Drop();
             if (ClueWorkflow.AllDocumented(mission, app.Progress))
                 hud.Toast("Todas las pistas documentadas. Acércate al buzón de informe del escritorio (E).");
+        }
+
+        void FlashTray(int index, Color color)
+        {
+            if (index < 0 || index >= scene.Trays.Count) return;
+            var tray = scene.Trays[index];
+            if (tray != null) tray.Flash(color);
         }
 
         void OpenReportInbox()
