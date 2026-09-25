@@ -46,6 +46,7 @@ namespace EthicalLab.Presentation
             if (page == HubPage.Office)
             {
                 DrawCrosshair();
+                DrawNextStepGuide();
                 GUI.Label(new Rect(24, Screen.height - 64, Screen.width - 48, 48), Person != null ? Person.Prompt : "");
                 if (!string.IsNullOrEmpty(reading))
                 {
@@ -264,6 +265,17 @@ namespace EthicalLab.Presentation
             float y = Screen.height * 0.5f;
             GUI.Box(new Rect(x - 1, y - 8, 2, 16), "");
             GUI.Box(new Rect(x - 8, y - 1, 16, 2), "");
+        }
+
+        /// <summary>Pista persistente del siguiente paso físico (oficina, no storybook).</summary>
+        void DrawNextStepGuide()
+        {
+            if (App == null) return;
+            string guide = HubGuide.NextStep(App, Person);
+            if (string.IsNullOrEmpty(guide)) return;
+            float w = Mathf.Min(560f, Screen.width - 48f);
+            GUI.Box(new Rect(24, Screen.height - 120, w, 48), "");
+            GUI.Label(new Rect(36, Screen.height - 112, w - 24, 36), "→ " + guide);
         }
 
         public void Open(string target)
