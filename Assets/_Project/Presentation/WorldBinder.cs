@@ -18,10 +18,35 @@ namespace EthicalLab.Presentation
         void LateUpdate()
         {
             if (App == null || Scene == null) return;
+            PaintBoard();
             PaintTickets();
             PaintLaptop();
             PaintFolders();
             PaintTrays();
+            PaintDoor();
+        }
+
+        void PaintBoard()
+        {
+            if (Scene.BoardTitle == null) return;
+            var mission = App.Active;
+            var row = mission != null ? App.Progress.Get(mission.Id.Value) : null;
+            if (row != null && row.Started && !row.Completed)
+                Scene.BoardTitle.text = "CASO · " + mission.Number + "  " + mission.Title;
+            else
+                Scene.BoardTitle.text = "BLUE / RED · tickets · E para aceptar";
+        }
+
+        void PaintDoor()
+        {
+            // Prompt más claro; el TextMesh del dintel es estático en HubOffice.
+            if (Scene.Door == null) return;
+            var view = Scene.Door.GetComponent<InteractableView>();
+            if (view == null) return;
+            bool open = Scene.Door.IsOpen;
+            view.prompt = open
+                ? "PUERTA DEL ARCHIVO · abierta · E para cerrar"
+                : "PUERTA DEL ARCHIVO · E para abrir · carpetas adentro";
         }
 
         void PaintTickets()
@@ -86,8 +111,17 @@ namespace EthicalLab.Presentation
 
             if (pending == null)
             {
-                Scene.TrayHeader.text = held != null && held.Id.Kind == "clue" ? "Lee la pista (E) antes de clasificarla" : "";
-                for (int i = 0; i < Scene.Trays.Count; i++) Scene.Trays[i].gameObject.SetActive(false);
+                Scene.TrayHeader.text = held != null && held.Id.Kind == "clue"
+                    ? "Lee la pista (E) antes de clasificarla"
+                    : "BANDEJAS · trae una carpeta del archivo (G) y clasifica aquí";
+                for (int i = 0; i < Scene.Trays.Count; i++)
+                {
+                    var tray = Scene.Trays[i];
+                    tray.gameObject.SetActive(true);
+                    tray.prompt = "BANDEJA " + (i + 1) + " · espera carpeta del archivo";
+                    tray.Label("BANDEJA " + (i + 1) + "\n—");
+                    tray.Tint(HubOffice.Muted);
+                }
                 return;
             }
 
@@ -100,6 +134,7 @@ namespace EthicalLab.Presentation
                 if (!visible) continue;
                 tray.prompt = "BANDEJA " + (i + 1) + " · " + pending.Options[i];
                 tray.Label(Wrap(pending.Options[i], 22));
+                tray.Tint(HubOffice.Amber);
             }
         }
 

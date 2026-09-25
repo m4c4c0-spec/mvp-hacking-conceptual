@@ -23,6 +23,8 @@ namespace EthicalLab.Presentation
             closedRotation = movingPart.localRotation;
         }
 
+        public bool IsOpen => open;
+
         public void Toggle() => open = !open;
 
         void Update()

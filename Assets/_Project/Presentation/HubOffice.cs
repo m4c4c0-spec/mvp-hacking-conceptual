@@ -116,21 +116,21 @@ namespace EthicalLab.Presentation
             foreach (float x in new[] { -1.4f, 1.4f }) Box(root, "Desk leg", new Vector3(x, 0.4f, 0.5f), new Vector3(0.1f, 0.8f, 1.1f), black);
 
             var laptop = Box(root, "Laptop", new Vector3(-0.25f, 0.98f, 0.38f), new Vector3(0.92f, 0.06f, 0.62f), black);
-            Mark(laptop, InteractableId.Laptop, "LAPTOP · Abrir terminal narrativa", false);
+            Mark(laptop, InteractableId.Laptop, "LAPTOP · E para terminal narrativa", false);
             var screen = Box(root, "Laptop display", new Vector3(-0.25f, 1.29f, 0.69f), new Vector3(0.93f, 0.57f, 0.06f), black);
-            Mark(screen, InteractableId.Laptop, "LAPTOP · Abrir terminal narrativa", false);
+            Mark(screen, InteractableId.Laptop, "LAPTOP · E para terminal narrativa", false);
             Box(root, "Screen glow", new Vector3(-0.25f, 1.3f, 0.652f), new Vector3(0.81f, 0.45f, 0.012f), navy);
             scene.LaptopScreen = Sign(root, ">_ ACADEMY OS", new Vector3(-0.25f, 1.3f, 0.64f), Quaternion.identity, 0.035f, Mint);
 
             var notebook = Box(root, "Notebook", new Vector3(-1.15f, 0.97f, 0.24f), new Vector3(0.48f, 0.06f, 0.58f), cyan);
-            Mark(notebook, InteractableId.Notebook, "CUADERNO · Glosario y notas", false);
+            Mark(notebook, InteractableId.Notebook, "CUADERNO · E para glosario y notas", false);
 
             // Bandejas de clasificación: una por opción del paso pendiente de la carpeta en mano.
             scene.TrayHeader = Sign(root, "", new Vector3(1.0f, 1.02f, 1.02f), Quaternion.Euler(45f, 0f, 0f), 0.03f, Paper);
             for (int i = 0; i < 3; i++)
             {
                 var tray = Box(root, "Tray " + (i + 1), new Vector3(0.45f + i * 0.58f, 0.95f, 0.75f), new Vector3(0.5f, 0.06f, 0.42f), amber);
-                var view = Mark(tray, InteractableId.Tray(i), "BANDEJA " + (i + 1), false);
+                var view = Mark(tray, InteractableId.Tray(i), "BANDEJA " + (i + 1) + " · clasificación", false);
                 view.sign = Sign(tray.transform, "", new Vector3(0f, 0.6f, -0.35f), Quaternion.Euler(45f, 0f, 0f), 0.05f, Graphite);
                 view.sign.transform.localScale = new Vector3(1f / 0.5f, 1f / 0.06f, 1f / 0.42f);
                 scene.Trays.Add(view);
@@ -138,8 +138,8 @@ namespace EthicalLab.Presentation
 
             // Pizarra: cada ticket es una misión. Color = estado real del progreso.
             var board = Box(root, "Board", new Vector3(0.9f, 2.2f, 3.13f), new Vector3(3.3f, 1.8f, 0.08f), navy);
-            Mark(board, InteractableId.Board, "PIZARRA · Ver misiones", false);
-            scene.BoardTitle = Sign(root, "BLUE / RED · ANALYST ACADEMY", new Vector3(0.9f, 2.85f, 3.07f), Quaternion.identity, 0.06f, Paper);
+            Mark(board, InteractableId.Board, "PIZARRA DE TICKETS · E para ver / aceptar", false);
+            scene.BoardTitle = Sign(root, "BLUE / RED · tickets · E para aceptar", new Vector3(0.9f, 2.85f, 3.07f), Quaternion.identity, 0.055f, Paper);
             for (int i = 0; i < 4; i++)
             {
                 var ticket = Box(root, "Ticket " + (i + 1), new Vector3(-0.2f + i * 0.73f, 1.97f, 3.045f), new Vector3(0.55f, 0.53f, 0.025f), amber);
@@ -160,7 +160,8 @@ namespace EthicalLab.Presentation
             hinge.SetParent(root, false);
             hinge.localPosition = new Vector3(4f, 0f, -0.45f);
             var door = Box(hinge, "Archive door", new Vector3(0f, 1.1f, -0.82f), new Vector3(0.09f, 2.2f, 1.64f), wood);
-            Mark(door, InteractableId.Door, "PUERTA DEL ARCHIVO · Abrir / cerrar", false);
+            Mark(door, InteractableId.Door, "PUERTA DEL ARCHIVO · E para abrir · carpetas adentro", false);
+            Sign(root, "ARCHIVO →\nE · abrir", new Vector3(3.72f, 2.35f, -1.3f), Quaternion.Euler(0f, -90f, 0f), 0.05f, Amber);
             scene.Door = door.AddComponent<HubMechanism>();
             scene.Door.kind = MechanismKind.Door;
             scene.Door.movingPart = hinge;
