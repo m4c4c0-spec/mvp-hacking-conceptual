@@ -24,7 +24,9 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 - **Shift**: Correr
 - **ESC**: Menú (Terminal, Glosario, Expediente)
 
-**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → informe). Toast de bienvenida la primera vez (WASD / botón derecho / E / G).
+**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → informe). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Beeps suaves al usar/tomar/toast.
+
+**Reiniciar demo** (pitch con cliente): ESC → Inicio → «Reiniciar demo» → confirmar «¿Seguro?» — borra progreso guardado, vuelve a Oficina y muestra de nuevo el tip de bienvenida.
 
 **Flujo de juego 3D interactivo** (NO lectura de páginas):
 1. **Pizarra**: E sobre ticket → acepta misión (brief + alcance en toast)

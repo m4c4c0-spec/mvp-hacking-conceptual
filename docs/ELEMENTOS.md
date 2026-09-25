@@ -2,7 +2,7 @@
 
 **Propósito**: Documentar cada elemento significativo del proyecto para que Marco pueda mantenerlo y extenderlo.
 
-**Última actualización**: 2026-09-25 (Hub FP polish — guía in-world + bienvenida)
+**Última actualización**: 2026-09-25 (Hub FP client demo v2 — focus, reset, objetivo, audio)
 
 ---
 
@@ -73,6 +73,7 @@
   - `Missions`: Lista de `MissionProgress` (cada una con su estado y score)
   - `Unlocked`: Conceptos desbloqueados
   - `Reviewed`: Conceptos leídos en el cuaderno
+- **Métodos**: `Get`, `Step`, `IsUnlocked`, `IsReviewed`, `CompletedCount`, `Clear()` (vacía progreso en memoria para reinicio de demo)
 - **Serialización**: Se guarda/carga como JSON via `JsonProgressStore`
 
 ### MissionCatalogRules.cs
@@ -111,7 +112,7 @@
 - **Propiedades**:
   - `Catalog`: `IMissionRepository` (misiones y conceptos)
   - `Progress`: `PlayerProgress` (estado del jugador)
-  - `StartMission`, `CompleteStep`, `UnlockConcept`, `SubmitReport`, `SaveLoad`: Casos de uso
+  - `StartMission`, `CompleteStep`, `UnlockConcept`, `SubmitReport`, `SaveLoad`, `ResetDemo()`: Casos de uso / reinicio demo
   - `Active`: Misión actualmente en curso
 - **Método**: `Tick(seconds)`: Actualiza tiempo de misión activa
 - **Cómo usar**: Todas las interacciones del jugador pasan por estos casos de uso
@@ -144,9 +145,9 @@
 
 ### SaveLoadProgress.cs
 - **Clase**: `SaveLoadProgress`
-- **Métodos**: `Load()`, `Save()`
+- **Métodos**: `Load()`, `Save()`, `ResetDemo()` (Clear + Save)
 - **Qué hace**: Persiste `PlayerProgress` via `IProgressStore`
-- **Uso**: Se llama automáticamente cada 20s en `LabBootstrap.Update()` y al pausar/cerrar
+- **Uso**: Autosave cada 20s en `LabBootstrap`; `LabUseCases.ResetDemo` / HubHud «Reiniciar demo»
 
 ### ClueWorkflow.cs
 - **Clase estática**: `ClueWorkflow`
@@ -216,7 +217,8 @@
   - Llama `HubOffice.Build()` para crear oficina 3D
   - Crea `HubHud` (UI) y `WorldBinder` (sincroniza estado → objetos 3D)
   - Conecta eventos de `PcInteractor` (Used, Grabbed, Released) a casos de uso
-- **Start**: Toast de bienvenida one-shot (`PlayerPrefs` `EthicalLab.HubWelcomeShown`) si no hay misión empezada — tip WASD/RMB/E/G + ir a la pizarra
+- **Start**: Toast de bienvenida one-shot (`PlayerPrefs` `HubGuide.WelcomePrefsKey`) si no hay misión empezada — `HubGuide.WelcomeTip`
+- **Audio**: `HubAudio.Ensure` en Awake; `PlayUse` / `PlayGrab` en OnUsed / OnGrabbed
 - **AutoStart**: Solo en escenas `Boot` / `Hub` (no Academy). Build settings: Boot=0, Hub=1, Academy deshabilitada
 - **Métodos de interacción**:
   - `OnUsed(InteractableId)`: Traduce E/click en objeto → caso de uso (ej: ticket → `StartMission`)
@@ -249,7 +251,7 @@
 - **Qué es**: DTO con referencias a todos los objetos interactivos del mundo
 - **Propiedades**:
   - `Camera`, `Person` (PcInteractor), `Root`
-  - `LaptopScreen`, `BoardTitle`, `TrayHeader`: TextMeshes para estado
+  - `LaptopScreen`, `BoardTitle`, `BoardObjective`, `TrayHeader`: TextMeshes para estado
   - `Tickets`, `Folders`, `Trays`: Listas de `InteractableView`
   - `OutOfScope`: Servidor Atlas
   - `Door`, `Drawer`: `HubMechanism` (bisagra/deslizante)
@@ -286,7 +288,7 @@
 - **Clase**: `WorldBinder : MonoBehaviour`
 - **Qué hace**: Pinta estado de Application/Domain sobre objetos 3D (read-only)
 - **LateUpdate** llama:
-  - `PaintBoard()`: Título de pizarra (caso activo o "tickets · E para aceptar")
+  - `PaintBoard()`: Título de pizarra + `BoardObjective` (misión activa → `Objective`; idle → "Acepta un ticket")
   - `PaintTickets()`: Color/texto de tickets según `PlayerProgress` (verde=completo, cyan=en curso, amber=disponible, gris=bloqueado)
   - `PaintLaptop()`: Texto de pantalla con `CommandHint` de misión activa
   - `PaintFolders()`: Visibilidad, color, label de carpetas según `ClueWorkflow`
@@ -300,12 +302,12 @@
 - **Qué hace**: UI principal (OnGUI) con tabs + panels
 - **Páginas**: Office (mundo 3D), Home, Missions, Terminal, Case (expediente), Glossary
 - **Métodos públicos**:
-  - `Toast(text)`: Mensaje temporal en mundo 3D (feedback de acción física)
+  - `Toast(text)`: Mensaje temporal en mundo 3D + beep `HubAudio.PlayToast`
   - `Reading(text)`: Panel lateral de lectura de pista en mano
   - `Open(target)`: Abre panel específico (usado por `LabBootstrap`)
 - **Páginas**:
   - **Office**: Vista first-person, crosshair, **guía next-step** (`DrawNextStepGuide` via `HubGuide`), prompt, toast, reading panel
-  - **Home**: Bienvenida, contador de misiones
+  - **Home**: Bienvenida, contador de misiones, **Reiniciar demo** (dos pasos: botón → ¿Seguro? → `App.ResetDemo`, limpia prefs de bienvenida, toast tip, vuelve a Office)
   - **Missions**: Buzón de tickets (paralelo a pizarra 3D, útil para testing sin caminar)
   - **Terminal**: Terminal narrativa con input de comandos
   - **Case**: Expediente de misión activa con pasos y quiz
@@ -318,11 +320,20 @@
 - **Métodos**:
   - `NextStep(app, person)`: pizarra → archivo → bandejas → laptop/cuaderno/ESC expediente
   - `AnyMissionStarted(app)`: usado por bienvenida one-shot en `LabBootstrap.Start`
-- **Dónde se usa**: `HubHud.DrawNextStepGuide` (persistente abajo-izquierda en Office), `LabBootstrap` welcome
+  - `WelcomeTip` / `WelcomePrefsKey`: tip de primera visita y reset de demo
+- **Dónde se usa**: `HubHud.DrawNextStepGuide` (persistente abajo-izquierda en Office), `LabBootstrap` welcome, `HubHud` reinicio demo
 
 ### HubMechanism.cs (IsOpen)
 - **Propiedad**: `IsOpen` — estado abierto/cerrado de puerta o cajón
 - **Uso**: `WorldBinder.PaintDoor` ajusta el prompt según la puerta del archivo
+
+
+### HubAudio.cs
+- **Clase estática**: `HubAudio`
+- **Qué hace**: Beeps procedurales (sine + fade) para Use / Grab / toast exitoso — sin asset packs
+- **Métodos**: `Ensure(host)`, `PlayUse()`, `PlayGrab()`, `PlayToast()`
+- **Volumen**: bajo (`PlayOneShot` ~0.45 sobre source 0.22)
+- **Dónde se usa**: `LabBootstrap` (Ensure + Use/Grab), `HubHud.Toast`
 
 ### InteractableView.cs
 - **Clase**: `InteractableView : MonoBehaviour`
@@ -333,7 +344,7 @@
   - `grabbable`: Si se puede tomar con G
   - `sign`: `TextMesh` opcional para label en objeto
 - **Métodos**:
-  - `Focus(on)`: Highlight al enfocar (color más claro)
+  - `Focus(on)`: Highlight al enfocar; `Update` pulsa/aclara el material mientras `focusOn` (señal visual de E/G)
   - `Tint(color)`: Cambia color base
   - `Label(text)`: Actualiza sign
   - `Grab(hand)`, `Release()`: Ancla/desancla a mano, deshabilita colliders mientras held
