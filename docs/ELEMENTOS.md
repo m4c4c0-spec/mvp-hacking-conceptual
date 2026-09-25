@@ -2,7 +2,7 @@
 
 **Propósito**: Documentar cada elemento significativo del proyecto para que Marco pueda mantenerlo y extenderlo.
 
-**Última actualización**: 2026-09-25 (Hub FP client demo v4 — flash bandejas, ayuda controles H/F1)
+**Última actualización**: 2026-09-25 (Hub FP client demo v5 — Boot→Hub splash, toast MISIÓN CERRADA)
 
 ---
 
@@ -211,8 +211,8 @@
 
 ### LabBootstrap.cs
 - **Clase**: `LabBootstrap : MonoBehaviour`
-- **Qué hace**: Punto de entrada principal, arranca automáticamente en Boot/Hub
-- **Método estático**: `AutoStart()`: `[RuntimeInitializeOnLoadMethod]` crea instancia en Play si detecta escenas Boot/Hub y no existe "Analyst Academy"
+- **Qué hace**: Punto de entrada principal, arranca automáticamente en Hub
+- **Método estático**: `AutoStart()`: `[RuntimeInitializeOnLoadMethod]` crea instancia en Play si detecta escena `Hub` y no existe "Analyst Academy" (Boot lo maneja `BootLoader`)
 - **Awake**:
   - Crea `LabUseCases` con repositorios
   - Llama `HubOffice.Build()` para crear oficina 3D
@@ -220,7 +220,7 @@
   - Conecta eventos de `PcInteractor` (Used, Grabbed, Released) a casos de uso
 - **Start**: Toast de bienvenida one-shot (`PlayerPrefs` `HubGuide.WelcomePrefsKey`) si no hay misión empezada — `HubGuide.WelcomeTip`
 - **Audio**: `HubAudio.Ensure` en Awake; `PlayUse` / `PlayGrab` en OnUsed / OnGrabbed; `PlayDocumented` al cerrar observe+defend de una pista
-- **AutoStart**: Solo en escenas `Boot` / `Hub` (no Academy). Build settings: Boot=0, Hub=1, Academy deshabilitada
+- **AutoStart**: Solo en escena `Hub` (no Boot ni Academy). Build settings: Boot=0, Hub=1, Academy deshabilitada
 - **Métodos de interacción**:
   - `OnUsed(InteractableId)`: Traduce E/click en objeto → caso de uso (ej: ticket → `StartMission`)
   - `OnGrabbed(InteractableId)`: Tomar carpeta (G) → leer pista si no leída
@@ -234,6 +234,14 @@
   - `OutOfScope()`: Mensaje educativo al interactuar con servidor Atlas
 - **Update**: Autosave cada 20s
 - **Cómo extender**: Agregar nuevos `InteractableId.Kind` y sus handlers en `OnUsed`
+
+
+### BootLoader.cs
+- **Clase**: `BootLoader : MonoBehaviour`
+- **Qué hace**: Splash mínimo en escena Boot → `SceneManager.LoadScene("Hub")`
+- **Método estático**: `AutoStart()` solo si la escena activa es `Boot`
+- **UI**: OnGUI «Cargando oficina…» (~0.55 s) antes de cargar Hub
+- **Preferencia**: Play en `Hub.unity` salta el splash; Boot queda para builds / arranque index 0
 
 ### HubOffice.cs
 - **Clase estática**: `HubOffice`
@@ -309,6 +317,7 @@
 - **Páginas**: Office (mundo 3D), Home, Missions, Terminal, Case (expediente), Glossary
 - **Métodos públicos**:
   - `Toast(text, playBeep = true)`: Mensaje temporal en mundo 3D; beep `HubAudio.PlayToast` opcional (bandejas usan tonos propios)
+  - `AnnounceMissionClosed(mission)`: Tras `SubmitReport.CloseIfReady` / informe que completa el caso — `HubAudio.PlaySuccess` + toast «MISIÓN CERRADA · score/100 · mira la pizarra» y vuelve a Office
   - `Reading(text)`: Panel lateral de lectura de pista en mano
   - `Open(target)`: Abre panel específico (usado por `LabBootstrap`)
 - **Páginas**:
@@ -408,10 +417,10 @@
 **Build settings**: Boot (0), Hub (1), Academy (deshabilitado)
 
 ### Boot.unity
-- **Propósito**: Escena de arranque (opcional), delega a `LabBootstrap`
+- **Propósito**: Escena de arranque (build index 0) con splash → Hub
 - **Contenido**: Vacía (solo GameObject "Boot" con Transform)
-- **Ejecución**: `LabBootstrap.AutoStart()` detecta nombre "Boot" y crea mundo automáticamente
-- **Cuándo usar**: Si se quiere splash screen o carga inicial antes de Hub
+- **Ejecución**: `BootLoader.AutoStart()` muestra «Cargando oficina…» y `LoadScene("Hub")`
+- **Cuándo usar**: Builds / Play desde Boot; para iterar en editor preferir Play en `Hub.unity`
 
 ### Hub.unity
 - **Propósito**: Escena principal del laboratorio
@@ -536,7 +545,7 @@
 - **Entendible**: Toda la construcción en un archivo legible
 
 ### ¿Por qué escenas vacías (Boot/Hub)?
-- `LabBootstrap.AutoStart()` las detecta y crea todo dinámicamente
+- `BootLoader` (Boot) → splash → Hub; `LabBootstrap.AutoStart()` solo en Hub crea el mundo
 - Permite versiones diferentes (Academy vs EthicalLab) sin conflictos de scene
 
 ### ¿Por qué Domain sin UnityEngine?

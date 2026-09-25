@@ -13,7 +13,7 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 
 **Pasos**:
 1. Abrir proyecto en Unity 6000.0.62f1
-2. Play en `Assets/Scenes/Hub.unity` o `Boot.unity`
+2. Play en `Assets/Scenes/Hub.unity` (**preferido**) o `Boot.unity` (splash «Cargando oficina…» → Hub)
 3. Caminar por la oficina y resolver el tutorial + misión 01 **físicamente en 3D**
 
 **Controles PC (WASD first-person)**:
@@ -25,7 +25,7 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 - **ESC**: Menú (Terminal, Glosario, Expediente)
 - **H** o **F1**: Mostrar/ocultar ayuda de controles (esquina, modo Oficina)
 
-**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Línea compacta de controles arriba-izquierda (H/F1). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: ✓ documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar; bandeja incorrecta = destello rojo + tono error; observación correcta = destello verde + beep éxito.
+**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Línea compacta de controles arriba-izquierda (H/F1). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: ✓ documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar; bandeja incorrecta = destello rojo + tono error; observación correcta = destello verde + beep éxito. Al cerrar el caso (informe + quiz) toast «MISIÓN CERRADA · score/100 · mira la pizarra» + beep éxito y la guía apunta de nuevo a la pizarra.
 
 **Reiniciar demo** (pitch con cliente): ESC → Inicio → «Reiniciar demo» → confirmar «¿Seguro?» — borra progreso guardado, vuelve a Oficina y muestra de nuevo el tip de bienvenida.
 
@@ -37,8 +37,9 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 5. **Cuaderno**: E para ver ficha desbloqueada con concepto aprendido
 6. **Laptop**: E para terminal narrativa (comandos conceptuales, no reales)
 7. **Buzón de informe** (escritorio): cuando todas las pistas están documentadas, E abre el Expediente (informe + quiz)
-8. **Panel ESC**: mismo Expediente / Terminal / Glosario si prefieres el menú
-9. **Servidor "Atlas" rojo**: Fuera de alcance (lección de autorización, sin castigo)
+8. **Cierre**: al completar informe + quiz → vuelta a Oficina con toast de misión cerrada; pizarra para el siguiente ticket
+9. **Panel ESC**: mismo Expediente / Terminal / Glosario si prefieres el menú
+10. **Servidor "Atlas" rojo**: Fuera de alcance (lección de autorización, sin castigo)
 
 **Tutorial**: Misión 01 "Antes de tocar nada" (Lumen Studio, 3 pistas, 3 min)  
 **Misión 01**: Misión 02 "No todo es lo que parece" (Nébula, 4 mensajes de email, 4 min)
