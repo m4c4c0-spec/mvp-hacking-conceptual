@@ -18,10 +18,12 @@ namespace EthicalLab.Presentation
         public TextMesh BoardTitle;
         public TextMesh BoardObjective;
         public TextMesh TrayHeader;
+        public TextMesh ClueChecklist;
         public readonly List<InteractableView> Tickets = new List<InteractableView>();
         public readonly List<InteractableView> Folders = new List<InteractableView>();
         public readonly List<InteractableView> Trays = new List<InteractableView>();
         public InteractableView OutOfScope;
+        public InteractableView ReportInbox;
         public HubMechanism Door;
         public HubMechanism Drawer;
     }
@@ -136,6 +138,19 @@ namespace EthicalLab.Presentation
                 view.sign.transform.localScale = new Vector3(1f / 0.5f, 1f / 0.06f, 1f / 0.42f);
                 scene.Trays.Add(view);
             }
+
+            // Buzón de informe: paso físico tras documentar todas las pistas → expediente.
+            var inbox = Box(root, "Report inbox", new Vector3(1.45f, 1.02f, 0.12f), new Vector3(0.46f, 0.22f, 0.5f), cyan);
+            scene.ReportInbox = Mark(inbox, InteractableId.ReportInbox, "BUZÓN DE INFORME · E para expediente", false);
+            scene.ReportInbox.sign = Sign(inbox.transform, "INFORME", new Vector3(0f, 0.55f, -0.2f), Quaternion.Euler(20f, 0f, 0f), 0.045f, Graphite);
+            scene.ReportInbox.sign.transform.localScale = new Vector3(1f / 0.46f, 1f / 0.22f, 1f / 0.5f);
+            Sign(root, "BUZÓN →", new Vector3(1.45f, 1.22f, -0.18f), Quaternion.Euler(15f, 0f, 0f), 0.028f, Amber);
+
+            // Checklist in-world de pistas (WorldBinder lo pinta desde ClueWorkflow).
+            Box(root, "Checklist panel", new Vector3(-2.55f, 2.05f, 3.13f), new Vector3(1.55f, 1.35f, 0.06f), navy);
+            scene.ClueChecklist = Sign(root, "PISTAS · sin caso", new Vector3(-2.55f, 2.45f, 3.07f), Quaternion.identity, 0.045f, Paper);
+            scene.ClueChecklist.anchor = TextAnchor.UpperCenter;
+            scene.ClueChecklist.alignment = TextAlignment.Left;
 
             // Pizarra: cada ticket es una misión. Color = estado real del progreso.
             var board = Box(root, "Board", new Vector3(0.9f, 2.2f, 3.13f), new Vector3(3.3f, 1.8f, 0.08f), navy);
