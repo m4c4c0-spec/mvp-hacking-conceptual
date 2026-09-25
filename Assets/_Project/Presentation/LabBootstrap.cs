@@ -50,6 +50,17 @@ namespace EthicalLab.Presentation
             binder.Scene = scene;
         }
 
+        void Start()
+        {
+            // Bienvenida one-shot: solo si no hay misión empezada (primera visita a la oficina).
+            if (HubGuide.AnyMissionStarted(app)) return;
+            const string key = "EthicalLab.HubWelcomeShown";
+            if (PlayerPrefs.GetInt(key, 0) == 1) return;
+            PlayerPrefs.SetInt(key, 1);
+            PlayerPrefs.Save();
+            hud.Toast("Bienvenida · WASD caminar · botón derecho mirar · E usar · G tomar carpeta\nMira la pizarra y acepta un ticket disponible (E).");
+        }
+
         void OnUsed(InteractableId id)
         {
             switch (id.Kind)
