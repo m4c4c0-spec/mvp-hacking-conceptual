@@ -2,7 +2,7 @@
 
 **Propósito**: Documentar cada elemento significativo del proyecto para que Marco pueda mantenerlo y extenderlo.
 
-**Última actualización**: 2026-09-25 (Hub FP client demo v3 — buzón informe, checklist pistas)
+**Última actualización**: 2026-09-25 (Hub FP client demo v4 — flash bandejas, ayuda controles H/F1)
 
 ---
 
@@ -228,7 +228,8 @@
 - **Métodos de flujo**:
   - `AcceptTicket(missionId)`: `StartMission`, toast con alcance
   - `ReadClue(group)`: `CompleteStep` para `.clue`, muestra panel de lectura
-  - `Classify(trayArg)`: Con carpeta en mano, `CompleteStep` para `.observe`/`.defend`; si `AllDocumented`, toast apunta al buzón
+  - `Classify(trayArg)`: Con carpeta en mano, `CompleteStep` para `.observe`/`.defend`; feedback: flash rojo + `PlayError` si incorrecto, flash verde + `PlaySuccess`/`PlayDocumented` si correcto; si `AllDocumented`, toast apunta al buzón
+  - `FlashTray(index, color)`: Destello breve en la bandeja usada
   - `OpenReportInbox()`: E en buzón → si pistas documentadas, `hud.Open("case")`; si no, toast guía
   - `OutOfScope()`: Mensaje educativo al interactuar con servidor Atlas
 - **Update**: Autosave cada 20s
@@ -307,11 +308,11 @@
 - **Qué hace**: UI principal (OnGUI) con tabs + panels
 - **Páginas**: Office (mundo 3D), Home, Missions, Terminal, Case (expediente), Glossary
 - **Métodos públicos**:
-  - `Toast(text)`: Mensaje temporal en mundo 3D + beep `HubAudio.PlayToast`
+  - `Toast(text, playBeep = true)`: Mensaje temporal en mundo 3D; beep `HubAudio.PlayToast` opcional (bandejas usan tonos propios)
   - `Reading(text)`: Panel lateral de lectura de pista en mano
   - `Open(target)`: Abre panel específico (usado por `LabBootstrap`)
 - **Páginas**:
-  - **Office**: Vista first-person, crosshair, **guía next-step** (`DrawNextStepGuide` via `HubGuide`), prompt, toast, reading panel
+  - **Office**: Vista first-person, crosshair, **ayuda controles** (`DrawControlsHint`, H/F1), **guía next-step** (`DrawNextStepGuide` via `HubGuide`), prompt, toast, reading panel
   - **Home**: Bienvenida, contador de misiones, **Reiniciar demo** (dos pasos: botón → ¿Seguro? → `App.ResetDemo`, limpia prefs de bienvenida, toast tip, vuelve a Office)
   - **Missions**: Buzón de tickets (paralelo a pizarra 3D, útil para testing sin caminar)
   - **Terminal**: Terminal narrativa con input de comandos
@@ -326,7 +327,8 @@
   - `NextStep(app, person)`: pizarra → archivo → bandejas → **buzón de informe** (cuando `AllDocumented`)
   - `AnyMissionStarted(app)`: usado por bienvenida one-shot en `LabBootstrap.Start`
   - `WelcomeTip` / `WelcomePrefsKey`: tip de primera visita y reset de demo
-- **Dónde se usa**: `HubHud.DrawNextStepGuide` (persistente abajo-izquierda en Office), `LabBootstrap` welcome, `HubHud` reinicio demo
+  - `ControlsHint`: línea compacta WASD · RMB · E · G · ESC · Reiniciar · H/F1
+- **Dónde se usa**: `HubHud.DrawNextStepGuide` / `DrawControlsHint` (Office), `LabBootstrap` welcome, `HubHud` reinicio demo
 
 ### HubMechanism.cs (IsOpen)
 - **Propiedad**: `IsOpen` — estado abierto/cerrado de puerta o cajón
@@ -335,10 +337,10 @@
 
 ### HubAudio.cs
 - **Clase estática**: `HubAudio`
-- **Qué hace**: Beeps procedurales (sine + fade) para Use / Grab / toast exitoso — sin asset packs
-- **Métodos**: `Ensure(host)`, `PlayUse()`, `PlayGrab()`, `PlayToast()`, `PlayDocumented()` (beep al documentar una pista completa)
+- **Qué hace**: Beeps procedurales (sine + fade) para Use / Grab / toast / error / éxito — sin asset packs
+- **Métodos**: `Ensure(host)`, `PlayUse()`, `PlayGrab()`, `PlayToast()`, `PlayDocumented()`, `PlayError()` (bandeja incorrecta), `PlaySuccess()` (observe→defend correcto)
 - **Volumen**: bajo (`PlayOneShot` ~0.45 sobre source 0.22)
-- **Dónde se usa**: `LabBootstrap` (Ensure + Use/Grab), `HubHud.Toast`
+- **Dónde se usa**: `LabBootstrap` (Ensure + Use/Grab/Classify), `HubHud.Toast`
 
 ### InteractableView.cs
 - **Clase**: `InteractableView : MonoBehaviour`
@@ -351,6 +353,7 @@
 - **Métodos**:
   - `Focus(on)`: Highlight al enfocar; `Update` pulsa/aclara el material mientras `focusOn` (señal visual de E/G)
   - `Tint(color)`: Cambia color base
+  - `Flash(color, duration)`: Destello breve (rojo/verde en bandejas) sin cambiar el tint base; respeta LateUpdate de `WorldBinder`
   - `Label(text)`: Actualiza sign
   - `Grab(hand)`, `Release()`: Ancla/desancla a mano, deshabilita colliders mientras held
 - **InteractableId**: Property que parsea `id` string a struct tipado
@@ -367,7 +370,7 @@
 ### PcButtons.cs
 - **Clase estática**: `PcButtons`
 - **Qué hace**: Abstracción de input con soporte para Input System (nuevo) y Input Manager (legacy)
-- **Propiedades**: `Use`, `Click`, `Look`, `Escape`, `Drop`, `Sprint`, `Move`, `LookDelta`, `Pointer`
+- **Propiedades**: `Use`, `Click`, `Look`, `Escape`, `Drop`, `Help` (H o F1), `Sprint`, `Move`, `LookDelta`, `Pointer`
 - **Compilación condicional**: `#if ENABLE_INPUT_SYSTEM` usa `Keyboard.current`/`Mouse.current`, else usa `Input.GetKey`
 - **Cómo extender**: Agregar property similar para nueva tecla/acción
 

@@ -23,8 +23,9 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 - **G**: Tomar/soltar carpetas (pistas físicas)
 - **Shift**: Correr
 - **ESC**: Menú (Terminal, Glosario, Expediente)
+- **H** o **F1**: Mostrar/ocultar ayuda de controles (esquina, modo Oficina)
 
-**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: ✓ documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar.
+**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Línea compacta de controles arriba-izquierda (H/F1). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: ✓ documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar; bandeja incorrecta = destello rojo + tono error; observación correcta = destello verde + beep éxito.
 
 **Reiniciar demo** (pitch con cliente): ESC → Inicio → «Reiniciar demo» → confirmar «¿Seguro?» — borra progreso guardado, vuelve a Oficina y muestra de nuevo el tip de bienvenida.
 
