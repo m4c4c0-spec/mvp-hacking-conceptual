@@ -44,9 +44,21 @@ namespace EthicalLab.Presentation
             Paint();
         }
 
+        void Update()
+        {
+            if (!focusOn || surface == null) return;
+            // Pulso suave para que el cliente vea qué objeto recibe E/G.
+            float pulse = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 7f);
+            surface.material.color = Color.Lerp(baseColor, Color.white, 0.22f + 0.38f * pulse);
+        }
+
         void Paint()
         {
-            if (surface != null) surface.material.color = focusOn ? Color.Lerp(baseColor, Color.white, 0.25f) : baseColor;
+            if (surface == null) return;
+            if (focusOn)
+                surface.material.color = Color.Lerp(baseColor, Color.white, 0.35f);
+            else
+                surface.material.color = baseColor;
         }
 
         public void Label(string text)
