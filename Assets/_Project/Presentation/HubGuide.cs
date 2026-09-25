@@ -7,6 +7,11 @@ namespace EthicalLab.Presentation
     /// </summary>
     public static class HubGuide
     {
+        public const string WelcomeTip =
+            "Bienvenida · WASD caminar · botón derecho mirar · E usar · G tomar carpeta\nMira la pizarra y acepta un ticket disponible (E).";
+
+        public const string WelcomePrefsKey = "EthicalLab.HubWelcomeShown";
+
         public static string NextStep(LabUseCases app, PcInteractor person)
         {
             if (app == null) return "";

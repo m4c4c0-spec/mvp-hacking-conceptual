@@ -132,5 +132,23 @@ namespace EthicalLab.Tests
             Assert.That(NarrativeTerminal.Execute(app, "curl https://example.invalid"), Does.Contain("fuera del vocabulario"));
             Assert.That(NarrativeTerminal.Execute(app, "inspect lumen"), Does.Contain("tres piezas"));
         }
+
+        [Test]
+        public void ResetDemo_ClearsProgressAndPersists()
+        {
+            var store = new MemoryStore();
+            var app = new LabUseCases(new MemoryCatalog(), store);
+            Assert.That(app.StartMission.Execute(new MissionId("recon")).Ok, Is.True);
+            Assert.That(app.CompleteStep.Execute(new StepId("lumen.clue"), new StepAnswer()).Ok, Is.True);
+            app.SaveLoad.Save();
+            Assert.That(store.Data.Get("recon").Started, Is.True);
+
+            app.ResetDemo();
+            Assert.That(app.Progress.Get("recon").Started, Is.False);
+            Assert.That(app.Progress.Get("recon").Steps.TrueForAll(s => !s.Completed), Is.True);
+            Assert.That(app.Progress.Unlocked.Count, Is.EqualTo(0));
+            Assert.That(store.Data.Get("recon").Started, Is.False);
+            Assert.That(app.StartMission.Execute(new MissionId("recon")).Ok, Is.True);
+        }
     }
 }

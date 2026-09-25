@@ -21,12 +21,14 @@ namespace EthicalLab.Presentation
         string reading = "";
         string selectedStep = "";
         Vector2 scroll;
+        bool resetConfirm;
 
         /// <summary>Mensaje breve en el mundo (feedback de una acción física).</summary>
         public void Toast(string text)
         {
             worldToast = text ?? "";
             worldToastUntil = Time.unscaledTime + Mathf.Clamp(2.5f + worldToast.Length * 0.04f, 3f, 12f);
+            if (!string.IsNullOrEmpty(worldToast)) HubAudio.PlayToast();
         }
 
         /// <summary>Panel de lectura de la pista en mano. Vacío = ocultar.</summary>
@@ -112,6 +114,7 @@ namespace EthicalLab.Presentation
             {
                 page = id;
                 toast = "";
+                resetConfirm = false;
             }
         }
 
@@ -122,6 +125,42 @@ namespace EthicalLab.Presentation
             GUILayout.Label("Completadas: " + App.Progress.CompletedCount + " / " + App.Catalog.Missions.Count);
             if (GUILayout.Button("Abrir buzón de misiones", GUILayout.Height(40))) page = HubPage.Missions;
             if (GUILayout.Button("Volver a caminar por la oficina", GUILayout.Height(40))) page = HubPage.Office;
+            GUILayout.Space(16);
+            DrawDemoReset();
+        }
+
+        void DrawDemoReset()
+        {
+            if (!resetConfirm)
+            {
+                if (GUILayout.Button("Reiniciar demo", GUILayout.Height(36)))
+                    resetConfirm = true;
+                return;
+            }
+            GUILayout.BeginVertical("box");
+            GUILayout.Label("¿Seguro? Se borrará el progreso guardado de esta demo.");
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Sí, reiniciar", GUILayout.Height(36)))
+            {
+                ConfirmDemoReset();
+            }
+            if (GUILayout.Button("Cancelar", GUILayout.Height(36)))
+                resetConfirm = false;
+            GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
+        }
+
+        void ConfirmDemoReset()
+        {
+            resetConfirm = false;
+            if (Person != null) Person.Drop();
+            Reading("");
+            App.ResetDemo();
+            UnityEngine.PlayerPrefs.DeleteKey(HubGuide.WelcomePrefsKey);
+            UnityEngine.PlayerPrefs.Save();
+            toast = "Demo reiniciada.";
+            Toast(HubGuide.WelcomeTip);
+            page = HubPage.Office;
         }
 
         void Missions()

@@ -48,21 +48,22 @@ namespace EthicalLab.Presentation
             var binder = gameObject.AddComponent<WorldBinder>();
             binder.App = app;
             binder.Scene = scene;
+            HubAudio.Ensure(gameObject);
         }
 
         void Start()
         {
             // Bienvenida one-shot: solo si no hay misión empezada (primera visita a la oficina).
             if (HubGuide.AnyMissionStarted(app)) return;
-            const string key = "EthicalLab.HubWelcomeShown";
-            if (PlayerPrefs.GetInt(key, 0) == 1) return;
-            PlayerPrefs.SetInt(key, 1);
+            if (PlayerPrefs.GetInt(HubGuide.WelcomePrefsKey, 0) == 1) return;
+            PlayerPrefs.SetInt(HubGuide.WelcomePrefsKey, 1);
             PlayerPrefs.Save();
-            hud.Toast("Bienvenida · WASD caminar · botón derecho mirar · E usar · G tomar carpeta\nMira la pizarra y acepta un ticket disponible (E).");
+            hud.Toast(HubGuide.WelcomeTip);
         }
 
         void OnUsed(InteractableId id)
         {
+            HubAudio.PlayUse();
             switch (id.Kind)
             {
                 case "laptop":
@@ -102,6 +103,7 @@ namespace EthicalLab.Presentation
 
         void OnGrabbed(InteractableId id)
         {
+            HubAudio.PlayGrab();
             if (id.Kind != "clue") return;
             var mission = app.Active;
             if (mission == null || !app.Progress.Get(mission.Id.Value).Started) return;

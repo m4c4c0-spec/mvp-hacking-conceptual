@@ -33,6 +33,15 @@ namespace EthicalLab.Domain
         public List<string> Unlocked = new List<string>();
         public List<string> Reviewed = new List<string>();
 
+        /// <summary>Vacía el progreso en memoria (demo / pitch). No toca disco.</summary>
+        public void Clear()
+        {
+            ActiveMission = "";
+            Missions.Clear();
+            Unlocked.Clear();
+            Reviewed.Clear();
+        }
+
         public MissionProgress Get(string missionId)
         {
             for (int i = 0; i < Missions.Count; i++)
