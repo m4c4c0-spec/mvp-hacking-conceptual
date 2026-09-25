@@ -26,8 +26,9 @@ namespace EthicalLab.Presentation
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void AutoStart()
         {
+            // Boot solo muestra splash y carga Hub (BootLoader). Oficina solo en Hub.
             string name = SceneManager.GetActiveScene().name;
-            if (name != "Boot" && name != "Hub") return;
+            if (name != "Hub") return;
             if (FindFirstObjectByType<LabBootstrap>() != null) return;
             if (GameObject.Find("Analyst Academy") != null) return;
             new GameObject("Ethical Lab").AddComponent<LabBootstrap>();
