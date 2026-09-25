@@ -2,7 +2,7 @@
 
 **Propósito**: Documentar cada elemento significativo del proyecto para que Marco pueda mantenerlo y extenderlo.
 
-**Última actualización**: 2026-09-25 (STEP 3 — demo playable para cliente)
+**Última actualización**: 2026-09-25 (Hub FP polish — guía in-world + bienvenida)
 
 ---
 
@@ -216,6 +216,8 @@
   - Llama `HubOffice.Build()` para crear oficina 3D
   - Crea `HubHud` (UI) y `WorldBinder` (sincroniza estado → objetos 3D)
   - Conecta eventos de `PcInteractor` (Used, Grabbed, Released) a casos de uso
+- **Start**: Toast de bienvenida one-shot (`PlayerPrefs` `EthicalLab.HubWelcomeShown`) si no hay misión empezada — tip WASD/RMB/E/G + ir a la pizarra
+- **AutoStart**: Solo en escenas `Boot` / `Hub` (no Academy). Build settings: Boot=0, Hub=1, Academy deshabilitada
 - **Métodos de interacción**:
   - `OnUsed(InteractableId)`: Traduce E/click en objeto → caso de uso (ej: ticket → `StartMission`)
   - `OnGrabbed(InteractableId)`: Tomar carpeta (G) → leer pista si no leída
@@ -233,7 +235,7 @@
 - **Método principal**: `Build()`: Crea oficina 3D proceduralmente (sin assets externos)
 - **Qué crea**:
   - **Sala principal** (x: -4..4): Escritorio, laptop, cuaderno, bandejas clasificación, pizarra tickets
-  - **Archivo** (x: 4..8): Mesa con carpetas (pistas), puerta con bisagra
+  - **Archivo** (x: 4..8): Mesa con carpetas (pistas), puerta con bisagra + rótulo "ARCHIVO →"
   - **Cajón**: Carpeta adicional (USB de utilería)
   - **Servidor Atlas**: Fuera de alcance (educativo)
   - **Jugador**: CharacterController + cámara first-person + `PcInteractor`
@@ -284,10 +286,12 @@
 - **Clase**: `WorldBinder : MonoBehaviour`
 - **Qué hace**: Pinta estado de Application/Domain sobre objetos 3D (read-only)
 - **LateUpdate** llama:
+  - `PaintBoard()`: Título de pizarra (caso activo o "tickets · E para aceptar")
   - `PaintTickets()`: Color/texto de tickets según `PlayerProgress` (verde=completo, cyan=en curso, amber=disponible, gris=bloqueado)
   - `PaintLaptop()`: Texto de pantalla con `CommandHint` de misión activa
   - `PaintFolders()`: Visibilidad, color, label de carpetas según `ClueWorkflow`
-  - `PaintTrays()`: Visibilidad y opciones de bandejas según paso pendiente (observe/defend)
+  - `PaintTrays()`: Idle = bandejas visibles con hint "espera carpeta"; activas = opciones observe/defend
+  - `PaintDoor()`: Prompt de puerta según `HubMechanism.IsOpen`
 - **Colores**: `HubOffice.Navy`, `.Mint`, `.Amber`, `.Green`, `.Muted`, `.Red`
 - **Cómo extender**: Para nuevos objetos dinámicos, agregar método `Paint<Objeto>()`
 
@@ -300,13 +304,25 @@
   - `Reading(text)`: Panel lateral de lectura de pista en mano
   - `Open(target)`: Abre panel específico (usado por `LabBootstrap`)
 - **Páginas**:
-  - **Office**: Vista first-person, crosshair, prompt, toast, reading panel
+  - **Office**: Vista first-person, crosshair, **guía next-step** (`DrawNextStepGuide` via `HubGuide`), prompt, toast, reading panel
   - **Home**: Bienvenida, contador de misiones
   - **Missions**: Buzón de tickets (paralelo a pizarra 3D, útil para testing sin caminar)
   - **Terminal**: Terminal narrativa con input de comandos
   - **Case**: Expediente de misión activa con pasos y quiz
   - **Glossary**: Fichas de conceptos desbloqueadas
 - **Nota**: Experiencia principal es Office (3D), otros panels son secundarios/menú (ESC)
+
+### HubGuide.cs
+- **Clase estática**: `HubGuide`
+- **Qué hace**: Calcula la pista corta del siguiente paso físico (español) desde `LabUseCases` + `ClueWorkflow` + carpeta en mano
+- **Métodos**:
+  - `NextStep(app, person)`: pizarra → archivo → bandejas → laptop/cuaderno/ESC expediente
+  - `AnyMissionStarted(app)`: usado por bienvenida one-shot en `LabBootstrap.Start`
+- **Dónde se usa**: `HubHud.DrawNextStepGuide` (persistente abajo-izquierda en Office), `LabBootstrap` welcome
+
+### HubMechanism.cs (IsOpen)
+- **Propiedad**: `IsOpen` — estado abierto/cerrado de puerta o cajón
+- **Uso**: `WorldBinder.PaintDoor` ajusta el prompt según la puerta del archivo
 
 ### InteractableView.cs
 - **Clase**: `InteractableView : MonoBehaviour`

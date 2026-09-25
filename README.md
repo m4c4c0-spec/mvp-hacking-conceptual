@@ -24,6 +24,8 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 - **Shift**: Correr
 - **ESC**: Menú (Terminal, Glosario, Expediente)
 
+**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → informe). Toast de bienvenida la primera vez (WASD / botón derecho / E / G).
+
 **Flujo de juego 3D interactivo** (NO lectura de páginas):
 1. **Pizarra**: E sobre ticket → acepta misión (brief + alcance en toast)
 2. **Archivo**: Camina a través de la puerta, E para abrir
