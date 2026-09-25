@@ -271,9 +271,29 @@ namespace EthicalLab.Presentation
                     : App.CompleteStep.Execute(current.Id, new StepAnswer { Choice = o });
                 toast = result.Ok ? "Registrado." : result.Error;
                 if (current.Kind == StepKind.AnswerQuiz && result.Ok)
-                    toast = App.SubmitReport.CloseIfReady().Ok ? "Misión cerrada · " + App.Progress.Get(mission.Id.Value).Score : "Correcto.";
+                {
+                    if (App.SubmitReport.CloseIfReady().Ok)
+                        AnnounceMissionClosed(mission);
+                    else
+                        toast = "Correcto.";
+                }
+                else if (result.Ok && mission != null && App.Progress.Get(mission.Id.Value).Completed)
+                {
+                    AnnounceMissionClosed(mission);
+                }
                 App.SaveLoad.Save();
             }
+        }
+
+        /// <summary>Toast fuerte en Oficina + beep éxito; HubGuide ya apunta a la pizarra si Completed.</summary>
+        void AnnounceMissionClosed(MissionDefinition mission)
+        {
+            if (mission == null) return;
+            int score = App.Progress.Get(mission.Id.Value).Score;
+            toast = "Misión cerrada · " + score + "/100";
+            HubAudio.PlaySuccess();
+            Toast("MISIÓN CERRADA · " + score + "/100 · mira la pizarra", false);
+            page = HubPage.Office;
         }
 
         void Glossary()
