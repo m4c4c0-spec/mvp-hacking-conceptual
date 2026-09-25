@@ -10,6 +10,9 @@ namespace EthicalLab.Presentation
         public const string WelcomeTip =
             "Bienvenida · WASD caminar · botón derecho mirar · E usar · G tomar carpeta\nMira la pizarra y acepta un ticket disponible (E).";
 
+        public const string ControlsHint =
+            "WASD · RMB mirar · E usar · G carpeta · ESC menú · Reiniciar en Inicio · H/F1 ayuda";
+
         public const string WelcomePrefsKey = "EthicalLab.HubWelcomeShown";
 
         public static string NextStep(LabUseCases app, PcInteractor person)

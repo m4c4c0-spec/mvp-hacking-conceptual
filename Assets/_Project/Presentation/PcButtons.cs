@@ -67,6 +67,19 @@ namespace EthicalLab.Presentation
             }
         }
 
+        public static bool Help
+        {
+            get
+            {
+#if ENABLE_INPUT_SYSTEM
+                var k = Keyboard.current;
+                return k != null && (k.hKey.wasPressedThisFrame || k.f1Key.wasPressedThisFrame);
+#else
+                return Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.F1);
+#endif
+            }
+        }
+
         public static bool Sprint
         {
             get

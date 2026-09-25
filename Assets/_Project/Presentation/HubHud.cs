@@ -22,13 +22,14 @@ namespace EthicalLab.Presentation
         string selectedStep = "";
         Vector2 scroll;
         bool resetConfirm;
+        bool controlsHintVisible = true;
 
         /// <summary>Mensaje breve en el mundo (feedback de una acción física).</summary>
-        public void Toast(string text)
+        public void Toast(string text, bool playBeep = true)
         {
             worldToast = text ?? "";
             worldToastUntil = Time.unscaledTime + Mathf.Clamp(2.5f + worldToast.Length * 0.04f, 3f, 12f);
-            if (!string.IsNullOrEmpty(worldToast)) HubAudio.PlayToast();
+            if (playBeep && !string.IsNullOrEmpty(worldToast)) HubAudio.PlayToast();
         }
 
         /// <summary>Panel de lectura de la pista en mano. Vacío = ocultar.</summary>
@@ -40,6 +41,8 @@ namespace EthicalLab.Presentation
             Person.MenuOpen = page != HubPage.Office;
             if (PcButtons.Escape)
                 page = page == HubPage.Office ? HubPage.Home : HubPage.Office;
+            if (page == HubPage.Office && PcButtons.Help)
+                controlsHintVisible = !controlsHintVisible;
             App.Tick(Time.unscaledDeltaTime);
         }
 
@@ -48,6 +51,7 @@ namespace EthicalLab.Presentation
             if (page == HubPage.Office)
             {
                 DrawCrosshair();
+                DrawControlsHint();
                 DrawNextStepGuide();
                 GUI.Label(new Rect(24, Screen.height - 64, Screen.width - 48, 48), Person != null ? Person.Prompt : "");
                 if (!string.IsNullOrEmpty(reading))
@@ -296,6 +300,18 @@ namespace EthicalLab.Presentation
                 }
                 GUILayout.EndVertical();
             }
+        }
+
+        /// <summary>Línea compacta de controles (esquina). H / F1 para mostrar/ocultar.</summary>
+        void DrawControlsHint()
+        {
+            if (!controlsHintVisible)
+            {
+                GUI.Label(new Rect(24, 8, 140, 20), "H · ayuda");
+                return;
+            }
+            float w = Mathf.Min(740f, Screen.width - 48f);
+            GUI.Label(new Rect(24, 8, w, 22), HubGuide.ControlsHint);
         }
 
         void DrawCrosshair()
