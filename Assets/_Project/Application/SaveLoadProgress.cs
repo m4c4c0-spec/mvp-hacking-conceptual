@@ -16,5 +16,12 @@ namespace EthicalLab.Application
         public PlayerProgress Load() => store.Load() ?? progress;
 
         public void Save() => store.Save(progress);
+
+        /// <summary>Vacía progreso en memoria y persiste vía IProgressStore (demo cliente).</summary>
+        public void ResetDemo()
+        {
+            progress.Clear();
+            store.Save(progress);
+        }
     }
 }

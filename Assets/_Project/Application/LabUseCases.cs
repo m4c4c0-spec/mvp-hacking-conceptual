@@ -35,5 +35,12 @@ namespace EthicalLab.Application
             var row = Progress.Get(Progress.ActiveMission);
             if (row.Started && !row.Completed) row.Seconds += seconds < 0 ? 0 : seconds;
         }
+
+        /// <summary>Reinicia demo: limpia progreso, guarda y re-enseeda filas del catálogo.</summary>
+        public void ResetDemo()
+        {
+            SaveLoad.ResetDemo();
+            MissionCatalogRules.Ensure(Catalog.Missions, Catalog.Concepts, Progress);
+        }
     }
 }

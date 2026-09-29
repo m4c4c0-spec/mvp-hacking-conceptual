@@ -46,21 +46,29 @@ def validate_content():
 
 def validate_project():
     manifest = json.loads((ROOT / "Packages/manifest.json").read_text())
+    # En Unity 6 TextMesh Pro forma parte de uGUI.
     assert {"com.unity.inputsystem", "com.unity.ugui", "com.unity.test-framework"} <= manifest["dependencies"].keys()
-    assert "6000.0.62f1" in (ROOT / "ProjectSettings/ProjectVersion.txt").read_text()
+    assert "6000.6.3f1" in (ROOT / "ProjectSettings/ProjectVersion.txt").read_text()
     assembly_paths = list((ROOT / "Assets").rglob("*.asmdef"))
     assert len({p.parent for p in assembly_paths}) == len(assembly_paths), "Multiple assembly definitions in the same folder"
     definitions = [json.loads(p.read_text()) for p in assembly_paths]
     names = {d["name"] for d in definitions}
-    external = {"Unity.ugui", "Unity.InputSystem"}
+    external = {"Unity.ugui", "Unity.InputSystem", "Unity.TextMeshPro", "Unity.InputSystem.TestFramework"}
     assert len(names) == len(definitions)
     for assembly in definitions:
         assert set(assembly.get("references", [])) <= names | external
+        if "Unity.InputSystem.TestFramework" in assembly.get("references", []):
+            assert "TestAssemblies" in assembly.get("optionalUnityReferences", []), "Input fixture solo en tests"
     bootstrap_meta = (ROOT / "Assets/Scripts/Core/AcademyBootstrap.cs.meta").read_text()
     guid = re.search(r"guid: (\w+)", bootstrap_meta).group(1)
     assert guid in (ROOT / "Assets/Scenes/Academy.unity").read_text()
     scene_guid = re.search(r"guid: (\w+)", (ROOT / "Assets/Scenes/Academy.unity.meta").read_text()).group(1)
     assert scene_guid in (ROOT / "ProjectSettings/EditorBuildSettings.asset").read_text()
+    build_settings = (ROOT / "ProjectSettings/EditorBuildSettings.asset").read_text()
+    enabled_scenes = re.findall(r"enabled: 1\s+path: ([^\n]+)", build_settings)
+    assert enabled_scenes[:2] == ["Assets/Scenes/Boot.unity", "Assets/Scenes/Hub.unity"]
+    player_settings = (ROOT / "ProjectSettings/ProjectSettings.asset").read_text()
+    assert re.search(r"activeInputHandler: [12]", player_settings), "El Hub requiere Input System activo"
     runtime = list((ROOT / "Assets/Scripts").rglob("*.cs"))
     forbidden = ("Process.Start", "System.Net.", "UnityWebRequest", "Application.OpenURL", "DllImport")
     for source in runtime:
@@ -69,7 +77,30 @@ def validate_project():
     controller = (ROOT / "Assets/Scripts/World/DesktopOfficeController.cs").read_text()
     for required in ("CharacterController", "controller.Move", "Physics.Raycast", "CursorLockMode.Locked", "DesktopInput.Grab"):
         assert required in controller, required
+    hub_controller = (ROOT / "Assets/_Project/Presentation/PcInteractor.cs").read_text()
+    for required in ("body.Move", "PcButtons.Move", "PcButtons.LookDelta", "ClampMagnitude", "ReturnToEntrance", "ControlInterrupted"):
+        assert required in hub_controller, required
     print(f"OK project: {len(definitions)} assemblies, scene GUIDs, package pins, local-only runtime, first-person controller")
+
+
+def validate_modeled_office():
+    prefab = ROOT / "Assets/Art/Office/Prefabs/Office_AnalystAcademy.prefab"
+    assert prefab.is_file(), "Falta generar el prefab de la oficina"
+    metas = {}
+    for path in (ROOT / "Assets").rglob("*.meta"):
+        match = re.search(r"^guid: (\w+)", path.read_text(), re.MULTILINE)
+        if match:
+            metas[match.group(1)] = path
+    text = prefab.read_text()
+    script_guids = set(re.findall(r"m_Script: \{fileID: \d+, guid: (\w+)", text))
+    assert len(script_guids) >= 5
+    assert script_guids <= metas.keys(), "Prefab con scripts sin meta: " + str(script_guids - metas.keys())
+    prefab_guid = re.search(r"guid: (\w+)", prefab.with_suffix(".prefab.meta").read_text()).group(1)
+    for name in ("Hub", "Hub_Art"):
+        assert prefab_guid in (ROOT / f"Assets/Scenes/{name}.unity").read_text(), name
+    assert (ROOT / "Assets/TextMesh Pro/Resources/TMP Settings.asset").is_file()
+    assert (ROOT / "Assets/Resources/WorldText.shader").is_file()
+    print("OK modeled office: prefab, script references, shared Hub/Hub_Art model, UI fonts, world text shader")
 
 
 def validate_csharp():
@@ -96,5 +127,6 @@ if __name__ == "__main__":
     options = args.parse_args()
     validate_content()
     validate_project()
+    validate_modeled_office()
     if options.csharp:
         validate_csharp()

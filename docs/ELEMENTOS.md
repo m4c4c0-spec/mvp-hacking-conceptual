@@ -2,7 +2,7 @@
 
 **Propósito**: Documentar cada elemento significativo del proyecto para que Marco pueda mantenerlo y extenderlo.
 
-**Última actualización**: 2026-09-25 (STEP 3 — demo playable para cliente)
+**Última actualización**: 2026-09-27 (control first-person, preferencias de cámara, pruebas de input y build Linux)
 
 ---
 
@@ -73,6 +73,7 @@
   - `Missions`: Lista de `MissionProgress` (cada una con su estado y score)
   - `Unlocked`: Conceptos desbloqueados
   - `Reviewed`: Conceptos leídos en el cuaderno
+- **Métodos**: `Get`, `Step`, `IsUnlocked`, `IsReviewed`, `CompletedCount`, `Clear()` (vacía progreso en memoria para reinicio de demo)
 - **Serialización**: Se guarda/carga como JSON via `JsonProgressStore`
 
 ### MissionCatalogRules.cs
@@ -111,7 +112,7 @@
 - **Propiedades**:
   - `Catalog`: `IMissionRepository` (misiones y conceptos)
   - `Progress`: `PlayerProgress` (estado del jugador)
-  - `StartMission`, `CompleteStep`, `UnlockConcept`, `SubmitReport`, `SaveLoad`: Casos de uso
+  - `StartMission`, `CompleteStep`, `UnlockConcept`, `SubmitReport`, `SaveLoad`, `ResetDemo()`: Casos de uso / reinicio demo
   - `Active`: Misión actualmente en curso
 - **Método**: `Tick(seconds)`: Actualiza tiempo de misión activa
 - **Cómo usar**: Todas las interacciones del jugador pasan por estos casos de uso
@@ -144,9 +145,9 @@
 
 ### SaveLoadProgress.cs
 - **Clase**: `SaveLoadProgress`
-- **Métodos**: `Load()`, `Save()`
+- **Métodos**: `Load()`, `Save()`, `ResetDemo()` (Clear + Save)
 - **Qué hace**: Persiste `PlayerProgress` via `IProgressStore`
-- **Uso**: Se llama automáticamente cada 20s en `LabBootstrap.Update()` y al pausar/cerrar
+- **Uso**: Autosave cada 20s en `LabBootstrap`; `LabUseCases.ResetDemo` / HubHud «Reiniciar demo»
 
 ### ClueWorkflow.cs
 - **Clase estática**: `ClueWorkflow`
@@ -155,9 +156,10 @@
   - `ClueGroups(mission)`: Lista de grupos de evidencia (ej: `["lumen", "scope", "archive"]`)
   - `Collected(mission, progress, group)`: ¿Se leyó la pista?
   - `Documented(mission, progress, group)`: ¿Se completaron observe + defend?
+  - `AllDocumented(mission, progress)`: ¿Todas las pistas del caso activo están documentadas?
   - `Pending(mission, progress, group)`: Siguiente paso sin completar (observe o defend)
   - `Clue(mission, group)`: Paso `.clue` del grupo
-- **Cómo se usa**: `WorldBinder` pinta carpetas según este estado; `LabBootstrap` traduce interacciones físicas
+- **Cómo se usa**: `WorldBinder` pinta carpetas/checklist/buzón según este estado; `LabBootstrap` y `HubGuide` traducen interacciones físicas
 
 ### NarrativeTerminal.cs
 - **Clase estática**: `NarrativeTerminal`
@@ -209,13 +211,16 @@
 
 ### LabBootstrap.cs
 - **Clase**: `LabBootstrap : MonoBehaviour`
-- **Qué hace**: Punto de entrada principal, arranca automáticamente en Boot/Hub
-- **Método estático**: `AutoStart()`: `[RuntimeInitializeOnLoadMethod]` crea instancia en Play si detecta escenas Boot/Hub y no existe "Analyst Academy"
+- **Qué hace**: Punto de entrada principal, arranca automáticamente en Hub
+- **Método estático**: `AutoStart()`: `[RuntimeInitializeOnLoadMethod]` crea instancia en Play si detecta escena `Hub` y no existe "Analyst Academy" (Boot lo maneja `BootLoader`)
 - **Awake**:
   - Crea `LabUseCases` con repositorios
   - Llama `HubOffice.Build()` para crear oficina 3D
   - Crea `HubHud` (UI) y `WorldBinder` (sincroniza estado → objetos 3D)
   - Conecta eventos de `PcInteractor` (Used, Grabbed, Released) a casos de uso
+- **Start**: Toast de bienvenida one-shot (`PlayerPrefs` `HubGuide.WelcomePrefsKey`) si no hay misión empezada — `HubGuide.WelcomeTip`
+- **Audio**: `HubAudio.Ensure` en Awake; `PlayUse` / `PlayGrab` en OnUsed / OnGrabbed; `PlayDocumented` al cerrar observe+defend de una pista
+- **AutoStart**: Solo en escena `Hub` (no Boot ni Academy). Build settings: Boot=0, Hub=1, Academy deshabilitada
 - **Métodos de interacción**:
   - `OnUsed(InteractableId)`: Traduce E/click en objeto → caso de uso (ej: ticket → `StartMission`)
   - `OnGrabbed(InteractableId)`: Tomar carpeta (G) → leer pista si no leída
@@ -223,22 +228,37 @@
 - **Métodos de flujo**:
   - `AcceptTicket(missionId)`: `StartMission`, toast con alcance
   - `ReadClue(group)`: `CompleteStep` para `.clue`, muestra panel de lectura
-  - `Classify(trayArg)`: Con carpeta en mano, `CompleteStep` para `.observe`/`.defend`
+  - `Classify(trayArg)`: Con carpeta en mano, `CompleteStep` para `.observe`/`.defend`; feedback: flash rojo + `PlayError` si incorrecto, flash verde + `PlaySuccess`/`PlayDocumented` si correcto; si `AllDocumented`, toast apunta al buzón
+  - `FlashTray(index, color)`: Destello breve en la bandeja usada
+  - `OpenReportInbox()`: E en buzón → si pistas documentadas, `hud.Open("case")`; si no, toast guía
   - `OutOfScope()`: Mensaje educativo al interactuar con servidor Atlas
 - **Update**: Autosave cada 20s
 - **Cómo extender**: Agregar nuevos `InteractableId.Kind` y sus handlers en `OnUsed`
 
+
+### BootLoader.cs
+- **Clase**: `BootLoader : MonoBehaviour`
+- **Qué hace**: Splash mínimo en escena Boot → `SceneManager.LoadScene("Hub")`
+- **Método estático**: `AutoStart()` solo si la escena activa es `Boot`
+- **UI**: OnGUI «Cargando oficina…» (~0.55 s) antes de cargar Hub
+- **Preferencia**: Play en `Hub.unity` salta el splash; Boot queda para builds / arranque index 0
+
+### HubSceneRefs.cs / HubSceneLoader.cs
+- **HubSceneRefs**: referencias serializadas del hub modelado (`Office_Art` prefab o escena `Hub_Art.unity`).
+- **HubSceneLoader.Resolve()**: si `HubSceneRefs.IsValid`, mapea a `HubScene`; si no, `HubOffice.BuildProceduralLegacy()`.
+- **Anclas**: `docs/HUB_ANCHORS.md`, `Assets/Art/Office/blockout_dimensions.json`.
+
 ### HubOffice.cs
 - **Clase estática**: `HubOffice`
-- **Método principal**: `Build()`: Crea oficina 3D proceduralmente (sin assets externos)
+- **Método principal**: `Build()` / `BuildProceduralLegacy()`: oficina procedural (fallback sin FBX)
 - **Qué crea**:
-  - **Sala principal** (x: -4..4): Escritorio, laptop, cuaderno, bandejas clasificación, pizarra tickets
-  - **Archivo** (x: 4..8): Mesa con carpetas (pistas), puerta con bisagra
+  - **Sala principal** (x: -4..4): Escritorio, laptop, cuaderno, bandejas clasificación, **buzón de informe**, pizarra tickets, **checklist de pistas** (panel pared)
+  - **Archivo** (x: 4..8): Mesa con carpetas (pistas), puerta con bisagra + rótulo "ARCHIVO →"
   - **Cajón**: Carpeta adicional (USB de utilería)
   - **Servidor Atlas**: Fuera de alcance (educativo)
   - **Jugador**: CharacterController + cámara first-person + `PcInteractor`
   - **Iluminación**: Luz direccional + point light en archivo + fog
-- **Devuelve**: `HubScene` (referencias a objetos interactivos)
+- **Devuelve**: `HubScene` (referencias a objetos interactivos; incluye `ReportInbox`, `ClueChecklist`)
 - **Primitivas**: Todo con `GameObject.CreatePrimitive` y materiales procedurales
 - **Cómo extender**: Modificar geometría/posiciones aquí; para nuevos objetos, agregar a `HubScene` y `WorldBinder`
 
@@ -247,13 +267,16 @@
 - **Qué es**: DTO con referencias a todos los objetos interactivos del mundo
 - **Propiedades**:
   - `Camera`, `Person` (PcInteractor), `Root`
-  - `LaptopScreen`, `BoardTitle`, `TrayHeader`: TextMeshes para estado
+  - `LaptopScreen`, `BoardTitle`, `BoardObjective`, `TrayHeader`, `ClueChecklist`: TextMeshes para estado
   - `Tickets`, `Folders`, `Trays`: Listas de `InteractableView`
   - `OutOfScope`: Servidor Atlas
+  - `ReportInbox`: Buzón de informe (abre expediente cuando todas las pistas están documentadas)
   - `Door`, `Drawer`: `HubMechanism` (bisagra/deslizante)
 
 ### PcInteractor.cs
 - **Clase**: `PcInteractor : MonoBehaviour, IInteractor`
+- **Control first-person**: CharacterController obligatorio, aceleración/frenado, diagonal normalizada, cámara limitada a ±80°, sensibilidad/FOV/inversión Y persistentes. `ControlInterrupted` pausa al perder foco; `ReturnToEntrance()` recupera la entrada sin borrar progreso. Sin head bob ni salto.
+- **Validación y ejecución**: `FirstPersonInputTests` atraviesa Input System → PcButtons → Update con dispositivos virtuales aislados. `HubDesktopBuild` genera Boot → Hub en `Builds/Linux/` o `Builds/Windows/`; `scripts/play-linux.sh` abre el ejecutable Linux.
 - **Qué hace**: Controlador first-person para PC (WASD, mouse, E, G)
 - **Eventos**: `Used`, `Grabbed`, `Released`, `Hovered` (implementa `IInteractor`)
 - **Input**:
@@ -284,29 +307,57 @@
 - **Clase**: `WorldBinder : MonoBehaviour`
 - **Qué hace**: Pinta estado de Application/Domain sobre objetos 3D (read-only)
 - **LateUpdate** llama:
+  - `PaintBoard()`: Título de pizarra + `BoardObjective` (misión activa → `Objective`; idle → "Acepta un ticket")
   - `PaintTickets()`: Color/texto de tickets según `PlayerProgress` (verde=completo, cyan=en curso, amber=disponible, gris=bloqueado)
   - `PaintLaptop()`: Texto de pantalla con `CommandHint` de misión activa
   - `PaintFolders()`: Visibilidad, color, label de carpetas según `ClueWorkflow`
-  - `PaintTrays()`: Visibilidad y opciones de bandejas según paso pendiente (observe/defend)
+  - `PaintTrays()`: Idle = bandejas visibles con hint "espera carpeta"; activas = opciones observe/defend
+  - `PaintDoor()`: Prompt de puerta según `HubMechanism.IsOpen`
+  - `PaintReportInbox()`: Color/prompt del buzón (muted / amber / verde listo)
+  - `PaintChecklist()`: Panel pared con ✓ documentada / ○ leída / · pendiente (idle si no hay misión)
 - **Colores**: `HubOffice.Navy`, `.Mint`, `.Amber`, `.Green`, `.Muted`, `.Red`
 - **Cómo extender**: Para nuevos objetos dinámicos, agregar método `Paint<Objeto>()`
 
-### HubHud.cs
+### HubHud.cs + UI (uGUI/TMP)
 - **Clase**: `HubHud : MonoBehaviour`
-- **Qué hace**: UI principal (OnGUI) con tabs + panels
+- **Qué hace**: Orquesta `HubOfficeOverlayUi` (oficina), `HubMenuUi` (menú ESC), `HubOnboardingOverlay` (primera visita 18–32)
+- **Menú**: uGUI + TextMeshPro (ya no OnGUI en pestañas)
 - **Páginas**: Office (mundo 3D), Home, Missions, Terminal, Case (expediente), Glossary
 - **Métodos públicos**:
-  - `Toast(text)`: Mensaje temporal en mundo 3D (feedback de acción física)
+  - `Toast(text, playBeep = true)`: Mensaje temporal en mundo 3D; beep `HubAudio.PlayToast` opcional (bandejas usan tonos propios)
+  - `AnnounceMissionClosed(mission)`: Tras `SubmitReport.CloseIfReady` / informe que completa el caso — `HubAudio.PlaySuccess` + toast «MISIÓN CERRADA · score/100 · mira la pizarra» y vuelve a Office
   - `Reading(text)`: Panel lateral de lectura de pista en mano
   - `Open(target)`: Abre panel específico (usado por `LabBootstrap`)
 - **Páginas**:
-  - **Office**: Vista first-person, crosshair, prompt, toast, reading panel
-  - **Home**: Bienvenida, contador de misiones
+  - **Office**: Vista first-person, crosshair, **ayuda controles** (`DrawControlsHint`, H/F1), **guía next-step** (`DrawNextStepGuide` via `HubGuide`), prompt, toast, reading panel
+  - **Home**: Bienvenida, contador de misiones, **Reiniciar demo** (dos pasos: botón → ¿Seguro? → `App.ResetDemo`, limpia prefs de bienvenida, toast tip, vuelve a Office)
   - **Missions**: Buzón de tickets (paralelo a pizarra 3D, útil para testing sin caminar)
   - **Terminal**: Terminal narrativa con input de comandos
   - **Case**: Expediente de misión activa con pasos y quiz
   - **Glossary**: Fichas de conceptos desbloqueadas
 - **Nota**: Experiencia principal es Office (3D), otros panels son secundarios/menú (ESC)
+
+### HubGuide.cs
+- **Clase estática**: `HubGuide`
+- **Qué hace**: Calcula la pista corta del siguiente paso físico (español) desde `LabUseCases` + `ClueWorkflow` + carpeta en mano
+- **Métodos**:
+  - `NextStep(app, person)`: pizarra → archivo → bandejas → **buzón de informe** (cuando `AllDocumented`)
+  - `AnyMissionStarted(app)`: usado por bienvenida one-shot en `LabBootstrap.Start`
+  - `WelcomeTip` / `WelcomePrefsKey`: tip de primera visita y reset de demo
+  - `ControlsHint`: línea compacta WASD · RMB · E · G · ESC · Reiniciar · H/F1
+- **Dónde se usa**: `HubHud.DrawNextStepGuide` / `DrawControlsHint` (Office), `LabBootstrap` welcome, `HubHud` reinicio demo
+
+### HubMechanism.cs (IsOpen)
+- **Propiedad**: `IsOpen` — estado abierto/cerrado de puerta o cajón
+- **Uso**: `WorldBinder.PaintDoor` ajusta el prompt según la puerta del archivo
+
+
+### HubAudio.cs
+- **Clase estática**: `HubAudio`
+- **Qué hace**: Beeps procedurales (sine + fade) para Use / Grab / toast / error / éxito — sin asset packs
+- **Métodos**: `Ensure(host)`, `PlayUse()`, `PlayGrab()`, `PlayToast()`, `PlayDocumented()`, `PlayError()` (bandeja incorrecta), `PlaySuccess()` (observe→defend correcto)
+- **Volumen**: bajo (`PlayOneShot` ~0.45 sobre source 0.22)
+- **Dónde se usa**: `LabBootstrap` (Ensure + Use/Grab/Classify), `HubHud.Toast`
 
 ### InteractableView.cs
 - **Clase**: `InteractableView : MonoBehaviour`
@@ -317,8 +368,9 @@
   - `grabbable`: Si se puede tomar con G
   - `sign`: `TextMesh` opcional para label en objeto
 - **Métodos**:
-  - `Focus(on)`: Highlight al enfocar (color más claro)
+  - `Focus(on)`: Highlight al enfocar; `Update` pulsa/aclara el material mientras `focusOn` (señal visual de E/G)
   - `Tint(color)`: Cambia color base
+  - `Flash(color, duration)`: Destello breve (rojo/verde en bandejas) sin cambiar el tint base; respeta LateUpdate de `WorldBinder`
   - `Label(text)`: Actualiza sign
   - `Grab(hand)`, `Release()`: Ancla/desancla a mano, deshabilita colliders mientras held
 - **InteractableId**: Property que parsea `id` string a struct tipado
@@ -335,7 +387,7 @@
 ### PcButtons.cs
 - **Clase estática**: `PcButtons`
 - **Qué hace**: Abstracción de input con soporte para Input System (nuevo) y Input Manager (legacy)
-- **Propiedades**: `Use`, `Click`, `Look`, `Escape`, `Drop`, `Sprint`, `Move`, `LookDelta`, `Pointer`
+- **Propiedades**: `Use`, `Click`, `Look`, `Escape`, `Drop`, `Help` (H o F1), `Sprint`, `Move`, `LookDelta`, `Pointer`
 - **Compilación condicional**: `#if ENABLE_INPUT_SYSTEM` usa `Keyboard.current`/`Mouse.current`, else usa `Input.GetKey`
 - **Cómo extender**: Agregar property similar para nueva tecla/acción
 
@@ -373,10 +425,10 @@
 **Build settings**: Boot (0), Hub (1), Academy (deshabilitado)
 
 ### Boot.unity
-- **Propósito**: Escena de arranque (opcional), delega a `LabBootstrap`
+- **Propósito**: Escena de arranque (build index 0) con splash → Hub
 - **Contenido**: Vacía (solo GameObject "Boot" con Transform)
-- **Ejecución**: `LabBootstrap.AutoStart()` detecta nombre "Boot" y crea mundo automáticamente
-- **Cuándo usar**: Si se quiere splash screen o carga inicial antes de Hub
+- **Ejecución**: `BootLoader.AutoStart()` muestra «Cargando oficina…» y `LoadScene("Hub")`
+- **Cuándo usar**: Builds / Play desde Boot; para iterar en editor preferir Play en `Hub.unity`
 
 ### Hub.unity
 - **Propósito**: Escena principal del laboratorio
@@ -501,7 +553,7 @@
 - **Entendible**: Toda la construcción en un archivo legible
 
 ### ¿Por qué escenas vacías (Boot/Hub)?
-- `LabBootstrap.AutoStart()` las detecta y crea todo dinámicamente
+- `BootLoader` (Boot) → splash → Hub; `LabBootstrap.AutoStart()` solo en Hub crea el mundo
 - Permite versiones diferentes (Academy vs EthicalLab) sin conflictos de scene
 
 ### ¿Por qué Domain sin UnityEngine?

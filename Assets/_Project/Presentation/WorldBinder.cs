@@ -18,10 +18,45 @@ namespace EthicalLab.Presentation
         void LateUpdate()
         {
             if (App == null || Scene == null) return;
+            PaintBoard();
             PaintTickets();
             PaintLaptop();
             PaintFolders();
             PaintTrays();
+            PaintDoor();
+            PaintReportInbox();
+            PaintChecklist();
+        }
+
+        void PaintBoard()
+        {
+            var mission = App.Active;
+            var row = mission != null ? App.Progress.Get(mission.Id.Value) : null;
+            bool active = row != null && row.Started && !row.Completed;
+            if (Scene.BoardTitle != null)
+            {
+                Scene.BoardTitle.text = active
+                    ? "CASO · " + mission.Number + "  " + mission.Title
+                    : "BLUE / RED · tickets · E para aceptar";
+            }
+            if (Scene.BoardObjective != null)
+            {
+                Scene.BoardObjective.text = active
+                    ? "OBJETIVO · " + mission.Number + "\n" + Wrap(mission.Objective, 40)
+                    : "Acepta un ticket";
+            }
+        }
+
+        void PaintDoor()
+        {
+            // Prompt más claro; el TextMesh del dintel es estático en HubOffice.
+            if (Scene.Door == null) return;
+            var view = Scene.Door.GetComponent<InteractableView>();
+            if (view == null) return;
+            bool open = Scene.Door.IsOpen;
+            view.prompt = open
+                ? "PUERTA DEL ARCHIVO · abierta · E para cerrar"
+                : "PUERTA DEL ARCHIVO · E para abrir · carpetas adentro";
         }
 
         void PaintTickets()
@@ -70,8 +105,8 @@ namespace EthicalLab.Presentation
                 bool done = ClueWorkflow.Documented(mission, App.Progress, group);
                 bool read = ClueWorkflow.Collected(mission, App.Progress, group);
                 view.id = InteractableId.Clue(group).Value;
-                view.prompt = (done ? "✓ " : read ? "○ " : "") + "PISTA · " + clue.Prompt + (done ? " · documentada" : read ? " · llevar a bandeja" : " · leer");
-                view.Label((done ? "✓ " : "") + clue.Prompt);
+                view.prompt = (done ? "OK · " : read ? "○ " : "") + "PISTA · " + clue.Prompt + (done ? " · documentada" : read ? " · llevar a bandeja" : " · leer");
+                view.Label((done ? "OK · " : "") + clue.Prompt);
                 view.Tint(done ? HubOffice.Green : read ? HubOffice.Mint : HubOffice.Amber);
             }
         }
@@ -86,8 +121,17 @@ namespace EthicalLab.Presentation
 
             if (pending == null)
             {
-                Scene.TrayHeader.text = held != null && held.Id.Kind == "clue" ? "Lee la pista (E) antes de clasificarla" : "";
-                for (int i = 0; i < Scene.Trays.Count; i++) Scene.Trays[i].gameObject.SetActive(false);
+                Scene.TrayHeader.text = held != null && held.Id.Kind == "clue"
+                    ? "Lee la pista (E) antes de clasificarla"
+                    : "BANDEJAS · trae una carpeta del archivo (G) y clasifica aquí";
+                for (int i = 0; i < Scene.Trays.Count; i++)
+                {
+                    var tray = Scene.Trays[i];
+                    tray.gameObject.SetActive(true);
+                    tray.prompt = "BANDEJA " + (i + 1) + " · espera carpeta del archivo";
+                    tray.Label("BANDEJA " + (i + 1) + "\n—");
+                    tray.Tint(HubOffice.Muted);
+                }
                 return;
             }
 
@@ -100,7 +144,65 @@ namespace EthicalLab.Presentation
                 if (!visible) continue;
                 tray.prompt = "BANDEJA " + (i + 1) + " · " + pending.Options[i];
                 tray.Label(Wrap(pending.Options[i], 22));
+                tray.Tint(HubOffice.Amber);
             }
+        }
+
+        void PaintReportInbox()
+        {
+            if (Scene.ReportInbox == null) return;
+            var mission = App.Active;
+            var row = mission != null ? App.Progress.Get(mission.Id.Value) : null;
+            bool active = row != null && row.Started && !row.Completed;
+            bool ready = active && ClueWorkflow.AllDocumented(mission, App.Progress);
+            if (!active)
+            {
+                Scene.ReportInbox.prompt = "BUZÓN DE INFORME · acepta un ticket y documenta pistas";
+                Scene.ReportInbox.Label("INFORME");
+                Scene.ReportInbox.Tint(HubOffice.Muted);
+                return;
+            }
+            if (ready)
+            {
+                Scene.ReportInbox.prompt = "BUZÓN DE INFORME · listo · E para expediente";
+                Scene.ReportInbox.Label("LISTO");
+                Scene.ReportInbox.Tint(HubOffice.Green);
+            }
+            else
+            {
+                Scene.ReportInbox.prompt = "BUZÓN DE INFORME · documenta todas las pistas primero";
+                Scene.ReportInbox.Label("INFORME");
+                Scene.ReportInbox.Tint(HubOffice.Amber);
+            }
+        }
+
+        void PaintChecklist()
+        {
+            if (Scene.ClueChecklist == null) return;
+            var mission = App.Active;
+            var row = mission != null ? App.Progress.Get(mission.Id.Value) : null;
+            bool active = row != null && row.Started && !row.Completed;
+            if (!active)
+            {
+                Scene.ClueChecklist.text = "PISTAS · sin caso\nAcepta un ticket";
+                return;
+            }
+            var groups = ClueWorkflow.ClueGroups(mission);
+            var sb = new StringBuilder();
+            sb.Append("PISTAS · ").Append(mission.Number);
+            for (int i = 0; i < groups.Count; i++)
+            {
+                string group = groups[i];
+                var clue = ClueWorkflow.Clue(mission, group);
+                string label = clue != null ? clue.Prompt : group;
+                if (label.Length > 22) label = label.Substring(0, 20) + "...";
+                string mark;
+                if (ClueWorkflow.Documented(mission, App.Progress, group)) mark = "OK";
+                else if (ClueWorkflow.Collected(mission, App.Progress, group)) mark = "○";
+                else mark = "·";
+                sb.Append('\n').Append(mark).Append(' ').Append(label);
+            }
+            Scene.ClueChecklist.text = sb.ToString();
         }
 
         static string Wrap(string text, int width)

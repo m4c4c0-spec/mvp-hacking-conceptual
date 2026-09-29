@@ -1,0 +1,5 @@
+{
+  "name": "EthicalLab.PlayModeTests",
+  "references": ["EthicalLab.Presentation", "EthicalLab.Shared", "EthicalLab.Application", "EthicalLab.Domain", "EthicalLab.Infrastructure", "Unity.ugui", "Unity.TextMeshPro", "Unity.InputSystem", "Unity.InputSystem.TestFramework"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

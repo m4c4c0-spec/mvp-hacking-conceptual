@@ -43,8 +43,8 @@ namespace EthicalLab.Application
                     return string.IsNullOrWhiteSpace(row.Note) ? "Aún no tienes notas. Usa notes <texto>." : row.Note;
                 case "report":
                     return AllClassified(app, mission)
-                        ? "Evidencias completas. Abre Informe para justificar el cierre y completar el quiz."
-                        : "Faltan evidencias por resolver. Abre Misiones para registrar tus decisiones.";
+                        ? "Pistas documentadas. El cierre y el quiz están en Expediente, o en el buzón de informe del escritorio."
+                        : "Faltan evidencias por resolver. Clasifícalas en las bandejas del escritorio o en Expediente.";
                 default:
                     return "Comando fuera del vocabulario del simulador. Escribe help.";
             }
@@ -58,7 +58,7 @@ namespace EthicalLab.Application
                 if (step.Kind != StepKind.CollectClue) continue;
                 if (!step.Id.ClueGroup.Equals(arg, System.StringComparison.OrdinalIgnoreCase)) continue;
                 app.CompleteStep.Execute(step.Id, new StepAnswer());
-                return step.Prompt + "\n\n" + step.Body + "\n\nRegistra tu observación y defensa en Misiones → Evidencias.";
+                return step.Prompt + "\n\n" + step.Body + "\n\nClasifica la observación y la defensa en las bandejas del escritorio o en Expediente.";
             }
             return "Ficha no encontrada. Usa scan para ver los identificadores disponibles.";
         }

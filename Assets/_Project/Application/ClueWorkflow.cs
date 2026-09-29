@@ -47,5 +47,14 @@ namespace EthicalLab.Application
         {
             return mission == null ? null : mission.Step(new StepId(group + ".clue"));
         }
+
+        public static bool AllDocumented(MissionDefinition mission, PlayerProgress progress)
+        {
+            var groups = ClueGroups(mission);
+            if (groups.Count == 0) return false;
+            for (int i = 0; i < groups.Count; i++)
+                if (!Documented(mission, progress, groups[i])) return false;
+            return true;
+        }
     }
 }

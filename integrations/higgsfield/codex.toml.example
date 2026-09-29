@@ -1,0 +1,10 @@
+# Alternativa para Codex CLI. No duplicar si el conector Higgsfield ya está disponible.
+# Fusionar en la configuración elegida; no reemplazar otros servidores.
+[mcp_servers.higgsfield]
+url = "https://mcp.higgsfield.ai/mcp"
+startup_timeout_sec = 30
+tool_timeout_sec = 180
+required = false
+default_tools_approval_mode = "prompt"
+# Autenticación OAuth: codex mcp login higgsfield
+# Nunca guardar tokens ni claves en el repositorio o en Assets.

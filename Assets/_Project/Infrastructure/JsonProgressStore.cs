@@ -34,7 +34,15 @@ namespace EthicalLab.Infrastructure
 
     public sealed class JsonProgressStore : IProgressStore
     {
-        public string Path => System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, "ethicallab-progress-v1.json");
+        readonly string directory;
+
+        // El directorio opcional permite probar persistencia sin tocar la partida del jugador.
+        public JsonProgressStore(string directory = null)
+        {
+            this.directory = directory ?? UnityEngine.Application.persistentDataPath;
+        }
+
+        public string Path => System.IO.Path.Combine(directory, "ethicallab-progress-v1.json");
 
         public PlayerProgress Load()
         {
@@ -124,7 +132,7 @@ namespace EthicalLab.Infrastructure
                 reviewed = progress.Reviewed.ToArray(),
                 missions = missions
             };
-            Directory.CreateDirectory(UnityEngine.Application.persistentDataPath);
+            Directory.CreateDirectory(directory);
             string tmp = Path + ".tmp";
             File.WriteAllText(tmp, JsonUtility.ToJson(dto, true));
             if (File.Exists(Path)) File.Replace(tmp, Path, Path + ".bak");

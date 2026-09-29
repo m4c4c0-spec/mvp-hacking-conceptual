@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-09-29T15:28:41Z",
+  "service": "Higgsfield official MCP connector",
+  "tool": "generate_image_batch",
+  "model": "gpt_image_2_5",
+  "model_provider": "OpenAI",
+  "variant": "flare",
+  "quality": "medium",
+  "resolution": "1k",
+  "aspect_ratio": "1:1",
+  "background": "opaque",
+  "project_id": "7f26fd7f-1d94-4dcb-9a9a-e9fac79f4467",
+  "estimated_credits_per_image": 0.5,
+  "estimated_total_credits": 1.5,
+  "license_note": "Generated for this project through the connected Higgsfield account. Subject to the service/account terms; not declared CC0 or an exclusive copyright license.",
+  "review": "Original 1024x1024 PNGs inspected individually and as 2x2 tile previews. No edits to downloaded source PNGs. Unity applies repeat, mipmaps, compression, material tint and local metric triplanar projection. No generation/network dependency in the player.",
+  "assets": [
+    {
+      "file": "Assets/Art/Office/Resources/OfficeTextures/oak.png",
+      "job_id": "c2aa86f9-9e67-42f7-95b3-1fc8fe528a47",
+      "sha256": "9c59dd50a0d78a0769bc64bb6edfa5e23de71c3a0728c6740c26134966922c00",
+      "width": 1024,
+      "height": 1024,
+      "prompt": "Use case: stylized-concept. Asset type: seamless tileable game material, PBR base-color albedo only, 1024 by 1024 square. Primary request: pale neutral white oak veneer for the desks and woodwork of a professional analyst office. Photorealistic delicate long straight grain running vertically, fine pores, very restrained organic variation. Pale desaturated neutral beige, even overall brightness, no dark knots, no plank joints. Orthographic perfectly flat front view of the material filling the entire image edge to edge; seamless repetition across left/right and top/bottom edges. No room, no object, no border, no perspective, no lighting direction, no ambient occlusion, no highlights or baked shadows, no gradients, no text, no logos, no watermark. Single clean material swatch, not a collage or demonstration render."
+    },
+    {
+      "file": "Assets/Art/Office/Resources/OfficeTextures/fabric.png",
+      "job_id": "a10d8639-d766-4600-9703-00611cb0e1fa",
+      "sha256": "fd8d63ba9c7da2edf090ca767b3a1725e6724bfb350ada52fb332fd505f2951d",
+      "width": 1024,
+      "height": 1024,
+      "prompt": "Use case: stylized-concept. Asset type: seamless tileable game material, PBR base-color albedo only, 1024 by 1024 square. Primary request: fine woven neutral light gray office upholstery textile, usable on office chairs and carpet with tinting in Unity. Photorealistic tight plain weave with delicate small crossing threads, understated uniform microtexture and subtle natural thread variation. Even neutral light gray overall color with very low contrast, no dark speckles. Orthographic perfectly flat front view of the fabric filling the entire image edge to edge; seamless repetition across left/right and top/bottom edges. No seams, folds, stitching, room, objects, border, perspective, lighting direction, ambient occlusion, highlights or baked shadows, gradients, text, logos or watermark. Single clean material swatch, not a collage or demonstration render."
+    },
+    {
+      "file": "Assets/Art/Office/Resources/OfficeTextures/plaster.png",
+      "job_id": "e5345f0c-98fe-4ee3-92d3-a3c190eb25b7",
+      "sha256": "97281df9acd8202fbf29d546495820ee1eab3db97994fa004bf080bc444d3d1b",
+      "width": 1024,
+      "height": 1024,
+      "prompt": "Use case: stylized-concept. Asset type: seamless tileable game material, PBR base-color albedo only, 1024 by 1024 square. Primary request: pale neutral warm-white fine matte plaster wall surface for a contemporary professional office. Photorealistic barely perceptible fine mineral micrograin, pristine and sober, evenly distributed tiny pores with extremely subtle tonal variation. Uniform light neutral near-white albedo, without yellow or orange cast. Orthographic perfectly flat front view filling the entire image edge to edge; seamless repetition across left/right and top/bottom edges. No cracks, stains, rough trowel swirls, patches, bricks, room, object, border, perspective, lighting direction, ambient occlusion, highlights or baked shadows, gradients, text, logos or watermark. Single clean material swatch, not a collage or demonstration render."
+    }
+  ]
+}
