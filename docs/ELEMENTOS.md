@@ -2,7 +2,7 @@
 
 **Propósito**: Documentar cada elemento significativo del proyecto para que Marco pueda mantenerlo y extenderlo.
 
-**Última actualización**: 2026-09-25 (Hub FP client demo v5 — Boot→Hub splash, toast MISIÓN CERRADA)
+**Última actualización**: 2026-09-27 (control first-person, preferencias de cámara, pruebas de input y build Linux)
 
 ---
 
@@ -243,9 +243,14 @@
 - **UI**: OnGUI «Cargando oficina…» (~0.55 s) antes de cargar Hub
 - **Preferencia**: Play en `Hub.unity` salta el splash; Boot queda para builds / arranque index 0
 
+### HubSceneRefs.cs / HubSceneLoader.cs
+- **HubSceneRefs**: referencias serializadas del hub modelado (`Office_Art` prefab o escena `Hub_Art.unity`).
+- **HubSceneLoader.Resolve()**: si `HubSceneRefs.IsValid`, mapea a `HubScene`; si no, `HubOffice.BuildProceduralLegacy()`.
+- **Anclas**: `docs/HUB_ANCHORS.md`, `Assets/Art/Office/blockout_dimensions.json`.
+
 ### HubOffice.cs
 - **Clase estática**: `HubOffice`
-- **Método principal**: `Build()`: Crea oficina 3D proceduralmente (sin assets externos)
+- **Método principal**: `Build()` / `BuildProceduralLegacy()`: oficina procedural (fallback sin FBX)
 - **Qué crea**:
   - **Sala principal** (x: -4..4): Escritorio, laptop, cuaderno, bandejas clasificación, **buzón de informe**, pizarra tickets, **checklist de pistas** (panel pared)
   - **Archivo** (x: 4..8): Mesa con carpetas (pistas), puerta con bisagra + rótulo "ARCHIVO →"
@@ -270,6 +275,8 @@
 
 ### PcInteractor.cs
 - **Clase**: `PcInteractor : MonoBehaviour, IInteractor`
+- **Control first-person**: CharacterController obligatorio, aceleración/frenado, diagonal normalizada, cámara limitada a ±80°, sensibilidad/FOV/inversión Y persistentes. `ControlInterrupted` pausa al perder foco; `ReturnToEntrance()` recupera la entrada sin borrar progreso. Sin head bob ni salto.
+- **Validación y ejecución**: `FirstPersonInputTests` atraviesa Input System → PcButtons → Update con dispositivos virtuales aislados. `HubDesktopBuild` genera Boot → Hub en `Builds/Linux/` o `Builds/Windows/`; `scripts/play-linux.sh` abre el ejecutable Linux.
 - **Qué hace**: Controlador first-person para PC (WASD, mouse, E, G)
 - **Eventos**: `Used`, `Grabbed`, `Released`, `Hovered` (implementa `IInteractor`)
 - **Input**:
@@ -311,9 +318,10 @@
 - **Colores**: `HubOffice.Navy`, `.Mint`, `.Amber`, `.Green`, `.Muted`, `.Red`
 - **Cómo extender**: Para nuevos objetos dinámicos, agregar método `Paint<Objeto>()`
 
-### HubHud.cs
+### HubHud.cs + UI (uGUI/TMP)
 - **Clase**: `HubHud : MonoBehaviour`
-- **Qué hace**: UI principal (OnGUI) con tabs + panels
+- **Qué hace**: Orquesta `HubOfficeOverlayUi` (oficina), `HubMenuUi` (menú ESC), `HubOnboardingOverlay` (primera visita 18–32)
+- **Menú**: uGUI + TextMeshPro (ya no OnGUI en pestañas)
 - **Páginas**: Office (mundo 3D), Home, Missions, Terminal, Case (expediente), Glossary
 - **Métodos públicos**:
   - `Toast(text, playBeep = true)`: Mensaje temporal en mundo 3D; beep `HubAudio.PlayToast` opcional (bandejas usan tonos propios)

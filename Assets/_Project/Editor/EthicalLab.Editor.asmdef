@@ -1,7 +1,7 @@
 {
   "name": "EthicalLab.Editor",
   "rootNamespace": "EthicalLab.Editor",
-  "references": ["Academy.Runtime"],
+  "references": ["Academy.Runtime", "EthicalLab.Presentation", "Unity.TextMeshPro"],
   "includePlatforms": ["Editor"],
   "allowUnsafeCode": false,
   "overrideReferences": false,

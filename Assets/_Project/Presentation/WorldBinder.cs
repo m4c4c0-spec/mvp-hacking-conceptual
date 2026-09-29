@@ -105,8 +105,8 @@ namespace EthicalLab.Presentation
                 bool done = ClueWorkflow.Documented(mission, App.Progress, group);
                 bool read = ClueWorkflow.Collected(mission, App.Progress, group);
                 view.id = InteractableId.Clue(group).Value;
-                view.prompt = (done ? "✓ " : read ? "○ " : "") + "PISTA · " + clue.Prompt + (done ? " · documentada" : read ? " · llevar a bandeja" : " · leer");
-                view.Label((done ? "✓ " : "") + clue.Prompt);
+                view.prompt = (done ? "OK · " : read ? "○ " : "") + "PISTA · " + clue.Prompt + (done ? " · documentada" : read ? " · llevar a bandeja" : " · leer");
+                view.Label((done ? "OK · " : "") + clue.Prompt);
                 view.Tint(done ? HubOffice.Green : read ? HubOffice.Mint : HubOffice.Amber);
             }
         }
@@ -197,7 +197,7 @@ namespace EthicalLab.Presentation
                 string label = clue != null ? clue.Prompt : group;
                 if (label.Length > 22) label = label.Substring(0, 20) + "...";
                 string mark;
-                if (ClueWorkflow.Documented(mission, App.Progress, group)) mark = "✓";
+                if (ClueWorkflow.Documented(mission, App.Progress, group)) mark = "OK";
                 else if (ClueWorkflow.Collected(mission, App.Progress, group)) mark = "○";
                 else mark = "·";
                 sb.Append('\n').Append(mark).Append(' ').Append(label);

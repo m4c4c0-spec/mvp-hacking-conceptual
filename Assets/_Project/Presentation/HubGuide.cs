@@ -8,10 +8,10 @@ namespace EthicalLab.Presentation
     public static class HubGuide
     {
         public const string WelcomeTip =
-            "Bienvenida · WASD caminar · botón derecho mirar · E usar · G tomar carpeta\nMira la pizarra y acepta un ticket disponible (E).";
+            "Bienvenida · WASD caminar · mouse mirar · E usar · G tomar carpeta\nMira la pizarra y acepta un ticket disponible (E).";
 
         public const string ControlsHint =
-            "WASD · RMB mirar · E usar · G carpeta · ESC menú · Reiniciar en Inicio · H/F1 ayuda";
+            "WASD · mouse mirar · Shift correr · E usar · G silla o carpeta · ESC menú · H/F1 ayuda";
 
         public const string WelcomePrefsKey = "EthicalLab.HubWelcomeShown";
 
@@ -48,6 +48,23 @@ namespace EthicalLab.Presentation
                 return "Pasa la puerta al archivo · E en una carpeta · G para tomar";
 
             return "Archivo: E/G en carpeta pendiente · llévala al escritorio para clasificar";
+        }
+
+        public static string RoleLine(string role)
+        {
+            switch (role)
+            {
+                case "coach":
+                    return "Iriarte · WASD para caminar, mouse para mirar, Shift para correr y G para tomar una silla.";
+                case "reception":
+                    return "Vera · Empieza en la pizarra. El ticket dice el cliente y el alcance: sin ticket no hay caso.";
+                case "tickets":
+                    return "Hugo · Mira un ticket disponible y pulsa E. Ahí aceptas el caso y su alcance.";
+                case "report":
+                    return "Nuria · Con todas las pistas documentadas, pulsa E en el buzón para abrir el expediente.";
+                default:
+                    return "Sigue la pista del HUD.";
+            }
         }
 
         public static bool AnyMissionStarted(LabUseCases app)

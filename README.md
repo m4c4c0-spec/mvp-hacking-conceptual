@@ -7,25 +7,34 @@ Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “ha
 ### Opción A: Unity EthicalLab (canónico, first-person walkable)
 
 **Requisitos**:
-- Unity 6000.0.62f1 (o compatible)
+- Unity 6000.6.3f1 (versión fijada por el proyecto)
 - PC con teclado y mouse
 - NO requiere headset VR ni paquetes XR
 
 **Pasos**:
-1. Abrir proyecto en Unity 6000.0.62f1
-2. Play en `Assets/Scenes/Hub.unity` (**preferido**) o `Boot.unity` (splash «Cargando oficina…» → Hub)
-3. Caminar por la oficina y resolver el tutorial + misión 01 **físicamente en 3D**
+1. Abrir proyecto en Unity 6000.6.3f1
+2. Abrir `Assets/Scenes/Boot.unity` y pulsar **Play**, o usar **EthicalLab → Play from Boot**.
+3. Carga de oficina → bienvenida → **Entrar a la oficina** (o **Continuar**) → introducción inicial → primera persona.
+4. Caminar por la oficina y resolver el tutorial + misión 01 **físicamente en 3D**. También se puede hacer Play directamente desde `Hub.unity` o `Hub_Art.unity`.
 
 **Controles PC (WASD first-person)**:
 - **WASD**: Caminar por la oficina
-- **Mouse**: Mirar alrededor (mantén **botón derecho** para lockear cursor)
+- **Mouse**: Mirar alrededor; el cursor se captura al entrar a la oficina y se libera con **ESC**.
 - **E** o **Click izquierdo**: Usar objeto enfocado (pizarra, laptop, cuaderno, bandejas, buzón de informe)
 - **G**: Tomar/soltar carpetas (pistas físicas)
 - **Shift**: Correr
 - **ESC**: Menú (Terminal, Glosario, Expediente)
 - **H** o **F1**: Mostrar/ocultar ayuda de controles (esquina, modo Oficina)
 
-**Guía in-world**: en modo Oficina, una pista corta abajo-izquierda indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Línea compacta de controles arriba-izquierda (H/F1). Toast de bienvenida la primera vez (WASD / botón derecho / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: ✓ documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar; bandeja incorrecta = destello rojo + tono error; observación correcta = destello verde + beep éxito. Al cerrar el caso (informe + quiz) toast «MISIÓN CERRADA · score/100 · mira la pizarra» + beep éxito y la guía apunta de nuevo a la pizarra.
+**Ejecutable Linux**: versión actual en `Builds/Linux/AnalystAcademy.x86_64`; ejecutar `bash scripts/play-linux.sh`. Para transferirla, usar `Builds/AnalystAcademy-linux-x86_64.tar.gz`. Ver [inicio y verificación en Linux](docs/DEMO_LINUX.md). Los ejecutables se generan localmente y no se versionan en Git. Se recompila con **EthicalLab → Build → Linux first person**. El build incluye Boot → Hub, no el prototipo Academy. En Windows, usar **EthicalLab → Build → Windows first person** con el módulo correspondiente instalado.
+
+**Mac Intel / Apple Silicon**: **EthicalLab → Build → Mac universal first person**, con el módulo Mac Build Support (Mono). Destino: `Builds/Mac/AnalystAcademy.app`; render Metal. La firma Developer ID y notarización requieren la cuenta Apple del distribuidor y no se sustituyen por una compilación local. Ver [presentación en Mac](docs/DEMO_MAC.md).
+
+**Acabados y Higgsfield**: la oficina incorpora materiales de superficie, biseles, antialiasing y ventanas transparentes con exterior 3D. Los acabados de imagen opcionales se importan siguiendo [Higgsfield y materiales](docs/HIGGSFIELD_DISENO.md); el juego no requiere servicios de IA en ejecución.
+
+**Comodidad y pausa**: ESC → Inicio permite ajustar sensibilidad, campo de visión (60–90°), invertir Y, volver a la entrada sin borrar el caso y guardar/salir. El movimiento tiene aceleración suave y velocidad diagonal normalizada; no hay balanceo de cámara ni salto. Al cambiar de ventana se pausa y hay que volver a Oficina o pulsar ESC para continuar. Las preferencias de cámara se conservan entre sesiones.
+
+**Guía in-world**: en modo Oficina, una pista corta indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Línea compacta de controles arriba-izquierda (H/F1). Toast de bienvenida la primera vez (WASD / mouse / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: OK documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar; bandeja incorrecta = destello rojo + tono error; observación correcta = destello verde + beep éxito. Al cerrar el caso (informe + quiz) toast «MISIÓN CERRADA · score/100 · mira la pizarra» + beep éxito y la guía apunta de nuevo a la pizarra.
 
 **Reiniciar demo** (pitch con cliente): ESC → Inicio → «Reiniciar demo» → confirmar «¿Seguro?» — borra progreso guardado, vuelve a Oficina y muestra de nuevo el tip de bienvenida.
 
@@ -57,6 +66,8 @@ Abrir [http://127.0.0.1:8765/web/](http://127.0.0.1:8765/web/)
 ### ⚠️ Academy.unity (NO usar para demo cliente)
 
 `Assets/Scenes/Academy.unity` es un prototipo congelado de referencia. Ver `UNITY_README.md` si necesitas explorarlo, pero **NO** es la versión para mostrar al cliente.
+
+**Entorno 3D modelado**: oficina profesional con losetas, ventanas escénicas y persianas, revestimiento de madera, sillas, estanterías, plantas, lámparas y detalles de escritorio. La puerta, el cajón, las carpetas y los equipos conservan sus interacciones. El prefab editable es `Assets/Art/Office/Prefabs/Office_AnalystAcademy.prefab`; `Hub` y `Hub_Art` comparten ese modelo. **EthicalLab → Office → Prepare modeled scene** regenera el modelo y sus materiales. Ver [modelado e inicio](docs/ENTORNO_E_INICIO.md), `docs/ART_BIBLE.md` y `docs/HUB_ANCHORS.md`.
 
 **Verificar sin Unity (desarrollo)**: 
 - `scripts/test-dotnet.sh`: Compila Shared/Domain/Application (netstandard2.1, C# 9), corre tests EditMode con NUnit (3/3), verifica sintaxis de `Assets/**/*.cs`. Requiere .NET 8 SDK.

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Hub.unity
     guid: 1b0721be2d4f5b9c0e3f4d5c6b7d8e9f
   - enabled: 0
+    path: Assets/Scenes/Hub_Art.unity
+    guid: c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8
+  - enabled: 0
     path: Assets/Scenes/Academy.unity
     guid: a8228a50a8304f7db07ebdaf613d2644
   m_configObjects: {}

@@ -85,9 +85,9 @@ namespace EthicalLab.Presentation
             get
             {
 #if ENABLE_INPUT_SYSTEM
-                return Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed;
+                return Keyboard.current != null && (Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed);
 #else
-                return Input.GetKey(KeyCode.LeftShift);
+                return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 #endif
             }
         }

@@ -46,10 +46,16 @@ namespace Academy.Editor
             PlayerSettings.colorSpace = ColorSpace.Linear;
             EditorSettings.serializationMode = SerializationMode.ForceText;
             QualitySettings.vSyncCount = 1;
-            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+            if (EditorBuildSettings.scenes.Length == 0)
+                EditorBuildSettings.scenes = new[]
+                {
+                    new EditorBuildSettingsScene("Assets/Scenes/Boot.unity", true),
+                    new EditorBuildSettingsScene("Assets/Scenes/Hub.unity", true),
+                    new EditorBuildSettingsScene(ScenePath, false)
+                };
             EnsureMaterial();
             AssetDatabase.SaveAssets();
-            Debug.Log("Academy configurado. Abre Assets/Scenes/Academy.unity y pulsa Play. Input System se usa si está activo; hay fallback al input clásico.");
+            Debug.Log("Proyecto configurado. Abre Assets/Scenes/Boot.unity para iniciar Analyst Academy.");
         }
 
         private static void EnsureMaterial()

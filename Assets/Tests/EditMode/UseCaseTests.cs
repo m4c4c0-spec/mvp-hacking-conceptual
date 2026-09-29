@@ -134,6 +134,29 @@ namespace EthicalLab.Tests
         }
 
         [Test]
+        public void HubPageRouter_EscapeOpensHomeAndMarksDirty_TabsChangePage()
+        {
+            var router = new HubPageRouter();
+            Assert.That(router.Page, Is.EqualTo(HubPage.Office));
+            Assert.That(router.MenuOpen, Is.False);
+
+            router.ToggleEscape();
+            Assert.That(router.Page, Is.EqualTo(HubPage.Home));
+            Assert.That(router.MenuDirty, Is.True, "ESC a Home debe reconstruir el menú (olor: menú sucio)");
+            router.ConsumeRebuild();
+            Assert.That(router.MenuDirty, Is.False);
+
+            router.ToggleEscape();
+            Assert.That(router.Page, Is.EqualTo(HubPage.Office));
+
+            router.Open("missions");
+            Assert.That(router.Page, Is.EqualTo(HubPage.Missions));
+            Assert.That(router.MenuDirty, Is.True, "pestaña debe marcar dirty (olor: TabClicked muerto)");
+            router.Open("office");
+            Assert.That(router.Page, Is.EqualTo(HubPage.Office));
+        }
+
+        [Test]
         public void ResetDemo_ClearsProgressAndPersists()
         {
             var store = new MemoryStore();

@@ -12,6 +12,7 @@
 !Tools/**/*.csproj
 Tools/**/bin/
 Tools/**/obj/
+Tools/**/TestResults/
 *.user
 *.pidb
 *.booproj
@@ -19,4 +20,5 @@ Tools/**/obj/
 .DS_Store
 __pycache__/
 docs/.colab-state.json
+docs/GUION_PRESENTACION.md
 web/.cache

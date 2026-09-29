@@ -110,5 +110,6 @@ namespace EthicalLab.Shared
         public static InteractableId Door => new InteractableId("door");
         public static InteractableId Drawer => new InteractableId("drawer");
         public static InteractableId ReportInbox => new InteractableId("report");
+        public static InteractableId Guide(string role) => new InteractableId("guide:" + role);
     }
 }

@@ -23,12 +23,22 @@ namespace EthicalLab.Presentation
         HubHud hud;
         float saveTimer;
 
+        // AfterSceneLoad se ejecuta solo al entrar en Play; sceneLoaded cubre Boot → Hub.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void RegisterScenes()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        static void OnSceneLoaded(Scene loaded, LoadSceneMode mode) => AutoStart();
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void AutoStart()
         {
             // Boot solo muestra splash y carga Hub (BootLoader). Oficina solo en Hub.
             string name = SceneManager.GetActiveScene().name;
-            if (name != "Hub") return;
+            if (name != "Hub" && name != "Hub_Art") return;
             if (FindFirstObjectByType<LabBootstrap>() != null) return;
             if (GameObject.Find("Analyst Academy") != null) return;
             new GameObject("Ethical Lab").AddComponent<LabBootstrap>();
@@ -38,7 +48,8 @@ namespace EthicalLab.Presentation
         {
             UnityEngine.Application.targetFrameRate = 60;
             app = new LabUseCases(JsonMissionRepository.FromResources(), new JsonProgressStore());
-            scene = HubOffice.Build();
+            scene = HubSceneLoader.Resolve();
+            scene.Person.MenuOpen = true;
             scene.Person.Used += OnUsed;
             scene.Person.Grabbed += OnGrabbed;
             scene.Person.Released += OnReleased;
@@ -50,16 +61,6 @@ namespace EthicalLab.Presentation
             binder.App = app;
             binder.Scene = scene;
             HubAudio.Ensure(gameObject);
-        }
-
-        void Start()
-        {
-            // Bienvenida one-shot: solo si no hay misión empezada (primera visita a la oficina).
-            if (HubGuide.AnyMissionStarted(app)) return;
-            if (PlayerPrefs.GetInt(HubGuide.WelcomePrefsKey, 0) == 1) return;
-            PlayerPrefs.SetInt(HubGuide.WelcomePrefsKey, 1);
-            PlayerPrefs.Save();
-            hud.Toast(HubGuide.WelcomeTip);
         }
 
         void OnUsed(InteractableId id)
@@ -98,6 +99,12 @@ namespace EthicalLab.Presentation
                     break;
                 case "report":
                     OpenReportInbox();
+                    break;
+                case "chair":
+                    hud.Toast("G · tomar la silla. G otra vez para dejarla en el suelo.");
+                    break;
+                case "guide":
+                    hud.Toast(HubGuide.RoleLine(id.Arg));
                     break;
                 default:
                     hud.Toast("Ese objeto no forma parte del caso.");
@@ -158,11 +165,12 @@ namespace EthicalLab.Presentation
         {
             var clue = ClueWorkflow.Clue(mission, group);
             var pending = ClueWorkflow.Pending(mission, app.Progress, group);
+            if (clue == null) return;
             var text = new StringBuilder();
             text.Append(clue.Prompt.ToUpperInvariant()).Append('\n').Append(clue.Body).Append("\n\n");
             if (pending == null)
             {
-                text.Append("✓ Hallazgo documentado. Devuelve la carpeta (G).");
+                text.Append("OK · Hallazgo documentado. Devuelve la carpeta (G).");
             }
             else
             {
@@ -266,8 +274,16 @@ namespace EthicalLab.Presentation
             }
         }
 
-        void OnApplicationQuit() => app.SaveLoad.Save();
-        void OnApplicationPause(bool pause) { if (pause) app.SaveLoad.Save(); }
+        void OnApplicationQuit() => app?.SaveLoad.Save();
+        void OnApplicationPause(bool pause) { if (pause) app?.SaveLoad.Save(); }
+
+        void OnDestroy()
+        {
+            if (scene?.Person == null) return;
+            scene.Person.Used -= OnUsed;
+            scene.Person.Grabbed -= OnGrabbed;
+            scene.Person.Released -= OnReleased;
+        }
 
         static void EnsureEventSystem()
         {
