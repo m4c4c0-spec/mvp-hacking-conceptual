@@ -1,103 +1,77 @@
-# Blue / Red · Analyst Academy
+# Operación Cóndor Silencioso
 
-Laboratorio narrativo: ganas por entender el concepto y defenderlo, no por “hackear de verdad”.
+«El enemigo ya tiene la llave.»
 
-## 🎮 Cómo jugar — Demo para cliente (PC, sin VR)
+Eres, en primera persona, el equipo de respuesta a incidentes de la Unidad de Ciberdelitos (UCD), agencia ficticia en Santiago. A las 22:00 una falsa prueba de emergencia deja el edificio en lockdown. Un insider con root copia la lista de informantes protegidos, ficticia. Si sale del edificio, hay vidas en riesgo dentro de la ficción. Quedan 60 minutos. La salida de emergencia del juego permanece abierta. La palabra de seguridad es **CÓNDOR LIBRE**.
 
-### Opción A: Unity EthicalLab (canónico, first-person walkable)
+El recorrido son tres salas: oficina (detectar), servidores (contener) y laboratorio (identificar y detener). El desenlace de la ficción es el código `7391`. [Biblia](docs/historia/BIBLIA.md) y [diseño del recorrido](docs/diseno/07-lockdown-fbi.md). Este archivo no da las salas nuevas por construidas.
 
-**Requisitos**:
-- Unity 6000.6.3f1 (versión fijada por el proyecto)
-- PC con teclado y mouse
-- NO requiere headset VR ni paquetes XR
+## Comando para iniciar
 
-**Pasos**:
-1. Abrir proyecto en Unity 6000.6.3f1
-2. Abrir `Assets/Scenes/Boot.unity` y pulsar **Play**, o usar **EthicalLab → Play from Boot**.
-3. Carga de oficina → bienvenida → **Entrar a la oficina** (o **Continuar**) → introducción inicial → primera persona.
-4. Caminar por la oficina y resolver el tutorial + misión 01 **físicamente en 3D**. También se puede hacer Play directamente desde `Hub.unity` o `Hub_Art.unity`.
-
-**Controles PC (WASD first-person)**:
-- **WASD**: Caminar por la oficina
-- **Mouse**: Mirar alrededor; el cursor se captura al entrar a la oficina y se libera con **ESC**.
-- **E** o **Click izquierdo**: Usar objeto enfocado (pizarra, laptop, cuaderno, bandejas, buzón de informe)
-- **G**: Tomar/soltar carpetas (pistas físicas)
-- **Shift**: Correr
-- **ESC**: Menú (Terminal, Glosario, Expediente)
-- **H** o **F1**: Mostrar/ocultar ayuda de controles (esquina, modo Oficina)
-
-**Ejecutable Linux**: versión actual en `Builds/Linux/AnalystAcademy.x86_64`; ejecutar `bash scripts/play-linux.sh`. Para transferirla, usar `Builds/AnalystAcademy-linux-x86_64.tar.gz`. Ver [inicio y verificación en Linux](docs/DEMO_LINUX.md). Los ejecutables se generan localmente y no se versionan en Git. Se recompila con **EthicalLab → Build → Linux first person**. El build incluye Boot → Hub, no el prototipo Academy. En Windows, usar **EthicalLab → Build → Windows first person** con el módulo correspondiente instalado.
-
-**Mac Intel / Apple Silicon**: **EthicalLab → Build → Mac universal first person**, con el módulo Mac Build Support (Mono). Destino: `Builds/Mac/AnalystAcademy.app`; render Metal. La firma Developer ID y notarización requieren la cuenta Apple del distribuidor y no se sustituyen por una compilación local. Ver [presentación en Mac](docs/DEMO_MAC.md).
-
-**Acabados y Higgsfield**: la oficina incorpora materiales de superficie, biseles, antialiasing y ventanas transparentes con exterior 3D. Los acabados de imagen opcionales se importan siguiendo [Higgsfield y materiales](docs/HIGGSFIELD_DISENO.md); el juego no requiere servicios de IA en ejecución.
-
-**Comodidad y pausa**: ESC → Inicio permite ajustar sensibilidad, campo de visión (60–90°), invertir Y, volver a la entrada sin borrar el caso y guardar/salir. El movimiento tiene aceleración suave y velocidad diagonal normalizada; no hay balanceo de cámara ni salto. Al cambiar de ventana se pausa y hay que volver a Oficina o pulsar ESC para continuar. Las preferencias de cámara se conservan entre sesiones.
-
-**Guía in-world**: en modo Oficina, una pista corta indica el siguiente paso físico (pizarra → archivo → bandejas → **buzón de informe**). Línea compacta de controles arriba-izquierda (H/F1). Toast de bienvenida la primera vez (WASD / mouse / E / G). El objeto enfocado **pulsa** (highlight) para ver qué recibe E/G. En la pizarra, zona inferior muestra el **objetivo** de la misión activa (o «Acepta un ticket»). Panel **PISTAS** en la pared: OK documentada / ○ leída / · pendiente. Beeps suaves al usar/tomar/toast/documentar; bandeja incorrecta = destello rojo + tono error; observación correcta = destello verde + beep éxito. Al cerrar el caso (informe + quiz) toast «MISIÓN CERRADA · score/100 · mira la pizarra» + beep éxito y la guía apunta de nuevo a la pizarra.
-
-**Reiniciar demo** (pitch con cliente): ESC → Inicio → «Reiniciar demo» → confirmar «¿Seguro?» — borra progreso guardado, vuelve a Oficina y muestra de nuevo el tip de bienvenida.
-
-**Flujo de juego 3D interactivo** (NO lectura de páginas):
-1. **Pizarra**: E sobre ticket → acepta misión (brief + alcance en toast)
-2. **Archivo**: Camina a través de la puerta, E para abrir
-3. **Carpetas**: E para leer pista, G para tomar carpeta
-4. **Bandejas del escritorio**: Con carpeta en mano, E sobre bandeja correcta → observación, luego defensa
-5. **Cuaderno**: E para ver ficha desbloqueada con concepto aprendido
-6. **Laptop**: E para terminal narrativa (comandos conceptuales, no reales)
-7. **Buzón de informe** (escritorio): cuando todas las pistas están documentadas, E abre el Expediente (informe + quiz)
-8. **Cierre**: al completar informe + quiz → vuelta a Oficina con toast de misión cerrada; pizarra para el siguiente ticket
-9. **Panel ESC**: mismo Expediente / Terminal / Glosario si prefieres el menú
-10. **Servidor "Atlas" rojo**: Fuera de alcance (lección de autorización, sin castigo)
-
-**Tutorial**: Misión 01 "Antes de tocar nada" (Lumen Studio, 3 pistas, 3 min)  
-**Misión 01**: Misión 02 "No todo es lo que parece" (Nébula, 4 mensajes de email, 4 min)
-
-### Opción B: Web (prototipo sin Unity, útil para pitch rápido)
-
-**Sin instalar nada**:
 ```bash
-python3 -m http.server 8765
+cd /home/cocus/Documentos/mvp_juegos/mvp_hacking_conceptual
+bash scripts/play-godot.sh
 ```
-Abrir [http://127.0.0.1:8765/web/](http://127.0.0.1:8765/web/)
 
-**Nota**: Prototipo web es funcional pero más simple (lectura de páginas). La versión Unity EthicalLab es la experiencia canónica para el cliente (walkable 3D).
+## Mapa
 
-### ⚠️ Academy.unity (NO usar para demo cliente)
+| Carpeta | Para qué |
+| --- | --- |
+| [docs/diseno/](docs/diseno/README.md) | Estructura de diseño. Empieza aquí si vas a cambiar espacios, interfaz o arte. |
+| [Godot/](Godot/README.md) | Juego. El código está en `Godot/Game/`. |
+| [docs/ARQUITECTURA_JUEGO.md](docs/ARQUITECTURA_JUEGO.md) | Qué carpeta contiene cada sistema. |
+| `Godot/Game/Features/Quests/missions.json` | Catálogo del prototipo anterior. Sigue en disco. El progreso de Cóndor es `condor.json`, cuando el catálogo lo escriba. |
+| [docs/historia/](docs/historia/BIBLIA.md) | Canon de Cóndor y acto 1. `MISIONES_SIGUIENTES.md` es archivo histórico y no se vuelca. |
+| `docs/` | Diseño, historia, presupuesto 8 GB y contrato de contenido. |
+| `scripts/` | Arranque, validación del JSON, pruebas y export. |
+| `Builds/` | Salidas generadas. No se editan a mano. |
 
-`Assets/Scenes/Academy.unity` es un prototipo congelado de referencia. Ver `UNITY_README.md` si necesitas explorarlo, pero **NO** es la versión para mostrar al cliente.
+## Desarrollo en Godot
 
-**Entorno 3D modelado**: oficina profesional con losetas, ventanas escénicas y persianas, revestimiento de madera, sillas, estanterías, plantas, lámparas y detalles de escritorio. La puerta, el cajón, las carpetas y los equipos conservan sus interacciones. El prefab editable es `Assets/Art/Office/Prefabs/Office_AnalystAcademy.prefab`; `Hub` y `Hub_Art` comparten ese modelo. **EthicalLab → Office → Prepare modeled scene** regenera el modelo y sus materiales. Ver [modelado e inicio](docs/ENTORNO_E_INICIO.md), `docs/ART_BIBLE.md` y `docs/HUB_ANCHORS.md`.
+La migración jugable está en **[Godot/](Godot/README.md)**, con Godot **4.6.3 Standard**. Importa **`Godot/project.godot`** en el gestor de proyectos y pulsa **F5**. El árbol conserva la oficina heredada. El canon de la partida es el recorrido de tres salas descrito arriba; este README no da esa construcción por hecha.
 
-**Verificar sin Unity (desarrollo)**: 
-- `scripts/test-dotnet.sh`: Compila Shared/Domain/Application (netstandard2.1, C# 9), corre tests EditMode con NUnit (3/3), verifica sintaxis de `Assets/**/*.cs`. Requiere .NET 8 SDK.
-- `scripts/validate-mission-flow.sh`: Verifica que missions.json sea válido y tenga estructura esperada.
-- Complementan: `python3 UnityTools/validate_project.py` y `node scripts/test-session.mjs`
+**PC sigue en primera persona**: WASD caminar, mouse mirar, E/clic usar, G tomar/soltar, Shift correr y Esc menú. Se incluyen cámara y controles OpenXR experimentales para desarrollar la adaptación a Meta Quest 3S.
 
-**Contenido:** `Assets/Resources/Content/missions.json` es la **única fuente** (data-driven). Los ScriptableObjects de Academy se regeneran desde el JSON si es necesario (menú `EthicalLab/Contenido`), pero EthicalLab carga JSON directamente. Ver `docs/CONTRATO_CONTENIDO.md`, `docs/ARQUITECTURA.md`, y **`docs/ELEMENTOS.md`** (inventario completo de elementos).
+- [Inicio, arquitectura y estado Godot](Godot/README.md).
+- [Assets mejorados y cinco guías animados por espacio](Godot/docs/ASSETS_Y_GUIAS.md).
+- [Renderizar en Mac y generar builds](Godot/docs/MAC_Y_BUILDS.md).
+- [Base VR y despliegue Quest 3S](Godot/docs/QUEST_3S.md).
+- [Rutas de builds Godot](Builds/Godot/README.md).
 
-## 🏗️ Arquitectura EthicalLab
+Si el script no encuentra Godot, indica la ruta de su ejecutable desde la raíz del repositorio:
 
-**Documentación completa**:
-- `docs/ARQUITECTURA.md`: Capas, decisiones, firmas de contrato
-- **`docs/ELEMENTOS.md`**: Inventario de cada elemento (Domain, Application, Infrastructure, Presentation, Content, Scenes, Tests) — **lee esto para mantener/extender el proyecto**
+```bash
+GODOT_BIN="/ruta/Godot" bash scripts/play-godot.sh
+```
 
-**Capas (Clean Architecture, SOLID)**:
-- **Domain** (C# puro, sin `UnityEngine`): MissionDefinition, MissionStep, ConceptCard, PlayerProgress, MissionCatalogRules
-- **Application**: Casos de uso (StartMission, CompleteStep, UnlockConcept, SubmitReport, ClueWorkflow, NarrativeTerminal)
-- **Infrastructure**: Persistencia (JsonMissionRepository, JsonProgressStore)
-- **Presentation**: Unity MonoBehaviours (LabBootstrap, HubOffice procedural, PcInteractor, WorldBinder, HubHud, InteractableView)
+## Bucle de la operación
 
-**PC-first**: `PcInteractor` es first-class (WASD/mouse/E/G). `XrInteractor` es stub opcional para futuro VR.
+1. Briefing de las 22:00. Al cerrarlo corre el reloj de 60 minutos en modo Operación.
+2. Oficina: correo falso, clave, segundo factor, registros y caja `4714`. La puerta magnética abre servidores.
+3. Servidores: fila azul, cable azul y fail-safe de luz con la lámpara LED. El laboratorio se abre 90 segundos.
+4. Laboratorio: ficha de V. Soto, nota, inventario, huellas e interruptor `7391`.
+5. Debriefing de diez lecciones y la pregunta «¿Qué vas a cambiar mañana?».
 
-**Agregar misión nueva** = editar `Assets/Resources/Content/missions.json`. Si hay que tocar C# para añadir una misión, se rompió el diseño.
+En Operación, el reloj a cero termina la partida. En Aprendizaje el reloj se ve y no hay derrota. **CÓNDOR LIBRE** pausa sin castigo. El ciclo de pizarra, bandejas y examen es el prototipo anterior y no mide esta operación. No hay comandos de ataque reales ni conexiones a equipos externos.
 
-## ⛔ Qué NO entra (hard constraints)
+## Contenido y verificación
 
-- **Exploits reales**: Solo conceptos educativos, no payloads/malware/herramientas Kali
-- **Comandos reales de ataque**: Terminal narrativa solo acepta `scan`, `inspect`, `notes`, `report` (vocabulario ficticio)
-- **VR obligatorio**: PC con teclado/mouse es versión principal, VR es capa opcional futura
-- **Netcode**: Single-player offline
-- **Steam/monetización**: Fuera de scope del MVP
+El JSON que estos comandos revisan hoy es **`Godot/Game/Features/Quests/missions.json`**, el catálogo heredado. El canon de la operación está en la biblia. Tras editar ese archivo:
 
-**Validación**: `NarrativeTerminal` rechaza `curl`, `nmap`, `metasploit`, etc. Tests verifican esto.
+```bash
+python3 scripts/sync-godot-content.py --check
+node scripts/validate-content.mjs
+GODOT_BIN="/ruta/Godot" bash scripts/test-godot.sh
+```
+
+Para repetir las comprobaciones automáticamente mientras se modifica el proyecto:
+
+```bash
+python3 scripts/colab_watch.py --watch --validate
+```
+
+Se detiene con **Ctrl+C**. [Qué revisa y fallos corregidos](docs/REVISION_EN_VIVO.md).
+
+La oficina usa geometría ligera, albedos 1K y una primera capa de detalle importada en GLB. El playtest en Meta Quest 3S sigue pendiente; la base XR aún no acredita rendimiento ni comodidad en hardware.
+
+[Licencia comercial de Godot](https://godotengine.org/license/): sin suscripción ni regalías del motor. Los avisos del motor se incluyen en `Godot/ThirdParty/godot/`.

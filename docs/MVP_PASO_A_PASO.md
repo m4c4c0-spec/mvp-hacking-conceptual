@@ -153,10 +153,7 @@ Sin editor:
 bash scripts/test-dotnet.sh
 bash scripts/validate-mission-flow.sh
 python3 UnityTools/validate_project.py
-node scripts/test-session.mjs
 ```
-
-`node scripts/test-session.mjs` y `scripts/test-scoring.mjs` cubren el prototipo web, no el hub 3D.
 
 Dentro del editor, Test Runner → PlayMode, como lista `docs/ENTORNO_E_INICIO.md`:
 

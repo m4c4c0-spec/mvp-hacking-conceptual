@@ -52,7 +52,7 @@ Ejecutar desde una carpeta con permisos de escritura para guardar `player.log`. 
 4. Ensayar un recorrido de dos minutos: oficina → ventana → pizarra → archivo → escritorio. El guion de presentación se conserva localmente y no se publica en el repositorio.
 5. No pulsar «Reiniciar demo» salvo que se quiera borrar la partida y se confirme esa decisión.
 
-El juego no necesita conexión a Higgsfield: las texturas ya están integradas. Las imágenes de producción, incluida la ropa de personajes, se mantienen en esta compilación.
+Las texturas de la oficina y la ropa de los personajes van dentro de esta compilación.
 
 ## Verificación de esta entrega
 

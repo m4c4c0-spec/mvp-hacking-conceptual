@@ -78,7 +78,7 @@ Solo lo ya hecho (340 h), sin playtest ni dos misiones ni pulido: **USD 11.900 �
 - Arte final Blender PBR, texturas y el reemplazo de módulos descrito en `Assets/Art/Office/PBR_CHECKLIST.md` y `EXPORT_FBX.md`.
 - Exploits, payloads o herramientas reales. La terminal rechaza ese vocabulario a propósito.
 - Tienda (Steam, itch), trailer y página de venta. `docs/STEAM.md` queda fuera.
-- Mantener `Academy.unity`, `Assets/Scripts/` de Academy y el prototipo `web/` como segundo producto. Existen en el repo; no están en las 440 h.
+- Mantener `Academy.unity` y `Assets/Scripts/` de Academy como referencia congelada. Existen en el repo; no están en las 440 h.
 - Build de Windows. El menú existe (`HubDesktopBuild.Windows`); en la validación del 27 de septiembre el módulo no estaba instalado.
 
 ## Qué mueve el número

@@ -1,0 +1,349 @@
+{
+  "title": "Operación Cóndor Silencioso",
+  "subtitle": "El enemigo ya tiene la llave.",
+  "version": 3,
+  "domain": "soporte-ti@ucd-ch1le.invalid",
+  "ip": "203.0.113.44",
+  "endings": {
+    "victory": "Copia detenida. La lista sigue en el edificio.",
+    "timeout": "Descarga completa. La lista salió del edificio.",
+    "safety": "Salida de emergencia. La operación se detiene sin castigo."
+  },
+  "closing": {
+    "twist": "V. Soto entró a la plantilla de aseo meses antes. A las 20:03 su tarjeta personal fue denegada. A las 03:14 la cuenta aseo_turno_noche ya tenía ROOT en RACK-03.",
+    "optional": "El parte de aseo de esa noche tenía dos personas. Solo una cuenta obtuvo ROOT.",
+    "question": "¿Qué vas a cambiar mañana?",
+    "lessons": [
+      "Anzuelo. El dominio llevaba un 1 donde iba una i, el mensaje pedía la clave y apuraba. Esas tres señales bastan para no entregar nada.",
+      "Clave a la vista. El nombre del equipo y el año estaban en el escritorio. Una clave se protege cuando no se arma con el banderín ni con el calendario.",
+      "Segunda prueba. La clave no alcanza. El código que cambia, situado en el minuto del último inicio, es la otra prueba. Sin ella la puerta magnética sigue cerrada.",
+      "La línea del registro. A las 03:14 la cuenta de aseo tuvo ROOT en RACK-03. El registro muestra hora, cuenta y permiso. Una sospecha no se escribe como si fuera esa línea.",
+      "La fuga. La misma copia grande sale de RACK-03 hacia 203.0.113.44, marcada AZUL. Contener es cortar ese camino. Esa dirección es de documentación: en el juego no apunta a un equipo real.",
+      "El cable de vida. El verde sostiene a las personas. Cortarlo anuncia la evacuación y resta cinco minutos. El rojo quita energía y resta dos. El amarillo calla la voz y no abre nada. El cable de la fuga es el azul.",
+      "Luz, no incendio. Dos detectores a la vez abren el laboratorio durante noventa segundos. La lámpara es LED: luz y sonido.",
+      "El nombre que ya estaba escrito. La ficha de V. Soto nombra al gato Pixel. Otra mascota, aunque sea otro gato, no abre el cofre.",
+      "Letras disfrazadas. Base64 cambia el aspecto. La tarjeta ya separa los trozos: COFRE EN EL CAJON DEL. La palabra que falta es Pixel. Ahí aparecen el 7391 y la MAC que termina en :4F.",
+      "Lista, sello e interruptor. La MAC DC:A6:32:0E:77:4F no está en el inventario; el plano la sitúa en el carro, celda C-4. La huella C no coincide con la oficial y se descarta. El 7391 detiene la copia. El 1793 adelanta el reloj un minuto."
+    ]
+  },
+  "concepts": [
+    {
+      "id": "phishing",
+      "name": "Anzuelo",
+      "definition": "Un anzuelo, o phishing, es un mensaje que finge ser de confianza para que entregues un secreto.",
+      "defense": "Lee el dominio letra a letra y no entregues la clave si el mensaje apura.",
+      "importance": "Un mensaje puede imitar a la oficina y aun así pedir un secreto."
+    },
+    {
+      "id": "passwords",
+      "name": "Clave débil",
+      "definition": "Una clave débil es la que alguien arma con lo que ya está a la vista.",
+      "defense": "Una clave no se construye con el nombre del equipo, el año ni un banderín.",
+      "importance": "Lo que está a la vista en el escritorio no debería bastar para entrar."
+    },
+    {
+      "id": "mfa",
+      "name": "Segundo factor",
+      "definition": "El segundo factor, o MFA, es otra prueba distinta de la clave.",
+      "defense": "Sin la prueba del momento, la puerta sigue cerrada aunque la clave sea la correcta.",
+      "importance": "La clave sola no demuestra quién está delante."
+    },
+    {
+      "id": "logs",
+      "name": "Registro",
+      "definition": "Un registro es la lista de lo que el sistema ya anotó: hora, cuenta y permiso.",
+      "defense": "La línea rara se señala; una sospecha no se escribe como si ya fuera esa línea.",
+      "importance": "La hora, la cuenta y el permiso quedan escritos aunque nadie mire."
+    },
+    {
+      "id": "traffic",
+      "name": "Tráfico",
+      "definition": "El tráfico es el movimiento de datos entre equipos; una fuga es una copia que sale hacia fuera.",
+      "defense": "Mira destino, tamaño y repetición. El color va acompañado de una palabra y un icono.",
+      "importance": "Una copia que sale se ve como un flujo que se repite hacia un destino."
+    },
+    {
+      "id": "containment",
+      "name": "Contención",
+      "definition": "Contener es cortar el camino por donde el daño sigue saliendo, y dejar intacto lo que mantiene a salvo a las personas.",
+      "defense": "Se corta el enlace de la fuga. No se corta lo que sostiene la vida.",
+      "importance": "Cortar el camino equivocado puede dejar a la gente sin protección."
+    },
+    {
+      "id": "failsafe",
+      "name": "Fail-safe",
+      "definition": "Un fail-safe es un seguro que abre un paso cuando dos avisos coinciden; aquí es luz y una llave, no un incendio.",
+      "defense": "Dos avisos a la vez abren un rato y el paso se vuelve a cerrar. La lámpara es un LED.",
+      "importance": "El paso seguro se abre el tiempo justo y después se vuelve a cerrar."
+    },
+    {
+      "id": "osint",
+      "name": "Lo que ya se ve",
+      "definition": "OSINT es observar lo que una persona ya dejó a la vista, sin entrar en ningún sistema.",
+      "defense": "Sirve el nombre escrito en la ficha. Otra mascota, aunque sea de la misma especie, no sirve.",
+      "importance": "Una ficha a la vista cuenta un hábito sin entrar en un sistema."
+    },
+    {
+      "id": "obfuscation",
+      "name": "Disfraz de texto",
+      "definition": "Ofuscar es cambiar el aspecto de un texto; Base64 disfraza letras y no las protege.",
+      "defense": "Reconocer el texto no es romper un cifrado. La palabra que falta ya estaba en la ficha.",
+      "importance": "Cambiar el aspecto de un texto no lo vuelve secreto."
+    },
+    {
+      "id": "inventory",
+      "name": "Inventario",
+      "definition": "El inventario es la lista de equipos que sí pertenecen a la casa; una MAC ausente es un extraño.",
+      "defense": "Lo que no figura en la lista se busca en el plano, no se da por bueno.",
+      "importance": "Lo que no está en la lista de la casa es un equipo de más."
+    },
+    {
+      "id": "integrity",
+      "name": "Huella",
+      "definition": "La integridad se comprueba con una huella: si no coincide, el archivo cambió.",
+      "defense": "La copia que no coincide se aparta. El código de parada va después, y el orden invertido es una trampa.",
+      "importance": "Dos copias con el mismo sello no cambiaron. Una distinta, sí."
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "phish",
+      "room": "oficina",
+      "concept": "phishing",
+      "seconds": 240,
+      "title": "Correo falso",
+      "objective": "Oficina: marca en el correo falso el dominio, la clave y la urgencia.",
+      "manual": "Un anzuelo, o phishing, es un mensaje que finge ser de confianza para que entregues un secreto. El correo falso llega de soporte-ti@ucd-ch1le.invalid, pide la clave y apura. Los mensajes legales usan el dominio con i, no con un 1.",
+      "hints": [
+        "Hay un correo que no se comporta como los demás. Empieza por el remitente.",
+        "Compara el dominio letra a letra. Mira también si piden la clave y si apuran.",
+        "Marca dominio, clave y urgencia. El falso escribe ch1le, con un 1."
+      ],
+      "debrief": "El dominio llevaba un 1 donde iba una i, el mensaje pedía la clave y apuraba. Esas tres señales bastan para no entregar nada.",
+      "solution": {
+        "signals": [
+          "dominio",
+          "clave",
+          "urgencia"
+        ]
+      }
+    },
+    {
+      "id": "password",
+      "room": "oficina",
+      "concept": "passwords",
+      "seconds": 180,
+      "title": "Clave a la vista",
+      "objective": "Oficina: arma la clave con lo que está a la vista en el escritorio.",
+      "manual": "Una clave débil es la que alguien arma con lo que ya está a la vista. En el escritorio están el banderín Cóndores, el año 2026 y una nota que pide juntar el equipo con el año.",
+      "hints": [
+        "No busques la clave fuera de la sala. Está partida en el escritorio.",
+        "El banderín nombra al equipo y el calendario tiene el año.",
+        "Junta Condores y 2026, sin espacio."
+      ],
+      "debrief": "El nombre del equipo y el año estaban en el escritorio. Una clave se protege cuando no se arma con el banderín ni con el calendario.",
+      "solution": {
+        "code": "Condores2026"
+      }
+    },
+    {
+      "id": "mfa",
+      "room": "oficina",
+      "concept": "mfa",
+      "seconds": 180,
+      "title": "Segundo factor",
+      "objective": "Oficina: alinea el segundo factor con el minuto del último inicio.",
+      "manual": "El segundo factor, o MFA, es otra prueba distinta de la clave. El dato de esta noche usa el minuto del último inicio de sesión, las 22:17. Sin esa prueba la puerta magnética sigue cerrada.",
+      "hints": [
+        "La clave no abre sola. Hace falta el dato del momento.",
+        "La pantalla dice la hora del último inicio. Quédate con el minuto.",
+        "Cuando la ruleta marque el minuto 17, el token es 492017."
+      ],
+      "debrief": "La clave no alcanza. El código situado en el minuto del último inicio es la otra prueba.",
+      "solution": {
+        "token": "492017"
+      }
+    },
+    {
+      "id": "logs",
+      "room": "oficina",
+      "concept": "logs",
+      "seconds": 300,
+      "title": "Registro",
+      "objective": "Oficina: señala el minuto anómalo del registro.",
+      "manual": "Un registro es la lista de lo que el sistema ya anotó: hora, cuenta y permiso. La línea anómala es la cuenta aseo_turno_noche con ROOT a las 03:14.",
+      "hints": [
+        "No todas las líneas son ruido. Busca un permiso de más a una hora rara.",
+        "Una cuenta de aseo no debería tener ROOT. Mira la hora de esa línea.",
+        "La línea es aseo_turno_noche a las 03:14. El minuto es 14."
+      ],
+      "debrief": "A las 03:14 la cuenta de aseo tuvo ROOT. El registro muestra hora, cuenta y permiso.",
+      "solution": {
+        "minute": "14"
+      }
+    },
+    {
+      "id": "box",
+      "room": "oficina",
+      "concept": "passwords",
+      "seconds": 120,
+      "title": "Caja de evidencias",
+      "objective": "Oficina: abre la caja con los tres dígitos ya confirmados.",
+      "manual": "Una clave débil es la que alguien arma con lo que ya está a la vista. La caja junta el 4 del correo, el 7 de la clave y el 14 del registro. Dentro están la credencial de V. Soto y la tarjeta de tráfico azul.",
+      "hints": [
+        "La caja no se abre con una sola pista. Reúne lo que ya confirmaste.",
+        "Entran tres números, en el orden en que los fuiste encontrando.",
+        "El candado es 4714: el 4, el 7 y el 14."
+      ],
+      "debrief": "El 4, el 7 y el 14 estaban en pruebas distintas. Juntos abren la caja.",
+      "solution": {
+        "code": "4714"
+      }
+    },
+    {
+      "id": "traffic",
+      "room": "servidores",
+      "concept": "traffic",
+      "seconds": 240,
+      "title": "Fuga",
+      "objective": "Servidores: elige el color de la fuga que se repite.",
+      "manual": "El tráfico es el movimiento de datos entre equipos; una fuga es una copia que sale hacia fuera. La copia grande se repite desde RACK-03 hacia 203.0.113.44 y está marcada en azul, con la palabra y una flecha, no solo con pintura.",
+      "hints": [
+        "No elijas un color porque brille. Busca la copia que se repite y sale.",
+        "El destino de documentación y el volumen grande están en la misma fila, con una palabra y una flecha.",
+        "La fuga hacia 203.0.113.44 es la azul."
+      ],
+      "debrief": "La misma copia grande sale de RACK-03 hacia 203.0.113.44, marcada azul. Esa dirección es de documentación.",
+      "solution": {
+        "color": "azul"
+      }
+    },
+    {
+      "id": "cable",
+      "room": "servidores",
+      "concept": "containment",
+      "seconds": 180,
+      "title": "Contención",
+      "objective": "Servidores: corta solo el cable del color de esa fuga.",
+      "manual": "Contener es cortar el camino por donde el daño sigue saliendo, y dejar intacto lo que mantiene a salvo a las personas. El cable azul es el de la fuga. El verde sostiene la vida. El rojo es energía. El amarillo es voz y no abre el paso.",
+      "hints": [
+        "Corta solo el camino por donde salen los datos. Lee la palabra, no te fíes del color a solas.",
+        "El verde mantiene a salvo a las personas. El rojo es energía. El amarillo es voz.",
+        "El cable de la fuga es el azul, el mismo color que marcaste en el tráfico."
+      ],
+      "debrief": "El verde sostiene a las personas. El rojo quita energía. El amarillo no abre nada. El cable de la fuga es el azul.",
+      "solution": {
+        "color": "azul"
+      }
+    },
+    {
+      "id": "fire",
+      "room": "servidores",
+      "concept": "failsafe",
+      "seconds": 180,
+      "title": "Fail-safe",
+      "objective": "Servidores: sincroniza los dos detectores para abrir el laboratorio.",
+      "manual": "Un fail-safe es un seguro que abre un paso cuando dos avisos coinciden; aquí es luz y una llave, no un incendio. Los dos detectores a la vez abren el laboratorio durante 90 segundos. La lámpara es un LED: luz y sonido.",
+      "hints": [
+        "El manual de emergencia habla de dos avisos a la vez, no de prender nada.",
+        "Una lámpara LED y una llave tienen que coincidir. El laboratorio se abre un rato.",
+        "Coloca la lámpara en un detector y usa la llave en el otro casi al mismo tiempo."
+      ],
+      "debrief": "Dos detectores a la vez abren el laboratorio durante noventa segundos. La lámpara es LED.",
+      "solution": {
+        "synced": true
+      }
+    },
+    {
+      "id": "osint",
+      "room": "laboratorio",
+      "concept": "osint",
+      "seconds": 240,
+      "title": "Ficha a la vista",
+      "objective": "Laboratorio: identifica la mascota que ya está escrita en la ficha.",
+      "manual": "OSINT es observar lo que una persona ya dejó a la vista, sin entrar en ningún sistema. La ficha de V. Soto nombra a un gato. El nombre escrito es Pixel. Otra mascota no sirve.",
+      "hints": [
+        "La respuesta ya está escrita en una ficha. No hace falta entrar en ningún sistema.",
+        "V. Soto tiene una mascota nombrada. Otro gato no es el mismo nombre.",
+        "La mascota de V. Soto es Pixel."
+      ],
+      "debrief": "La ficha de V. Soto nombra al gato Pixel. Otra mascota no abre el cofre.",
+      "solution": {
+        "pet": "Pixel"
+      }
+    },
+    {
+      "id": "base64",
+      "room": "laboratorio",
+      "concept": "obfuscation",
+      "seconds": 300,
+      "title": "Texto disfrazado",
+      "objective": "Laboratorio: reconoce el texto disfrazado y la palabra que lo completa.",
+      "manual": "Ofuscar es cambiar el aspecto de un texto; Base64 disfraza letras y no las protege. La nota muestra Q09GUkUgRU4gRUwgQ0FKT04gREVM. Con la tabla pública se lee COFRE EN EL CAJON DEL. La palabra que completa la idea es la mascota ya vista.",
+      "hints": [
+        "El texto raro no es una cerradura fuerte. Es un disfraz de letras.",
+        "La tarjeta ya separa los trozos. Léelos y completa con lo que viste en la ficha.",
+        "Se lee COFRE EN EL CAJON DEL. La palabra que falta es Pixel."
+      ],
+      "debrief": "Base64 cambia el aspecto. La frase es COFRE EN EL CAJON DEL y la palabra que falta es Pixel. Ahí aparecen el 7391 y la MAC que termina en :4F.",
+      "solution": {
+        "key": "Pixel",
+        "decoded": true
+      }
+    },
+    {
+      "id": "rssi",
+      "room": "laboratorio",
+      "concept": "inventory",
+      "seconds": 240,
+      "title": "Inventario",
+      "objective": "Laboratorio: marca la celda donde el plano cruza las distancias.",
+      "manual": "El inventario es la lista de equipos que sí pertenecen a la casa; una MAC ausente es un extraño. El intruso usa una dirección que termina en 4F y no está en la lista. El plano de señal sitúa el cruce en la celda C-4, el carro de aseo.",
+      "hints": [
+        "Busca el equipo que no está en el inventario de la casa.",
+        "La MAC termina en 4F. El plano ya trae las distancias: cruza las tres.",
+        "El cruce cae en la celda C-4, en el carro de aseo."
+      ],
+      "debrief": "La MAC que termina en :4F no está en el inventario. El plano la sitúa en el carro, celda C-4.",
+      "solution": {
+        "cell": "C-4"
+      }
+    },
+    {
+      "id": "hash",
+      "room": "laboratorio",
+      "concept": "integrity",
+      "seconds": 240,
+      "title": "Huella",
+      "objective": "Laboratorio: aparta la copia cuya huella no coincide.",
+      "manual": "La integridad se comprueba con una huella: si no coincide, el archivo cambió. Las copias A y B coinciden con la huella oficial. La copia C hallada, 21ea12c9e607, no coincide con e8576173473a. Esa es la que se aparta.",
+      "hints": [
+        "Compara cada copia con la huella oficial. La que no coincide se aparta.",
+        "A y B coinciden. Una tercera no.",
+        "Descarta la copia C."
+      ],
+      "debrief": "La huella C no coincide con la oficial y se descarta. A y B quedan.",
+      "solution": {
+        "discard": "C"
+      }
+    },
+    {
+      "id": "kill",
+      "room": "laboratorio",
+      "concept": "integrity",
+      "seconds": 180,
+      "title": "Código de parada",
+      "objective": "Laboratorio: introduce el código de parada que ya reveló la nota.",
+      "manual": "La integridad se comprueba con una huella: si no coincide, el archivo cambió. El código de parada solo se usa después de apartar la copia mala. 7391 detiene la lista. 1793 es una trampa y adelanta el reloj.",
+      "hints": [
+        "El código de parada es el que mostró la nota, no el orden invertido.",
+        "Invertir las cifras adelanta el reloj y no detiene la copia.",
+        "El código es 7391. 1793 es la trampa."
+      ],
+      "debrief": "El 7391 detiene la copia. El 1793 adelanta el reloj un minuto y no cierra el incidente.",
+      "solution": {
+        "code": "7391"
+      }
+    }
+  ]
+}

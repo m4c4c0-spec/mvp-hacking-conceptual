@@ -1,12 +1,12 @@
 # Misiones siguientes
 
-Tres tickets futuros para Estudio 01. **No están en** `Assets/Resources/Content/missions.json`. El acto 1 no los usa. Cuando pidan «sigue la historia», el historiador los dramatiza en `docs/historia/ACTO_2.md` sin pegarlos al JSON.
+**Archivo histórico. No es canon. No se vuelca.**
 
-Esquema: `docs/CONTRATO_CONTENIDO.md`. Acentos permitidos: `cyan`, `amber`, `violet`, `green`. Terminal: `scan`, `inspect`, `notes`, `report` (el juego también entiende `map`, `help`, `clear`; `simulate` sigue reservado al caso Orbital).
+Estas fichas son del marco anterior (Estudio 01, tickets 05–07: Taller Bruma, Editorial Cauce, Puerto Calma). Operación Cóndor Silencioso no las usa, no las dramatiza como acto 2 y no las añade a `missions.json` ni a `condor.json`.
 
-Estado: fichas listas para volcar. Prosa de acto todavía no escrita.
+La historia vigente está en [BIBLIA.md](BIBLIA.md). El recorrido jugable está en [ACTO_1.md](ACTO_1.md). Las salas están en [07-lockdown-fbi.md](../diseno/07-lockdown-fbi.md): ese path se conserva para no romper enlaces; el cuerpo es Cóndor.
 
-Al volcar, más adelante y en una pasada aparte: añadir los conceptos al arreglo `concepts` y estas misiones al final de `missions`, con `number` 05, 06 y 07. No reordenar las cuatro primeras.
+Cualquier instrucción de «volcar» que quede en el archivo de abajo queda anulada. El cuerpo se conserva solo como archivo.
 
 ## Conceptos nuevos
 

@@ -19,8 +19,8 @@ Unity 6000.6.3f1, Mac Build Support (Mono), Metal, macOS mínimo 12.0. No se ha 
 Se conservaron los cambios previos del proyecto: oficina ampliada, cuatro personajes estilizados, manos en primera persona, coach de movimiento, sillas físicas y flujo narrativo. No se regresó a la distribución antigua.
 
 - Acabados de madera, yeso y tejido; biseles en mobiliario con mallas persistidas en el prefab.
-- Tres PNG originales generados mediante Higgsfield MCP: roble, tejido y yeso, 1024 × 1024. Aplicados a oficina y ropa de los personajes, preservando piel, ojos y cabello. Prompts, trabajos y hashes en [procedencia](../integrations/higgsfield/texture-provenance.json).
-- Texturizado triplanar en escala métrica, mipmaps, filtrado y compresión; sin dependencia de Higgsfield durante el juego.
+- Tres PNG de roble, tejido y yeso, 1024 × 1024, en `Assets/Art/Office/Resources/OfficeTextures/`. Aplicados a oficina y ropa de los personajes, preservando piel, ojos y cabello.
+- Texturizado triplanar en escala métrica, mipmaps, filtrado y compresión.
 - Iluminación suave del entorno, luz cálida de lámparas, relleno frío de ventanas y antialiasing 4×. Los personajes mantienen su sombreado cel.
 - Cuatro ventanas transparentes con huecos reales en el muro, marcos, tiradores, persianas y colisión de contención.
 - Exterior 3D: calle inferior, acera, árboles, edificios en varias capas, azoteas y cielo con variación lenta de nubes. La profundidad cambia al caminar: no es una imagen plana pegada al vidrio.
@@ -51,7 +51,7 @@ Las pruebas antiguas usaban posiciones de la oficina pequeña y suponían sprint
 
 ## Integraciones y límites
 
-El agente de texturas sí recibió las herramientas de Higgsfield y completó los tres trabajos. La skill de Unity del enlace facilitado no apareció en el catálogo accesible; no se afirma haberla utilizado. El modelado, renderizado, pruebas y compilación se realizaron directamente con el editor Unity instalado.
+El modelado, renderizado, pruebas y compilación se realizaron directamente con el editor Unity instalado.
 
 Según la [documentación de plugins de OpenAI](https://learn.chatgpt.com/docs/plugins), las skills y herramientas recién instaladas se cargan en un chat o sesión nuevos. El identificador del enlace no permitió identificar ni inspeccionar ese plugin Unity; para continuar ese diagnóstico hace falta el nombre mostrado en su ficha o el mensaje exacto de error.
 

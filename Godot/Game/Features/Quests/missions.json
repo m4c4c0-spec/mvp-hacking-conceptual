@@ -1,0 +1,877 @@
+{
+  "title": "Protocolo Salida · Lockdown en Nueva York",
+  "version": 2,
+  "concepts": [
+    {
+      "id": "recon",
+      "name": "Reconocimiento",
+      "category": "Observación",
+      "definition": "Construir un mapa de un sistema a partir de información disponible y del alcance acordado.",
+      "importance": "Permite entender qué existe antes de evaluar sus riesgos. Una pista no demuestra una vulnerabilidad.",
+      "defense": "Mantener un inventario de activos, revisar lo publicado y asignar responsables."
+    },
+    {
+      "id": "scope",
+      "name": "Alcance y autorización",
+      "category": "Ética",
+      "definition": "Los límites explícitos de una evaluación: sistemas, acciones y condiciones autorizadas.",
+      "importance": "Que un sistema sea visible no significa que esté permitido investigarlo.",
+      "defense": "Documentar permisos y exclusiones; consultar al responsable ante cualquier duda."
+    },
+    {
+      "id": "phishing",
+      "name": "Ingeniería social",
+      "category": "Personas",
+      "definition": "Manipular la confianza, la urgencia o la autoridad para inducir una acción.",
+      "importance": "Un mensaje convincente puede llevar a compartir información o aprobar solicitudes falsas.",
+      "defense": "Verificar por un canal conocido, evitar actuar bajo presión y reportar los mensajes sospechosos."
+    },
+    {
+      "id": "verification",
+      "name": "Verificación independiente",
+      "category": "Personas",
+      "definition": "Confirmar una solicitud usando un canal confiable distinto del que la originó.",
+      "importance": "Un nombre visible, un logotipo o incluso una cuenta conocida no garantizan legitimidad.",
+      "defense": "Usar el directorio interno o un marcador conocido; nunca confiar en el contacto incluido en el mensaje dudoso."
+    },
+    {
+      "id": "passwords",
+      "name": "Contraseñas únicas y gestores",
+      "category": "Identidad",
+      "definition": "Utilizar una credencial larga y diferente para cada servicio, almacenada en un gestor.",
+      "importance": "Reutilizar una contraseña permite que la filtración de un servicio afecte a otros.",
+      "defense": "Ofrecer un gestor, favorecer claves largas y únicas, bloquear contraseñas conocidas como comprometidas y permitir pegar."
+    },
+    {
+      "id": "mfa",
+      "name": "Autenticación multifactor",
+      "category": "Identidad",
+      "definition": "Combinar factores independientes para verificar una identidad. Una passkey con verificación del usuario puede ofrecer autenticación multifactor resistente al phishing.",
+      "importance": "Una contraseña robada deja de ser suficiente cuando hay un segundo factor adecuado.",
+      "defense": "Priorizar passkeys o llaves de seguridad; proteger también el alta de factores y la recuperación de la cuenta."
+    },
+    {
+      "id": "surface",
+      "name": "Superficie de ataque",
+      "category": "Sistemas",
+      "definition": "El conjunto de interfaces y activos que podrían recibir interacciones no confiables.",
+      "importance": "Los servicios olvidados o innecesariamente públicos aumentan las oportunidades de acceso indebido.",
+      "defense": "Inventariar, retirar lo que no se usa y limitar las interfaces administrativas y los permisos."
+    },
+    {
+      "id": "transport",
+      "name": "Protección del transporte",
+      "category": "Sistemas",
+      "definition": "HTTPS protege la confidencialidad e integridad de la comunicación entre cliente y servidor.",
+      "importance": "Sin transporte protegido, la información en tránsito puede quedar expuesta. HTTPS no garantiza que el sitio sea honesto.",
+      "defense": "Exigir HTTPS, gestionar certificados y redirecciones y evitar transportar credenciales por canales sin protección."
+    }
+  ],
+  "missions": [
+    {
+      "id": "recon",
+      "number": "01",
+      "type": "TUTORIAL",
+      "title": "Edificio en lockdown",
+      "subtitle": "Control root y amenaza sobre los ascensores",
+      "client": "FBI · Nueva York · Ficción",
+      "duration": "3 min",
+      "accent": "cyan",
+      "concepts": [
+        "recon",
+        "scope",
+        "phishing"
+      ],
+      "brief": "Hackers con acceso root han tomado el edificio del FBI en Nueva York y encerrado al equipo. Amenazan con soltar todos los ascensores. Contrasta sus mensajes con el registro local y busca una salida alternativa. Aún no sabemos quiénes son ni cómo consiguieron el acceso.",
+      "mentor": "Conserva las pruebas. Resuelve esta fase y activa su control físico en el panel de salida.",
+      "scope": "Solo controles ficticios del edificio del FBI en Nueva York; simulación local sin conexión a sistemas reales.",
+      "objective": "Confirmar el control root y el bloqueo sin atribuir un origen no demostrado.",
+      "commandHint": "scan · map · inspect lumen · notes",
+      "evidence": [
+        {
+          "id": "lumen",
+          "label": "Correo de mantenimiento",
+          "kind": "DOCUMENTO INTERNO",
+          "icon": "map",
+          "source": "Correo guardado en la laptop",
+          "body": "Durante el lockdown aparece un aviso de mantenimiento que exige iniciar sesión de inmediato. El enlace mantenimiento-oficina.invalid copia el portal interno, pero no coincide con el dominio autorizado. No hay pruebas de que alguien lo usara ni de que explique cómo consiguieron acceso root.",
+          "question": "¿Qué método sugieren estas señales?",
+          "options": [
+            "Phishing: suplantación para capturar credenciales.",
+            "Un fallo físico en la bisagra.",
+            "Fuerza bruta demostrada por este correo."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Cómo comprobarías el aviso?",
+          "reasons": [
+            "Usar el enlace urgente.",
+            "Verificar por un canal conocido y conservar el correo.",
+            "Borrar toda la evidencia."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "El correo presenta señales de phishing. Conservarlo permite investigar; no demuestra que fuera el origen del acceso root.",
+          "concept": "phishing"
+        },
+        {
+          "id": "scope",
+          "label": "Control root confirmado",
+          "kind": "ALCANCE",
+          "icon": "shield",
+          "source": "Registro local del controlador",
+          "body": "El registro local muestra una sesión no autorizada con privilegios root que cambia la política de salida. Confirma control privilegiado, pero no contiene el acceso inicial ni identifica a los atacantes.",
+          "question": "¿Qué permite afirmar este registro?",
+          "options": [
+            "Los atacantes entraron físicamente al edificio.",
+            "El correo demuestra cómo consiguieron acceso root.",
+            "Existe control root no autorizado; su origen sigue sin determinar."
+          ],
+          "answer": 2,
+          "reasonQuestion": "¿Qué acción contiene este acceso?",
+          "reasons": [
+            "Revocar la sesión comprometida y conservar el registro.",
+            "Cambiar solo el fondo de pantalla.",
+            "Compartir la contraseña para recuperar acceso."
+          ],
+          "reasonAnswer": 0,
+          "feedback": "El nivel de privilegios no revela cómo se obtuvo. Conserva el registro y limita el acceso del panel local.",
+          "concept": "scope"
+        },
+        {
+          "id": "archive",
+          "label": "Lockdown y amenaza",
+          "kind": "PISTA",
+          "icon": "note",
+          "source": "Pantalla intervenida y auditoría local de la puerta",
+          "body": "Los atacantes anuncian que controlan el edificio y amenazan con soltar todos los ascensores. La auditoría registra LOCK_OFFICE emitida por la sesión root. La puerta obedece el bloqueo remoto. La amenaza no confirma que los ascensores hayan caído; el equipo necesita una ruta alternativa.",
+          "question": "¿Qué confirma el estado de la oficina?",
+          "options": [
+            "La puerta está rota.",
+            "El control root impuso el bloqueo y los atacantes amenazan los ascensores.",
+            "El archivo contiene un virus porque tiene carpetas."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Cómo prepararías la salida de esta oficina?",
+          "reasons": [
+            "Forzar todas las cuentas sin diagnóstico.",
+            "Eliminar los registros antes de aislar.",
+            "Conservar pruebas, aislar y recuperar el panel local para buscar una ruta alternativa."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "Recuperar una puerta local no anula el lockdown del edificio. Evita depender de los ascensores y busca otra ruta.",
+          "concept": "recon"
+        }
+      ],
+      "report": {
+        "prompt": "¿Qué sabemos del lockdown y qué sigue sin confirmarse?",
+        "options": [
+          "Control root no autorizado, bloqueo y amenaza sobre ascensores; identidades y origen del acceso aún desconocidos.",
+          "El correo demuestra que el acceso root se consiguió por phishing.",
+          "Todos los ascensores ya han caído y el edificio está evacuado."
+        ],
+        "answer": 0
+      },
+      "quiz": [
+        {
+          "question": "¿Qué señal del correo requiere verificar su origen?",
+          "options": [
+            "Urgencia y un dominio que suplanta el portal.",
+            "Que tenga un saludo.",
+            "Que aparezca en una laptop."
+          ],
+          "answer": 0,
+          "explanation": "La urgencia y el dominio suplantado justifican verificar el correo. No prueban el origen del acceso root."
+        },
+        {
+          "question": "¿Qué dato sigue sin conocerse tras revisar el registro root?",
+          "options": [
+            "Que existe un bloqueo remoto.",
+            "Cómo consiguieron el acceso inicial.",
+            "Que los atacantes amenazan los ascensores."
+          ],
+          "answer": 1,
+          "explanation": "El registro confirma privilegios y acciones, no el método de acceso inicial."
+        },
+        {
+          "question": "¿Qué significa recuperar el panel de esta oficina?",
+          "options": [
+            "Que todos los atacantes fueron detenidos.",
+            "Que ya terminó el lockdown de todo el edificio.",
+            "Que se habilita una salida local y todavía hay que buscar una ruta de fuga."
+          ],
+          "answer": 2,
+          "explanation": "El control local de una puerta no equivale a recuperar el edificio ni a completar la historia."
+        }
+      ],
+      "learned": "Confirmar el control root y el bloqueo sin atribuir un origen no demostrado.",
+      "application": [
+        {
+          "title": "El plano reenviado",
+          "concepts": [
+            "phishing",
+            "recon"
+          ],
+          "body": "En el panel aparece un plano de evacuación enviado por una cuenta desconocida. Exige tu contraseña para mostrar el acceso de mantenimiento. El registro local solo confirma el lockdown.",
+          "question": "¿Qué haces para buscar la ruta?",
+          "options": [
+            "Entregar la contraseña para ganar tiempo.",
+            "Consultar el plano local autorizado y conservar el mensaje.",
+            "Dar por demostrado que ese mensaje originó el acceso root."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Qué principio sostiene tu decisión?",
+          "reasons": [
+            "La urgencia convierte el mensaje en confiable.",
+            "Un documento con logotipo siempre es oficial.",
+            "Una petición de secretos exige verificar el origen; no prueba el método de intrusión."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "Distingue lo que pide el mensaje de lo que demuestran los registros. Una ruta de escape no debe depender de entregar secretos a un remitente desconocido."
+        },
+        {
+          "title": "Dos controladores",
+          "concepts": [
+            "scope",
+            "recon"
+          ],
+          "body": "El diagnóstico separa PANEL LOCAL DE OFICINA y CONTROL GLOBAL DEL EDIFICIO. Solo puedes recuperar el primero. El segundo sigue indicando LOCKDOWN.",
+          "question": "¿Qué intervención está respaldada?",
+          "options": [
+            "Recuperar el panel local y buscar una ruta alternativa.",
+            "Declarar evacuado el edificio al abrir la oficina.",
+            "Modificar cualquier equipo conectado sin revisar su función."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Por qué esa intervención es proporcionada?",
+          "reasons": [
+            "El acceso a un panel concede control de todo el edificio.",
+            "El alcance conocido permite actuar localmente sin afirmar una recuperación global.",
+            "Todo registro de lockdown identifica al atacante."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "El alcance limita lo que puedes concluir y modificar. Abrir una puerta no demuestra que el edificio esté recuperado."
+        }
+      ]
+    },
+    {
+      "id": "social",
+      "number": "02",
+      "type": "PERSONAS",
+      "title": "Cortar el hilo",
+      "subtitle": "Contención del canal de engaño",
+      "client": "FBI · Nueva York · Ficción",
+      "duration": "4 min",
+      "accent": "amber",
+      "concepts": [
+        "phishing",
+        "verification"
+      ],
+      "brief": "Durante el lockdown llegan mensajes que piden credenciales y cambios de acceso. Distingue las solicitudes engañosas de las verificables y aísla el canal local sin borrar las pruebas. Ningún correo identifica por sí solo a los atacantes.",
+      "mentor": "Conserva las pruebas. Resuelve esta fase y activa su control físico en el panel de salida.",
+      "scope": "Solo controles ficticios del edificio del FBI en Nueva York; simulación local sin conexión a sistemas reales.",
+      "objective": "Separar mensajes fiables de engaños y contener el incidente.",
+      "commandHint": "scan · inspect payroll · notes",
+      "evidence": [
+        {
+          "id": "payroll",
+          "label": "Tu nómina será bloqueada",
+          "kind": "EMAIL · 09:12",
+          "icon": "mail",
+          "source": "Archivo del incidente / Soporte Nómina <nomina@nebula-ayuda.invalid>",
+          "body": "Registro local del edificio en lockdown.\nASUNTO: Último aviso: valida tu acceso en 10 minutos.\n\nPara evitar el bloqueo, responde con tu contraseña y código de verificación. Mantén esta gestión en secreto.\n\nFirma: Departamento de Personas.",
+          "question": "¿Qué acción corresponde?",
+          "options": [
+            "Responder con el código, pero no con la contraseña.",
+            "Reportar el mensaje como sospechoso.",
+            "Archivar sin avisar al equipo."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Cuál es la evidencia más clara?",
+          "reasons": [
+            "Cualquier correo de nómina es malicioso.",
+            "Un correo con firma siempre es legítimo.",
+            "Solicita secretos y usa urgencia y confidencialidad para presionar."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "La combinación de solicitud de secretos, presión y aislamiento es una señal fuerte de engaño.",
+          "concept": "phishing"
+        },
+        {
+          "id": "invoice",
+          "label": "Cambio de cuenta bancaria",
+          "kind": "EMAIL · 09:24",
+          "icon": "mail",
+          "source": "Archivo del incidente / Proveedor conocido <facturas@proveedor.invalid>",
+          "body": "Registro local del edificio en lockdown.\nASUNTO: Nueva cuenta para el pago de este mes.\n\nHola, cambiamos de banco. Usa los datos del adjunto para el próximo pago. Si tienes dudas, llama al nuevo número incluido aquí.\n\nEl remitente coincide con un contacto habitual, pero el cambio no estaba previsto.",
+          "question": "¿Qué acción corresponde?",
+          "options": [
+            "Verificar por el teléfono del directorio previamente validado.",
+            "Pagar porque el remitente es conocido.",
+            "Llamar exclusivamente al nuevo número del correo."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Por qué?",
+          "reasons": [
+            "Todos los cambios de banco son fraude.",
+            "Una cuenta conocida puede estar comprometida; el canal del propio mensaje no es independiente.",
+            "El formato del correo confirma la identidad."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "Un remitente conocido no elimina el riesgo. Usa un dato de contacto que ya era confiable antes del mensaje.",
+          "concept": "verification"
+        },
+        {
+          "id": "meeting",
+          "label": "Recordatorio de reunión",
+          "kind": "EMAIL · 09:31",
+          "icon": "mail",
+          "source": "Archivo del incidente / Calendario interno <calendario@nebula.invalid>",
+          "body": "Registro local del edificio en lockdown.\nASUNTO: Revisión semanal a las 11:00.\n\nLa reunión figura en el calendario interno que ya tenías abierto. Mismos participantes y sala. No hay enlaces nuevos, adjuntos ni solicitud de datos.",
+          "question": "¿Qué acción es proporcionada?",
+          "options": [
+            "Reportarlo porque todos los mensajes son amenazas.",
+            "Enviar tu contraseña para confirmar asistencia.",
+            "Seguir el flujo habitual usando el calendario conocido."
+          ],
+          "answer": 2,
+          "reasonQuestion": "¿Qué respalda tu decisión?",
+          "reasons": [
+            "Coincide con información verificada de forma independiente y no solicita acciones inusuales.",
+            "Ningún calendario puede ser comprometido.",
+            "El nombre visible basta para confiar."
+          ],
+          "reasonAnswer": 0,
+          "feedback": "Detectar señales también implica evitar falsos positivos. Aquí hay corroboración independiente, no confianza ciega.",
+          "concept": "verification"
+        },
+        {
+          "id": "gift",
+          "label": "Un regalo del director",
+          "kind": "EMAIL · 09:42",
+          "icon": "mail",
+          "source": "Archivo del incidente / Dirección <direccion-premios@mensajes.invalid>",
+          "body": "Registro local del edificio en lockdown.\nASUNTO: Elegido para una recompensa privada.\n\nSoy el director. Compra tarjetas de regalo y envíame los códigos. No contactes a administración: quiero darles una sorpresa. Es urgente.",
+          "question": "¿Qué acción corresponde?",
+          "options": [
+            "Comprar solo una tarjeta para comprobar.",
+            "Reportar y corroborar la solicitud por un canal interno conocido.",
+            "Responder con información del equipo."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Qué mecanismo de engaño observas?",
+          "reasons": [
+            "Una invitación normal a una reunión.",
+            "Un problema de cifrado del mensaje.",
+            "Suplantación de autoridad, urgencia y petición de evitar controles."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "La autoridad aparente no sustituye los controles. El reporte del juego representa una práctica interna, no envía mensajes reales.",
+          "concept": "phishing"
+        }
+      ],
+      "report": {
+        "prompt": "Valida la contención: ¿qué mensajes del incidente son engaños y cuál puede verificarse?",
+        "options": [
+          "Bloquear todo correo, incluidos los recordatorios corroborados.",
+          "Confiar siempre en nombres y logotipos conocidos.",
+          "Reportar nómina y regalo; verificar el cambio bancario por un canal conocido; mantener el flujo habitual de la reunión corroborada."
+        ],
+        "answer": 2
+      },
+      "quiz": [
+        {
+          "question": "¿Qué hace independiente a una verificación?",
+          "options": [
+            "Usar el teléfono que aparece en el correo dudoso.",
+            "Usar un contacto confiable obtenido antes de la solicitud.",
+            "Preguntar al remitente si es auténtico."
+          ],
+          "answer": 1,
+          "explanation": "El propio mensaje sospechoso no debe elegir el canal de verificación."
+        },
+        {
+          "question": "¿Qué señal exige especial cautela?",
+          "options": [
+            "Una firma elegante.",
+            "Un saludo personalizado.",
+            "Solicitar secretos y saltarse los controles con urgencia."
+          ],
+          "answer": 2,
+          "explanation": "Evalúa lo que pide el mensaje, no solo su apariencia."
+        },
+        {
+          "question": "¿Todo mensaje urgente es fraudulento?",
+          "options": [
+            "No. Hay que evaluar evidencia y corroborar por un canal conocido.",
+            "Sí, sin excepciones.",
+            "No; si es urgente hay que obedecer."
+          ],
+          "answer": 0,
+          "explanation": "La urgencia es una señal contextual; justificar la clasificación reduce falsos positivos."
+        }
+      ],
+      "learned": "Separar mensajes fiables de engaños y contener el incidente.",
+      "application": [
+        {
+          "title": "Una orden por radio escrita",
+          "concepts": [
+            "phishing",
+            "verification"
+          ],
+          "body": "Un mensaje firmado por «Coordinación» pide reconectar el canal aislado para guiar al equipo. Incluye un nuevo número de contacto. Conservas un directorio local anterior al lockdown.",
+          "question": "¿Cómo compruebas la orden?",
+          "options": [
+            "Llamar al número que incluye el mensaje.",
+            "Reconectar porque conoce el nombre del sector.",
+            "Consultar el contacto del directorio previo al incidente."
+          ],
+          "answer": 2,
+          "reasonQuestion": "¿Qué hace independiente esa verificación?",
+          "reasons": [
+            "El mensaje sospechoso no elige el canal con el que se verifica.",
+            "El directorio contiene más texto que el mensaje.",
+            "Cualquier llamada confirma automáticamente una identidad."
+          ],
+          "reasonAnswer": 0,
+          "feedback": "Verifica fuera del canal que intenta convencerte. Un número aportado por el propio mensaje no constituye una comprobación independiente."
+        },
+        {
+          "title": "La alerta corroborada",
+          "concepts": [
+            "verification",
+            "phishing"
+          ],
+          "body": "La tableta muestra una alerta urgente sobre una puerta local. El responsable conocido confirma la misma alerta por el canal del directorio. No pide contraseñas ni desactivar controles.",
+          "question": "¿Cómo respondes?",
+          "options": [
+            "Borrar toda alerta urgente.",
+            "Atender la alerta corroborada conservando los controles.",
+            "Compartir las credenciales para acelerar la ayuda."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Qué diferencia esta alerta del engaño anterior?",
+          "reasons": [
+            "La palabra urgente garantiza que es real.",
+            "El logotipo evita que sea suplantada.",
+            "La solicitud fue contrastada por un canal independiente y no exige saltarse controles."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "La urgencia no demuestra fraude ni legitimidad. Evalúa la solicitud y la comprobación disponible antes de actuar."
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "number": "03",
+      "type": "IDENTIDAD",
+      "title": "Recuperar nuestra identidad",
+      "subtitle": "Revocación y recuperación",
+      "client": "FBI · Nueva York · Ficción",
+      "duration": "3 min",
+      "accent": "violet",
+      "concepts": [
+        "passwords",
+        "mfa"
+      ],
+      "brief": "El canal local está contenido, pero el edificio sigue en lockdown. Revisa las credenciales del panel de la oficina, revoca accesos no autorizados y protege la recuperación. Esto no revela cómo consiguieron acceso root los atacantes.",
+      "mentor": "Conserva las pruebas. Resuelve esta fase y activa su control físico en el panel de salida.",
+      "scope": "Solo controles ficticios del edificio del FBI en Nueva York; simulación local sin conexión a sistemas reales.",
+      "objective": "Eliminar accesos heredados y proteger la recuperación.",
+      "commandHint": "scan · simulate · inspect reuse · notes",
+      "evidence": [
+        {
+          "id": "reuse",
+          "label": "Una clave para todo",
+          "kind": "SIMULACIÓN · POLÍTICA A",
+          "icon": "key",
+          "source": "Archivo del incidente / Panel de identidad / escenario de reutilización",
+          "body": "Registro local del edificio en lockdown.\nRegla actual: cada persona usa la misma contraseña en correo, archivo y proveedor.\nResultado ficticio: si una credencial se filtra en el proveedor, las otras dos cuentas también quedan en riesgo.",
+          "question": "¿Qué falla en esta política?",
+          "options": [
+            "La reutilización amplía el impacto de una filtración.",
+            "Usar tres servicios siempre es inseguro.",
+            "Una clave con símbolos no puede filtrarse."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Qué cambio eliges?",
+          "reasons": [
+            "Cambiar todas las claves por una clave compartida nueva.",
+            "Usar contraseñas largas y únicas con un gestor.",
+            "Anotar una contraseña común en el escritorio."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "El gestor permite mantener credenciales únicas sin depender de la memoria para cada cuenta.",
+          "concept": "passwords"
+        },
+        {
+          "id": "friction",
+          "label": "Reglas que estorban",
+          "kind": "SIMULACIÓN · POLÍTICA B",
+          "icon": "key",
+          "source": "Archivo del incidente / Panel de identidad / experiencia del equipo",
+          "body": "Registro local del edificio en lockdown.\nRegla actual: contraseñas cortas, cambio periódico sin indicios de compromiso y pegado bloqueado.\nResultado ficticio: el equipo repite patrones previsibles y evita el gestor.",
+          "question": "¿Qué problema describe la simulación?",
+          "options": [
+            "Los gestores no sirven para equipos.",
+            "La longitud de una contraseña nunca importa.",
+            "Las reglas fomentan patrones previsibles y dificultan claves únicas."
+          ],
+          "answer": 2,
+          "reasonQuestion": "¿Qué política eliges?",
+          "reasons": [
+            "Favorecer longitud y unicidad, permitir gestores y bloquear claves conocidas como comprometidas.",
+            "Añadir más cambios obligatorios sin revisar el problema.",
+            "Permitir cualquier clave siempre que tenga un signo."
+          ],
+          "reasonAnswer": 0,
+          "feedback": "Mejores reglas reducen la fricción y el uso de patrones. Ante evidencia de compromiso sí corresponde cambiar la credencial.",
+          "concept": "passwords"
+        },
+        {
+          "id": "factor",
+          "label": "La segunda comprobación",
+          "kind": "SIMULACIÓN · POLÍTICA C",
+          "icon": "shield",
+          "source": "Archivo del incidente / Panel de identidad / factores",
+          "body": "Registro local del edificio en lockdown.\nRegla actual: contraseña y una segunda contraseña memorizada.\nResultado ficticio: ambas pruebas pertenecen al mismo tipo de factor: algo que sabes.",
+          "question": "¿Cómo evalúas esa política?",
+          "options": [
+            "Dos contraseñas siempre constituyen MFA.",
+            "No añade un factor independiente.",
+            "Es más resistente al phishing que una llave de seguridad."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Qué mejora seleccionas?",
+          "reasons": [
+            "Pedir una tercera contraseña.",
+            "Enviar la contraseña por correo en cada acceso.",
+            "Ofrecer passkeys con verificación del usuario o llaves de seguridad adecuadamente configuradas."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "Contar pasos no equivale a contar factores independientes. La resistencia al phishing también importa.",
+          "concept": "mfa"
+        },
+        {
+          "id": "recovery",
+          "label": "La puerta de recuperación",
+          "kind": "SIMULACIÓN · POLÍTICA D",
+          "icon": "shield",
+          "source": "Archivo del incidente / Panel de identidad / cuenta perdida",
+          "body": "Registro local del edificio en lockdown.\nRegla actual: el acceso normal exige MFA, pero soporte elimina los factores a cualquiera que indique el nombre de la cuenta.\nResultado ficticio: la recuperación ofrece menos garantías que el acceso normal.",
+          "question": "¿Qué necesita revisión?",
+          "options": [
+            "La identidad no se verifica suficientemente durante la recuperación.",
+            "MFA es inútil en todos los casos.",
+            "Nunca se debe permitir recuperar una cuenta."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Cuál es la defensa proporcionada?",
+          "reasons": [
+            "Desactivar MFA para que todas las rutas sean iguales.",
+            "Verificar la identidad con un proceso robusto y proteger los códigos de recuperación.",
+            "Publicar los códigos de recuperación en el perfil."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "El ciclo de identidad incluye el alta, el acceso y la recuperación; todos requieren controles coherentes.",
+          "concept": "mfa"
+        }
+      ],
+      "report": {
+        "prompt": "Confirma la política para revocar accesos y recuperar la identidad del controlador.",
+        "options": [
+          "Claves únicas con gestor, factores resistentes al phishing y recuperación protegida.",
+          "Una clave compartida muy compleja para toda la organización.",
+          "Dos contraseñas y recuperación sin verificación."
+        ],
+        "answer": 0
+      },
+      "quiz": [
+        {
+          "question": "¿Qué reduce el impacto de una filtración en otro servicio?",
+          "options": [
+            "Reutilizar una clave más larga.",
+            "Tener una contraseña diferente para cada cuenta.",
+            "Añadir el nombre del servicio al final de una clave compartida."
+          ],
+          "answer": 1,
+          "explanation": "La unicidad evita que una misma credencial abra múltiples cuentas."
+        },
+        {
+          "question": "¿Dos contraseñas distintas son necesariamente MFA?",
+          "options": [
+            "Sí, porque hay dos pasos.",
+            "Sí, si tienen símbolos.",
+            "No, ambas son algo que sabes."
+          ],
+          "answer": 2,
+          "explanation": "MFA se basa en factores independientes, no solo en múltiples pantallas."
+        },
+        {
+          "question": "¿Qué debe proteger una buena política de identidad?",
+          "options": [
+            "Acceso, alta de factores y recuperación.",
+            "Solo la pantalla de acceso.",
+            "Solo el nombre de usuario."
+          ],
+          "answer": 0,
+          "explanation": "Una recuperación débil puede deshacer la protección del acceso habitual."
+        }
+      ],
+      "learned": "Eliminar accesos heredados y proteger la recuperación.",
+      "application": [
+        {
+          "title": "Un segundo código memorizado",
+          "concepts": [
+            "passwords",
+            "mfa"
+          ],
+          "body": "El panel permite recuperar una cuenta individual. Un compañero propone una clave común para todos y un segundo código memorizado como supuesto MFA.",
+          "question": "¿Qué configuración eliges?",
+          "options": [
+            "Cuenta individual con clave única y un factor independiente adecuado.",
+            "Clave compartida y dos preguntas memorizadas.",
+            "La misma clave con el nombre del sector añadido."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Por qué mejora la protección?",
+          "reasons": [
+            "Dos secretos memorizados siempre equivalen a dos factores.",
+            "Reduce la reutilización y evita confundir dos pasos con factores independientes.",
+            "Una clave larga permite compartirla sin riesgo."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "Una clave compartida extiende el riesgo. Dos secretos memorizados pertenecen al mismo tipo de factor."
+        },
+        {
+          "title": "La excepción de soporte",
+          "concepts": [
+            "mfa",
+            "verification"
+          ],
+          "body": "Un supuesto técnico ofrece quitar el segundo factor si indicas el nombre de la cuenta. El procedimiento de recuperación local exige comprobar la identidad por el canal ya establecido.",
+          "question": "¿Cómo recuperas el acceso?",
+          "options": [
+            "Aceptar la excepción porque el edificio está bloqueado.",
+            "Publicar el código de recuperación para que ayude el equipo.",
+            "Usar el procedimiento verificado y conservar privados los códigos."
+          ],
+          "answer": 2,
+          "reasonQuestion": "¿Qué control estás aplicando?",
+          "reasons": [
+            "La recuperación necesita garantías coherentes con el acceso normal.",
+            "Conocer el nombre de una cuenta prueba su propiedad.",
+            "La urgencia elimina la necesidad de comprobar identidad."
+          ],
+          "reasonAnswer": 0,
+          "feedback": "Una recuperación débil puede deshacer la protección del segundo factor. El nombre de la cuenta no basta para demostrar identidad."
+        }
+      ]
+    },
+    {
+      "id": "web",
+      "number": "04",
+      "type": "SISTEMAS",
+      "title": "Abrir la oficina",
+      "subtitle": "Recuperación del acceso local",
+      "client": "FBI · Nueva York · Ficción",
+      "duration": "4 min",
+      "accent": "green",
+      "concepts": [
+        "surface",
+        "transport"
+      ],
+      "brief": "Revisa transporte, administración, API y servicios antiguos del panel local. Recuperar esta puerta permite abandonar la oficina; el edificio sigue bajo lockdown. La ruta de fuga deberá evitar los ascensores.",
+      "mentor": "Conserva las pruebas. Resuelve esta fase y activa su control físico en el panel de salida.",
+      "scope": "Solo controles ficticios del edificio del FBI en Nueva York; simulación local sin conexión a sistemas reales.",
+      "objective": "Retirar accesos innecesarios del panel local y habilitar la salida de la oficina.",
+      "commandHint": "scan · map · inspect login · notes",
+      "evidence": [
+        {
+          "id": "login",
+          "label": "Acceso del personal",
+          "kind": "ACTIVO · LOGIN",
+          "icon": "globe",
+          "source": "Archivo del incidente / http://acceso.oficina.invalid · Responsable: Personas",
+          "body": "Registro local del edificio en lockdown.\nLa ficha dice que el acceso transmite las credenciales por HTTP. No hay HTTPS ni redirección a un canal protegido. Uso: cuentas internas del edificio.",
+          "question": "¿Qué riesgo está respaldado?",
+          "options": [
+            "Las credenciales en tránsito carecen de protección del transporte.",
+            "El sitio ya está comprometido.",
+            "HTTP indica una contraseña débil."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Qué mejora recomiendas?",
+          "reasons": [
+            "Cambiar únicamente el logotipo.",
+            "Exigir HTTPS y gestionar certificados y redirecciones.",
+            "Ocultar el formulario con otro color."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "HTTPS protege el canal. No garantiza por sí solo la seguridad completa ni la legitimidad de un sitio.",
+          "concept": "transport"
+        },
+        {
+          "id": "admin",
+          "label": "Panel de administración",
+          "kind": "ACTIVO · ADMIN",
+          "icon": "shield",
+          "source": "Archivo del incidente / https://gestion.oficina.invalid · Responsable: Operaciones",
+          "body": "Registro local del edificio en lockdown.\nEl panel administrativo es público, aunque solo se usa desde la oficina. La ficha recomienda ampliar el acceso a toda la plantilla sin distinguir funciones.",
+          "question": "¿Qué riesgo observas?",
+          "options": [
+            "HTTPS hace imposible cualquier problema.",
+            "Todos los paneles públicos están comprometidos.",
+            "Exposición innecesaria y permisos más amplios que la necesidad."
+          ],
+          "answer": 2,
+          "reasonQuestion": "¿Qué defensa propones?",
+          "reasons": [
+            "Limitar el acceso a quienes lo necesitan, reforzar autenticación y aplicar mínimo privilegio.",
+            "Cambiar solo la dirección del panel.",
+            "Compartir una cuenta de administrador."
+          ],
+          "reasonAnswer": 0,
+          "feedback": "Reduce la exposición según el uso real y concede solo los permisos necesarios. Un nombre oculto no reemplaza controles.",
+          "concept": "surface"
+        },
+        {
+          "id": "api",
+          "label": "Catálogo público",
+          "kind": "ACTIVO · API",
+          "icon": "globe",
+          "source": "Archivo del incidente / https://catalogo.oficina.invalid · Responsable: Comunicaciones",
+          "body": "Registro local del edificio en lockdown.\nAPI documentada y pública de avisos públicos. Solo lectura, HTTPS, sin datos personales y con responsable y revisión definidos. Su publicación es necesaria para la web pública de la institución.",
+          "question": "¿Cómo lo clasificas?",
+          "options": [
+            "Vulnerable porque toda API pública es un fallo.",
+            "Exposición intencional; la ficha no demuestra una vulnerabilidad.",
+            "Seguro para siempre, sin necesidad de revisar."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Qué recomiendas?",
+          "reasons": [
+            "Eliminar el catálogo sin evaluar su uso.",
+            "Añadir datos internos porque usa HTTPS.",
+            "Mantenerlo inventariado y revisar periódicamente datos y controles."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "La superficie pública puede ser necesaria. La evaluación debe distinguir una exposición legítima de un riesgo innecesario.",
+          "concept": "surface"
+        },
+        {
+          "id": "legacy",
+          "label": "Micrositio antiguo",
+          "kind": "ACTIVO · LEGACY",
+          "icon": "archive",
+          "source": "Archivo del incidente / https://campana-antigua.oficina.invalid · Responsable: sin asignar",
+          "body": "Registro local del edificio en lockdown.\nLa campaña informativa terminó hace dos años. El micrositio sigue activo y no figura en el mantenimiento actual. Nadie ha confirmado si aún existe una necesidad de negocio.",
+          "question": "¿Qué registra el informe?",
+          "options": [
+            "Un activo sin responsable y posiblemente obsoleto.",
+            "Una filtración de datos confirmada.",
+            "Nada, porque tiene HTTPS."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Qué acción propones?",
+          "reasons": [
+            "Dejarlo publicado indefinidamente.",
+            "Asignar responsable, confirmar la necesidad y retirarlo de forma controlada si ya no se usa.",
+            "Copiarlo a más servidores."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "Retirar un activo exige revisar dependencias y necesidades. HTTPS no resuelve el abandono de mantenimiento.",
+          "concept": "surface"
+        }
+      ],
+      "report": {
+        "prompt": "Confirma el plan de limpieza antes de restaurar la cerradura.",
+        "options": [
+          "Cerrar toda la web porque una API es pública.",
+          "Proteger el login con HTTPS, limitar administración, revisar el micrositio y mantener el catálogo público bajo control.",
+          "Cambiar los nombres de los sitios y declarar resuelto el riesgo."
+        ],
+        "answer": 1
+      },
+      "quiz": [
+        {
+          "question": "¿Qué aporta HTTPS?",
+          "options": [
+            "Garantiza que la empresa es legítima.",
+            "Elimina la necesidad de autenticación.",
+            "Protege la confidencialidad e integridad del transporte."
+          ],
+          "answer": 2,
+          "explanation": "El canal protegido es un control concreto, no una garantía universal."
+        },
+        {
+          "question": "¿Una API pública es siempre una vulnerabilidad?",
+          "options": [
+            "No; depende de su propósito, los datos y los controles.",
+            "Sí, siempre.",
+            "No, ninguna API puede tener fallos."
+          ],
+          "answer": 0,
+          "explanation": "Evalúa la evidencia y la exposición necesaria para el negocio."
+        },
+        {
+          "question": "¿Qué haces con un activo antiguo sin responsable?",
+          "options": [
+            "Lo ignoras si tiene HTTPS.",
+            "Asignas responsable y confirmas si debe mantenerse o retirarse.",
+            "Lo declaras comprometido sin evidencia."
+          ],
+          "answer": 1,
+          "explanation": "El ciclo de vida y la propiedad de los activos son parte de la defensa."
+        }
+      ],
+      "learned": "Retirar accesos innecesarios del panel local y habilitar la salida de la oficina.",
+      "application": [
+        {
+          "title": "Candado sin permisos",
+          "concepts": [
+            "transport",
+            "surface"
+          ],
+          "body": "El panel de mantenimiento usa HTTPS, pero deja modificar la configuración a cualquier visitante. El canal está cifrado; los permisos no distinguen funciones.",
+          "question": "¿Qué corriges antes de habilitar la puerta?",
+          "options": [
+            "Quitar HTTPS porque ya existe un problema.",
+            "Mantener HTTPS y restringir la administración a cuentas autorizadas.",
+            "Dejarlo igual porque el candado garantiza toda la seguridad."
+          ],
+          "answer": 1,
+          "reasonQuestion": "¿Qué conceptos necesitas combinar?",
+          "reasons": [
+            "Una dirección difícil de adivinar reemplaza permisos.",
+            "Cifrado y autorización son el mismo control.",
+            "El transporte protege el canal; la autorización limita quién puede cambiar el sistema."
+          ],
+          "reasonAnswer": 2,
+          "feedback": "HTTPS no decide quién puede administrar el panel. El canal protegido y los permisos cumplen funciones distintas."
+        },
+        {
+          "title": "Inventario antes de salir",
+          "concepts": [
+            "surface",
+            "scope"
+          ],
+          "body": "Hay un visor público de avisos, de solo lectura y con responsable, y un servicio antiguo sin responsable ni uso confirmado. Ambos usan HTTPS.",
+          "question": "¿Qué plan deja el panel local en mejor estado?",
+          "options": [
+            "Conservar el visor controlado y revisar dependencias del servicio antiguo antes de retirarlo.",
+            "Cerrar todos los servicios públicos sin revisar su función.",
+            "Ignorar el servicio antiguo porque usa HTTPS."
+          ],
+          "answer": 0,
+          "reasonQuestion": "¿Qué justifica ese plan?",
+          "reasons": [
+            "Toda API pública está comprometida.",
+            "La exposición se evalúa según necesidad, datos, controles y responsable.",
+            "Un nombre antiguo demuestra por sí solo una intrusión."
+          ],
+          "reasonAnswer": 1,
+          "feedback": "Distingue exposición necesaria de abandono. Retirar un servicio requiere conocer su función y dependencias; no basta con su edad."
+        }
+      ]
+    }
+  ]
+}

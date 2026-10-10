@@ -1,30 +1,11 @@
 #!/bin/bash
-# Valida que missions.json sea JSON válido y tenga la estructura esperada
-set -e
+# Valida condor.json: 11 conceptos, 13 pasos, pistas, soluciones y sin herramientas reales.
+set -euo pipefail
+cd "$(dirname "$0")/.."
 
-echo "== Validando missions.json"
-JSON_FILE="Assets/Resources/Content/missions.json"
-
-if [ ! -f "$JSON_FILE" ]; then
-  echo "ERROR: $JSON_FILE no encontrado"
-  exit 1
+echo "== Validando condor.json"
+python3 scripts/sync-godot-content.py --check
+if command -v node >/dev/null 2>&1; then
+  node scripts/validate-content.mjs
 fi
-
-# Verificar que sea JSON válido
-if command -v python3 &> /dev/null; then
-  python3 -c "import json; json.load(open('$JSON_FILE'))" && echo "✓ JSON válido"
-else
-  echo "⚠ python3 no disponible, omitiendo validación JSON"
-fi
-
-# Verificar estructura básica
-if grep -q '"id":"recon"' "$JSON_FILE" && \
-   grep -q '"id":"social"' "$JSON_FILE" && \
-   grep -q '"evidence"' "$JSON_FILE"; then
-  echo "✓ Estructura esperada presente (recon, social, evidence)"
-else
-  echo "ERROR: Falta estructura esperada en missions.json"
-  exit 1
-fi
-
-echo "✓ missions.json válido para demo playable"
+echo "✓ Catálogo v3 de la operación"

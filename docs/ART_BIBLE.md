@@ -48,9 +48,14 @@ En Blender: PBR con roughness 0.55–0.85 en madera/pared; mint solo en props qu
 
 ## Presupuesto MVP
 
-- Hub completo visible: **&lt; 150k tris** (LOD0).
-- Texturas: 1K props mayoría; 2K solo laptop, pizarra, suelo si hace falta.
+La oficina es modelado ligero: primitivas, biseles y texturas 1K. En una máquina de 8 GB el coste grande no son los triángulos; son varios mapas de sombras suaves y el antialiasing 4×, que salen de la misma RAM que el sistema.
+
+- Hub completo visible: **&lt; 150k tris** (LOD0). La captura actual está en ~87k.
+- Texturas: 1K comprimidas en madera, tela y yeso. Sin mapas de normales.
 - Colliders: cajas en interactables; mesh collider solo en shell estático.
+- Escena en juego: dejar la escena por debajo de ~2 GB para que el proceso quepa, con el sistema operativo, en 8 GB.
+- Más de 8 GB: perfil de escritorio (MSAA 4×, sombras altas, dos focos con sombra suave).
+- 8 GB o menos, Android/Quest, o **EthicalLab → Office → Preview 8 GB render**: una sombra dura de la luz de ventana, dos focos sin mapa de sombras, rellenos por vértice, MSAA 2×. El albedo triplanar se mantiene.
 
 ## Tono copy (coherente con arte)
 

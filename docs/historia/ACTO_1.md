@@ -1,180 +1,185 @@
-# Acto 1 — El primer día en Estudio 01
+# Acto 1 · Operación Cóndor Silencioso
 
-Cubre el hub jugable y las cuatro misiones ya publicadas (`recon`, `social`, `identity`, `web`). Nada de este acto pide un archivo nuevo en `missions.json`.
+Recorrido jugable de una noche. Las cifras y los textos de acierto están cerrados en [la biblia](BIBLIA.md). Si algo de aquí discrepa, manda la biblia.
 
-Lugar único: la oficina de Estudio 01. El analista no sale del edificio. Los cuatro guías ocupan su sitio; no caminan detrás del jugador.
+Quien juega camina en primera persona por la sede ficticia de la UCD, en Santiago. Es el equipo de respuesta a incidentes. Vera, Hugo, Nuria, el asistente técnico e Iriarte son grabaciones. Hablar con ellas no marca ningún obstáculo.
 
-## Escena 1 — Recepción
+## Escena 0 — Briefing
 
-**Dónde:** pantalla de entrada, antes de soltar el cursor dentro de la oficina. Rótulo «ESTUDIO 01 / FORMACIÓN DE ANALISTAS». Título «BLUE / RED». Subtítulo «ANALYST ACADEMY».
+**Dónde:** oficina, antes de que el reloj corra.
 
-**Presentes:** Vera Solís. El analista, todavía del otro lado del cristal de la interfaz.
+**Qué ocurre:** una tarjeta, con subtítulo, no un cuestionario. Al cerrarla empieza el tiempo.
 
-**Qué ocurre:** Si no hay partida, el progreso dice que la primera misión espera en la pizarra y el botón es «Entrar a la oficina». Si ya hay casos cerrados, Vera cambia el botón a «Continuar en la oficina» y cuenta los cierres. Salir del juego está en la misma lámina. Abajo, la tarjeta de controles: WASD, mouse, E, G, Shift, ESC.
+**Texto de la tarjeta:** «Operación Cóndor Silencioso. El enemigo ya tiene la llave. A las 22:00 alguien lanzó una falsa prueba de emergencia. La sede está en lockdown. Un insider con root copia la lista de informantes. Quedan 60 minutos. La salida de emergencia del juego permanece abierta. La palabra es CÓNDOR LIBRE.»
 
-**Vera:** «Tu primer día empieza aquí. Explora la oficina, investiga casos y convierte cada evidencia en una decisión informada. Una persona. Guardado en esta máquina.»
+**No romper:** el reloj visible parte de 60:00. En Aprendizaje se ve y no derrota. En Operación, el cero pierde la partida.
 
-**Sintetiza el jugador:** Entra al estudio para formarse como analista, con el cuerpo y con el expediente.
+## Escena 1 — El corcho
 
-**No romper:** El texto de esta lámina ya está en el juego. Vera no añade una amenaza ni un tutorial de herramientas.
+**Dónde:** oficina, muro del corcho. Cuatro correos.
 
-## Escena 2 — El contrato de la sala
+**Vera:** «En el corcho hay un aviso que apura. Compara el dominio con el de la casa.»
 
-**Dónde:** cartel de primer día, encima de la oficina aún en penumbra.
+**Qué hace el jugador:** abre el correo falso, de `soporte-ti@ucd-ch1le.invalid`. Pide la clave y dice que caduca en diez minutos. Marca las tres señales: dominio, clave y urgencia.
 
-**Presentes:** Vera.
+Los otros tres no piden secretos. El de `soporte-ti@ucd-chile.invalid` avisa de una ventana de mantenimiento y dice que el cambio se hace en la consola, con el segundo factor. Recepción (`recepcion@ucd.invalid`) deja la lista de visitas de mañana. Edificio (`edificio@ucd.invalid`) recuerda la prueba de altavoz de las 21:55. Ninguno muestra el dígito.
 
-**Qué ocurre:** Una sola vez, Vera lee el contrato en voz de recepción. El botón es «Entendido · a la oficina».
+**Tras el acierto:** el reverso del falso muestra el **4**. Puede aparecer una tarjeta experta. Cerrarla no abre nada más.
 
-**Vera:** «Eres un analista junior en una consultora ficticia. Investigas, documentas y defiendes conceptos de ciberseguridad. Esta sala no es un simulador de ataques reales: no hay exploits, Kali ni herramientas de intrusión. Empieza en la pizarra: acepta un ticket y sigue las pistas en el archivo y las bandejas del escritorio.»
+**No romper:** el 4 no está en el anverso ni en los correos legales.
 
-**Sintetiza el jugador:** El trabajo del día es criterio y redacción, dentro de un edificio inventado.
+## Escena 2 — El escritorio
 
-**No romper:** El cartel ya está escrito en el onboarding del hub. No se reescribe para sonar más “hacker”.
+**Dónde:** escritorio. Post-it «no olvidar: mi equipo + año», banderín «Cóndores», calendario «2026».
 
-## Escena 3 — Los pies, antes que el ticket
+**Asistente técnico:** «La clave de esa consola está armada con lo que tienes delante. No la escribas de memoria: elige las dos fichas.»
 
-**Dónde:** entrada de la oficina. Coach Iriarte, chaqueta menta, de cara al analista.
+**Qué hace el jugador:** en el inicio elige la ficha `Condores` y la ficha `2026`. El acierto es `Condores2026`.
 
-**Presentes:** Coach Iriarte.
+**Tras el acierto:** queda a la vista el **7**.
 
-**Qué ocurre:** Antes de hablar de casos, el coach hace cumplir las seis lecciones, en orden, y se calla cuando la última silla queda en el suelo. Si la lección ya estaba hecha, no la repite. En un reinicio de demo, vuelve al paso uno junto con el tip de bienvenida.
+**No romper:** no hay teclado libre. El acento del banderín no entra en la clave.
 
-**Coach:** «Primero los pies. El caso espera en la pared.» Luego, solo las seis líneas canónicas, una por vez: caminar, mirar, correr, resaltar una silla, tomarla con G, soltarla con G.
+## Escena 3 — La rueda
 
-**Sintetiza el jugador:** Puede habitar la oficina. Todavía no ha aceptado un trabajo.
+**Dónde:** junto al escritorio. La pantalla dice «Último inicio de sesión: 22:17».
 
-**No romper:** Iriarte no enseña conceptos de seguridad. La silla es una silla.
+**Asistente técnico:** «El segundo factor no es la clave otra vez. Es un código que cambia. El minuto ya está escrito en la pantalla.»
 
-## Escena 4 — La sala y el mueble rojo
+**Qué hace el jugador:** gira la rueda hasta el minuto 17. El token de ese minuto es `492017`.
 
-**Dónde:** oficina. Escritorio con laptop, cuaderno y tres bandejas. Buzón de informe. Pizarra al fondo. Puerta con rótulo hacia el archivo. Panel de pistas en la pared. Rack rojo a un lado.
+**Tras el acierto:** la puerta magnética puede abrirse. El rótulo de esa puerta dice «SALA DE SERVIDORES · PUERTA MAGNÉTICA».
 
-**Presentes:** Hugo, a distancia, junto a la pizarra. Nuria, junto al buzón, en silencio hasta que haya un expediente. El coach ya no habla.
+**No romper:** el minuto 17 y el token `492017` van juntos. Otro minuto no sirve.
 
-**Qué ocurre:** Un tip breve, la primera vez: caminar, mirar, usar, tomar una carpeta, y mirar la pizarra. La guía corta de la sala apunta al ticket. El analista puede acercarse al rack antes de aceptar nada.
+## Escena 4 — El parte
 
-**Hugo, si miran a Atlas:** «Ese servidor no es de tu cliente. Sin autorización explícita no se investiga, aunque esté al alcance de la mano. Atlas es el recordatorio rojo. No es un sobre.»
+**Dónde:** la hoja de registro, doce líneas del día, de la madrugada a las 22:17.
 
-**Sintetiza el jugador:** Estar cerca de un sistema no abre permiso para evaluarlo.
+**Nuria:** «No busques un nombre que el parte no tiene. Busca la hora en la que una cuenta de aseo aparece con un permiso que el aseo no usa.»
 
-**No romper:** Atlas es el proveedor de pagos excluido del caso Lumen y, en el espacio, el interactuable de fuera de alcance. Tocarlo muestra el alcance del ticket activo, o avisa de que no hay ticket. No hay castigo ni contenido oculto dentro del rack.
+**Qué hace el jugador:** elige las 03:14. La línea dice: RACK-03, cuenta `aseo_turno_noche`, permiso ROOT. El minuto que se entrega es `14`.
 
-## Escena 5 — Cuatro sobres, uno abierto
+Las doce líneas son las de la biblia, de las 03:14 a las 22:17. La copia sigue a las 03:16 sin destino escrito; el carro entra a las 18:02 sin privilegio; la tarjeta de V. Soto es denegada a las 20:03; la prueba de emergencia se acepta a las 22:00. Ninguna de esas otras líneas es el acierto.
 
-**Dónde:** pizarra de tickets.
+**Tras el acierto:** quedan a la vista los dígitos **14** y la cuenta `aseo_turno_noche`.
 
-**Presentes:** Hugo Pellicer.
+**No romper:** la línea que se marca es la de las 03:14. La denegación de las 20:03 se lee y no es el acierto. La segunda persona de aseo no está en esta hoja.
 
-**Qué ocurre:** Cuatro tarjetas, en el orden del catálogo. Solo la primera acepta E. Las otras esperan el cierre anterior. Sin misión activa, el objetivo pintado abajo dice que hay que aceptar un ticket.
+## Escena 5 — La caja
 
-**Hugo:** «Cuatro sobres. Uno abierto. Acepta antes de tocar. Cuando Nuria cierre el informe, el siguiente sobre se destapa solo.»
+**Dónde:** caja de evidencia. Cuatro ruedas.
 
-**Sintetiza el jugador:** El orden del aprendizaje es el orden de la pared.
+**Hugo:** «El candado junta lo que ya encontraste. Si te falta un dígito, vuelve al objeto que lo enseña.»
 
-**No romper:** Los ids y clientes de los cuatro sobres son los publicados. Hugo no adelanta el contenido de una ficha que el archivo aún no ha entregado.
+**Qué hace el jugador:** marca `4714` cuando ya tiene el 4, el 7 y el 14.
 
-## Escena 6 — Lumen: antes de tocar nada
+**Dentro:** la credencial «V. Soto. Aseo. Alta de hace meses. 20:03, tarjeta personal denegada. La ficha de convivencia está en el laboratorio.» Y la tarjeta de tráfico: «Fuga AZUL. RACK-03 hacia 203.0.113.44. 2,3 GB, repetida.»
 
-**Dónde:** ticket `recon`, archivo, bandejas, cuaderno, laptop, buzón.
+**No romper:** la credencial no nombra a Pixel. Ese nombre está en el muro del laboratorio.
 
-**Presentes:** Hugo al aceptarlo. Nuria al cerrarlo. El analista en el recorrido completo, que los casos siguientes repetirán sin volver a describir cada paso.
+## Escena 6 — Dos puertas
 
-**Qué ocurre:** E en el ticket. Toast con el brief y el alcance. La puerta del archivo se cruza. Tres carpetas (y el cajón, si se abre, no esconde una cuarta pista en este caso). Cada carpeta se lee, se lleva al escritorio y se clasifica: primero qué se puede afirmar, después qué defensa corresponde. El cuaderno gana la ficha del concepto. La laptop, si se usa, responde a `scan`, `map`, `inspect`, `notes` y `report` sobre fichas locales. Con el checklist en verde, E en el buzón abre el expediente: una frase de cierre y tres preguntas.
+**Dónde:** la puerta magnética del fondo y, en el corredor de entrada, la salida de emergencia.
 
-**Hugo, al soltar el ticket:** «Lumen prepara el archivo digital. Tu trabajo es ordenar las pistas y distinguir lo autorizado. Solo el archivo ficticio y sus documentos locales. El proveedor de pagos, Atlas, está excluido. El primer hallazgo de un buen analista suele ser una buena pregunta.»
+**Iriarte:** «La magnética espera el segundo factor. La de emergencia no espera nada: siempre está abierta. Si quieres parar de verdad, la palabra es CÓNDOR LIBRE.»
 
-**Pistas, en el orden del archivo:**
+**Qué hace el jugador:** con el segundo factor ya acertado, abre la magnética y entra a servidores. La salida de emergencia se puede usar en cualquier momento. No resta tiempo y lleva al mismo cierre que el botón de la pausa.
 
-- Mapa de bienvenida. Tres piezas: portal de lectura, área de empleados, catálogo. La ficha de responsables solo menciona el portal. Hugo, si el analista duda: «Un inventario describe lo observado. No convierte una sospecha en una vulnerabilidad confirmada.»
-- Carta de autorización. Se pueden analizar los documentos simulados de Lumen. Atlas queda fuera. Hugo: «La visibilidad no otorga permiso. Anota la dependencia y déjala quieta. Si hiciera falta más, se pide una ampliación explícita.»
-- Post-it: «El antiguo catálogo quizá siga publicado.» Sin fecha ni dueño. Hugo: «Eso es una hipótesis. La confirma el propietario, no tu prisa.»
+**No romper:** abrir la magnética no detiene la copia. Superar la oficina no termina la operación.
 
-**Nuria, en el buzón:** «Elige la frase que las tres carpetas pueden sostener.»
+## Escena 7 — La hoja de tráfico
 
-**Sintetiza el jugador:** Se identificaron tres activos, una dependencia excluida y una pista por confirmar. Completar inventario y responsables.
+**Dónde:** sala de servidores, al otro lado del corredor. Hay racks. Uno está rotulado RACK-03.
 
-**No romper:** No se “descubre” que el archivo está comprometido ni que hay que apagarlo. No haber hecho pruebas tampoco demuestra que no haya riesgos: demuestra que el mapa todavía es el trabajo.
+**Qué ocurre:** una hoja de diez filas. La misma fuga aparece dos veces: `RACK-03 → 203.0.113.44`, 2,3 GB, palabra AZUL e icono de flecha. Las otras filas son internas y pequeñas, con las palabras GRIS, AMARILLO, ROJO o VERDE. La fila verde es un aviso de vida, corto, dentro de la casa.
 
-## Escena 7 — Nébula: no todo es lo que parece
+**Qué hace el jugador:** señala el azul. Hace falta haber abierto la caja. Si la caja sigue cerrada, la hoja lo dice y no marca la fuga.
 
-**Dónde:** el mismo recorrido. Ticket `social`. Cuatro mensajes; el cuarto puede salir del cajón como USB de utilería.
+**No romper:** la dirección no se contacta. Es de documentación.
 
-**Presentes:** Hugo y Nuria.
+## Escena 8 — El panel de cables
 
-**Qué ocurre:** El buzón de la cooperativa, dentro de la ficción, dejó cuatro mensajes. El analista clasifica sin abrir enlaces y sin contestar. La guía de la sala vuelve a señalar archivo, bandeja y, al final, el buzón.
+**Dónde:** el panel, con cuatro cables a la altura de las manos.
 
-**Hugo:** «La urgencia es una señal, no una sentencia. Explica la decisión y elige un canal de verificación que ya conocieras antes del mensaje. Los enlaces de estas hojas son texto muerto. No se envían respuestas ni reportes fuera del estudio.»
+**Qué hace el jugador:** corta el AZUL, rotulado «AZUL · externo» con el icono ▲.
 
-**Pistas:**
+Si corta el VERDE («VERDE · vida», ■), el edificio anuncia una evacuación, el reloj pierde cinco minutos y se puede seguir. Si corta el ROJO («ROJO · energía», ●), pierde dos minutos y la fuga sigue. Si corta el AMARILLO («AMARILLO · voz», ◆), la voz interna se calla y no se abre nada.
 
-- Nómina, 09:12, dominio de adorno. Pide contraseña y código, con reloj y secreto. Nuria, adelantando el criterio: «Reportar. La mezcla de secretos, presión y aislamiento es la señal. No se contesta “solo el código”.»
-- Cambio de cuenta de un proveedor habitual, 09:24. El remitente coincide con un contacto; el cambio no estaba previsto; el teléfono nuevo viene en el mismo correo. Hugo: «Verifica con el número que ya estaba en el directorio. El canal escrito en el mensaje dudoso no es independiente.»
-- Recordatorio de reunión, 09:31. Está en el calendario interno ya abierto. Mismos participantes, misma sala, sin adjuntos ni petición de datos. Nuria: «Sigue el flujo habitual. Detectar también es no denunciar un recordatorio corroborado.»
-- Regalo del director, 09:42. Tarjetas, códigos, que no se hable con administración, urgente. Hugo: «Autoridad de papel, prisa y un control que te piden saltar. Se reporta y se corrobora por un canal interno conocido.»
+**Tras cortar el azul:** aparece el manual del fail-safe.
 
-**Sintetiza el jugador:** Reportar nómina y regalo; verificar el cambio bancario por un canal conocido; mantener el flujo habitual de la reunión corroborada.
+**No romper:** contener es cortar el azul. El verde es vida. La palabra y el icono acompañan al color.
 
-**No romper:** Ningún mensaje se trata como correo real. El “reporte” es una práctica dentro del juego. No aparece un enlace que el jugador deba visitar.
+## Escena 9 — Dos detectores
 
-## Escena 8 — Orbital: una llave no basta
+**Dónde:** el mismo sector, partido por un tabique. Un detector no se ve desde el otro. La lámpara es un prop LED.
 
-**Dónde:** ticket `identity`. Las “pistas” son políticas simuladas, no cuentas vivas.
+**Qué dice el manual:** dos detectores a la vez abren la puerta del laboratorio durante 90 segundos.
 
-**Presentes:** Hugo y Nuria.
+**Qué hace el jugador:** deja la lámpara en el primer detector y usa la llave en el segundo antes de que pasen tres segundos. La puerta, rotulada «LABORATORIO · 90 s», se abre. Si se cierra, se repiten la lámpara y la llave.
 
-**Qué ocurre:** Orbital quiere reemplazar reglas de acceso. El analista elige una política viable para el trabajo diario, incluida la recuperación. En la laptop, `simulate` solo tiene sentido en este ticket y solo relata el escenario.
+**No romper:** no hay fuego. Luz y sonido. La puerta no se queda abierta para siempre.
 
-**Hugo:** «La seguridad también depende de lo fácil que sea hacer lo correcto. Aquí no se piden contraseñas reales y no se rompe ninguna clave. Se leen consecuencias ficticias.»
+## Escena 10 — El muro
 
-**Pistas:**
+**Dónde:** laboratorio. Seis fichas. La de V. Soto muestra un gato llamado Pixel. C. León también tiene un gato; se llama Sol. Las otras mascotas son Luna, Nube, Mia y Rocky.
 
-- Una clave para todo. Si se filtra en el proveedor, correo y archivo quedan en el mismo riesgo. Defensa: largas, únicas, en un gestor.
-- Reglas que estorban: claves cortas, cambios periódicos sin indicios de compromiso, pegado bloqueado. El equipo inventa patrones y evita el gestor. Defensa: longitud, unicidad, permitir el gestor, bloquear claves ya conocidas como comprometidas. El cambio de credencial corresponde cuando hay evidencia de compromiso.
-- Dos contraseñas memorizadas. Siguen siendo un solo tipo de factor: algo que se sabe. Defensa: passkeys con verificación de la persona, o llaves de seguridad bien configuradas.
-- La recuperación: el acceso pide un segundo factor, y soporte lo quita a quien diga el nombre de la cuenta. Nuria: «Revisa esa puerta. Verificar la identidad en la recuperación y custodiar los códigos. Apagar el segundo factor para que “todas las rutas sean iguales” empeora el ciclo.»
+**Qué hace el jugador:** elige Pixel. Hace falta la caja abierta, porque la credencial es la que ata el nombre V. Soto a esa ficha.
 
-**Sintetiza el jugador:** Claves únicas con gestor, factores resistentes al phishing y recuperación protegida.
+**No romper:** la especie no basta. La palabra es Pixel. Ningún señuelo es la segunda persona de aseo.
 
-**No romper:** No hay ejemplo de contraseña, ni lista de claves filtradas, ni método para probarlas.
+## Escena 11 — La nota
 
-## Escena 9 — Aurora: menos puertas abiertas
+**Dónde:** una nota de configuración en el laboratorio.
 
-**Dónde:** ticket `web`. Cuatro fichas de inventario. Direcciones `.invalid` pintadas en el papel.
+**Qué ve el jugador:** la cadena `Q09GUkUgRU4gRUwgQ0FKT04gREVM`, una tabla breve y tres trozos ya alineados que leen `COFRE EN EL CAJON DEL`. Elige la clave entre tres palabras. La que sirve es Pixel.
 
-**Presentes:** Hugo y Nuria.
+**Tras el acierto:** la tarjeta muestra `7391` y «MAC termina en :4F».
 
-**Qué ocurre:** El museo va a renovar la exposición digital. El analista marca solo los riesgos que el inventario respalda y entrega un plan de reducción de exposición. La laptop no llama a esos nombres.
+**No romper:** la frase recuperada va sin tilde, tal como sale de esa cadena. No hay un descifrador que la persona tenga que operar.
 
-**Hugo:** «Que una API sea pública no demuestra un fallo. Mira qué publica, quién la necesita y qué controles describe la ficha.»
+## Escena 12 — El plano y el carro
 
-**Pistas:**
+**Dónde:** plano de intensidad y, a la altura de la cintura, el carro de aseo con doble fondo.
 
-- Acceso del personal por HTTP, sin canal protegido ni redirección. Uso interno. Lo respaldado: las credenciales en tránsito carecen de protección. Mejora: exigir HTTPS y cuidar certificados y redirecciones. Hugo: «El canal protegido no convierte el sitio en honesto ni sustituye la autenticación.»
-- Panel de administración público, usado solo desde la oficina, con ganas de abrirlo a toda la plantilla. Exposición de más y permisos más anchos que la tarea. Defensa: quien lo necesita, autenticación reforzada, mínimo privilegio. Un nombre distinto no es un control.
-- Catálogo público: solo lectura, HTTPS, sin datos personales, responsable y revisión, necesario para la web. Nuria: «Exposición intencional. Se queda en el inventario y se revisa. No se borra por ser visible.»
-- Micrositio de una exposición cerrada hace dos años, sin responsable, fuera del mantenimiento, sin confirmación de que aún haga falta. Se registra como activo sin dueño y posiblemente obsoleto. Acción: asignar responsable, confirmar la necesidad y retirarlo con control si ya no se usa.
+**Qué dice el reporte:** el intruso es `DC:A6:32:0E:77:4F` y no está en el inventario. A1 −55 dBm, unos 3 m. A2 −40 dBm, cerca de 1 m. A3 −70 dBm, unos 6 m.
 
-**Sintetiza el jugador:** Proteger el login con HTTPS, limitar la administración, revisar el micrositio y mantener el catálogo público bajo control.
+**Qué hace el jugador:** marca el cruce en la celda C-4. El doble fondo se abre y la tablet está ahí.
 
-**No romper:** No se declara comprometido ningún sitio. No se “cierra toda la web” porque exista una API pública.
+**No romper:** la celda es C-4. El plano ya trae las distancias escritas.
 
-## Escena 10 — Cuatro sobres en verde
+## Escena 13 — Las huellas
 
-**Dónde:** pizarra, después del quiz de Aurora.
+**Dónde:** tres sellos y una hoja. A y B muestran `e8576173473a`, el mismo sello oficial. C, el hallado en la tablet, muestra `21ea12c9e607`.
 
-**Presentes:** Nuria, luego Hugo. Vera, solo como eco del contador de la recepción: cuatro de cuatro.
+**Qué hace el jugador:** descarta C.
 
-**Qué ocurre:** Cada cierre ya mostró el toast de misión cerrada, la puntuación y la flecha de vuelta a la pizarra. Al cuarto, no queda ticket bloqueado ni ticket abierto. El cuaderno tiene las ocho fichas: reconocimiento, alcance, ingeniería social, verificación, contraseñas, autenticación multifactor, superficie, transporte. El rack rojo sigue rojo.
+**No romper:** se descarta C. A y B coinciden con la oficial.
 
-**Nuria:** «Cuatro informes. Cada uno cabe en sus carpetas. Eso es el primer día.»
+## Escena 14 — El interruptor
 
-**Hugo:** «La pared se ha quedado en verde. El estudio sigue teniendo archivo, bandejas y buzón. Cuando llegue otro sobre, se acepta igual: antes de tocar, se lee el alcance.»
+**Dónde:** un teclado grande de cuatro dígitos, hecho de botones.
 
-**Sintetiza el jugador:** Completó el mapa, los mensajes, las políticas y el inventario del museo sin salir del permiso de cada ticket.
+**Qué hace el jugador:** marca `7391`.
 
-**No romper:** El juego, hoy, no entrega todavía una credencial nueva ni abre una segunda sala. El acto termina en la oficina conocida. El deseo de más casos queda como gancho, no como contenido ya publicado en el JSON.
+Si marca `1793`, el reloj pierde un minuto y la copia sigue. Ese código es la trampa y no entra en la cuenta de los tres errores. Cualquier otro código suma un error. Al tercero, el panel se bloquea 90 segundos.
 
-## Gancho
+**Victoria:** «Copia detenida. La lista sigue en el edificio.» La luz de estado del laboratorio pasa a verde. Dentro de la ficción, los ascensores quedan en parada segura. La salida de emergencia sigue abierta.
 
-En algún cajón de la recepción, Vera tiene tres sobres sin colgar: un taller al que ya le ocurrió una copia, una editorial con una llave compartida, un puerto de trabajo donde la visita y el archivo comparten sitio. No están en la pizarra. Son el acto 2, y solo existen en `docs/historia/MISIONES_SIGUIENTES.md` hasta que alguien pida volcarlos al catálogo.
+**No romper:** el juego no explica cómo se fuerzan unos frenos. El interruptor detiene la copia y devuelve los ascensores a esa parada.
+
+## Si el reloj se acaba
+
+Solo en modo Operación, al llegar a cero: «Descarga completa. La lista salió del edificio.» El debriefing se abre igual.
+
+## Si la persona se va
+
+La puerta del corredor o el botón **CÓNDOR LIBRE**: «Salida de emergencia. La operación se detiene sin castigo.» El debriefing se abre igual.
+
+## Debriefing
+
+**Dónde:** el laboratorio, en cualquiera de los tres cierres.
+
+**Qué ocurre:** primero el giro de V. Soto, con las horas 20:03 y 03:14. Después las diez lecciones de la biblia, en ese orden. Después, si se muestra, la frase de que el parte de aseo tenía dos personas y solo una cuenta obtuvo ROOT. Al final, la pregunta «¿Qué vas a cambiar mañana?». Se puede dejar en blanco.
+
+**No romper:** la segunda persona no añade un candado. La pregunta no se corrige. Ninguna lección vuelve a cerrar una puerta.

@@ -1,9 +1,0 @@
-{
-  "name": "EthicalLab.Tests",
-  "rootNamespace": "EthicalLab.Tests",
-  "references": ["EthicalLab.Domain", "EthicalLab.Application", "EthicalLab.Shared"],
-  "includePlatforms": ["Editor"],
-  "optionalUnityReferences": ["TestAssemblies"],
-  "autoReferenced": false,
-  "noEngineReferences": false
-}

@@ -1,118 +1,182 @@
-# Biblia — Blue / Red · Analyst Academy
+# Biblia · Operación Cóndor Silencioso
 
-Canon narrativo del laboratorio. Los casos ya jugables viven en `Assets/Resources/Content/missions.json`. Esta biblia no los sustituye: fija premisa, voces y reglas para que un acto nuevo no las rompa.
+Frase de la operación: **«El enemigo ya tiene la llave.»**
 
-## Estado del serial
+Este archivo es el canon narrativo. Si un acto, una sala o un acertijo lo contradice, manda esta biblia. Aquí se fija la historia. No se declara el juego construido.
 
-- Acto escrito: `docs/historia/ACTO_1.md` (hub actual, misiones 01–04 ya publicadas).
-- Fichas futuras, todavía fuera del JSON: `rastro`, `permisos`, `fronteras` en `docs/historia/MISIONES_SIGUIENTES.md`.
-- Próximo archivo si piden «sigue la historia»: `docs/historia/ACTO_2.md`, dramatizando esas tres fichas en la misma oficina.
-- Quién escribe: el agente `.cursor/agents/historiador.md`.
+El recorrido jugable está en [Acto 1](ACTO_1.md). La planta y el orden de los obstáculos están en [el diseño del recorrido](../diseno/07-lockdown-fbi.md). El nombre de ese archivo se conserva para no romper enlaces; el cuerpo es esta operación.
 
 ## Premisa
 
-Estudio 01 es una consultora ficticia que forma analistas. El jugador llega el primer día con una credencial Blue / Red y una sola oficina. No hay red real, no hay víctima y no hay herramienta de intrusión.
+A las 22:00 alguien lanzó una falsa prueba de emergencia en la sede de la Unidad de Ciberdelitos (UCD), agencia ficticia en Santiago. El edificio quedó en lockdown. El jugador, en primera persona, es el equipo de respuesta a incidentes de la UCD. Un insider con root copia la lista de informantes protegidos. Quedan 60 minutos.
 
-El trabajo consiste en aceptar un ticket autorizado, leer fichas locales, separar hecho de hipótesis y cerrar con un informe que un equipo podría aplicar: qué se observó, qué queda fuera, qué control falta.
+La lista es ficticia. Si la copia sale del edificio, hay vidas en riesgo dentro de la ficción.
 
-Se gana por comprender el concepto y defenderlo. El edificio es de mentira. El criterio con el que se redacta el informe es la parte seria del juego.
+La sede, los controles y el personal son una representación inventada. No se reproduce una planta real, una dirección real ni un procedimiento de una agencia real. La UCD no existe fuera del juego.
 
-Público 18–32. Una persona, offline, PC primero. La misma oficina podrá servir más tarde a un visor; la historia no depende de eso.
+Quedan fuera de este canon el edificio del FBI, Nueva York, la fuga por ductos y el incendio provocado por el equipo. El archivo [Misiones siguientes](MISIONES_SIGUIENTES.md) guarda tickets de una consultora anterior: es histórico, no se dramatiza y no se vuelca al catálogo.
 
-## Tono
+## Cómo se avanza
 
-La imagen se mueve hacia un cell shading caricaturesco: contornos claros, siluetas legibles, gestos un poco teatrales. Vera sella papeles en el aire. El coach tiene la chaqueta menta demasiado recta. Hugo abre los tickets como un abanico. Nuria sostiene la bandeja del informe con las dos manos, como si pesara.
+El arco sigue un NIST simplificado, dicho en castellano dentro del mundo:
 
-La frase pedagógica no se caricaturiza. Español neutro, concreto, sin jerga de ataque. Cuando el jugador se equivoca, el mundo pide releer la evidencia. No hay game over, calaveras, terminal de película ni voz infantil.
+1. **Oficina — detectar.** Ver el anzuelo, la clave débil, el segundo factor y la línea del registro que no cuadra.
+2. **Servidores — contener.** Señalar la fuga y cortar solo ese camino. El fail-safe de luz abre el laboratorio.
+3. **Laboratorio — identificar y detener.** Saber quién es V. Soto, leer lo que el disfraz de texto no esconde, encontrar el equipo que no está en el inventario y parar la copia.
 
-`docs/ART_BIBLE.md` describe todavía el look sobrio anterior. Los píxeles siguen a cargo de ese documento y de quien modele. Esta biblia manda en las palabras.
+Cada concepto se define en castellano llano la primera vez que aparece. El manual de un obstáculo abre con esa definición. Leer el manual, pedir la radio, abrir el cuaderno o cerrar una tarjeta experta deja las puertas como estaban. El avance es el acierto sobre el objeto.
 
-## Elenco
+Tras cada acierto puede mostrarse una tarjeta experta: una observación más honda del mismo concepto. Se cierra cuando la persona quiere. La puerta siguiente no la espera. No hay examen como compuerta. La operación no cierra con una nota numérica.
 
-Nadie del elenco pide una contraseña, un comando ni “probar el fallo”. Hablan de alcance, señales y redacción.
+## Reloj, modos y salida real
 
-### El analista (jugador)
+Al cerrar el briefing, el reloj visible parte de **60:00**. Es el tiempo que falta para que la lista salga del edificio.
 
-Junior de primer día. Sin nombre fijo: la credencial dice Blue / Red y el cargo. Mira en primera persona, camina la oficina y deja su voz en el informe. La síntesis correcta es suya.
+- **Operación.** Si el reloj llega a cero, la partida se pierde. El texto es: «Descarga completa. La lista salió del edificio.»
+- **Aprendizaje.** El reloj se ve. Abrir un manual lo pausa. Llegar a cero no derrota.
 
-### Coach Iriarte
+Tres códigos distintos de `7391` y de `1793`, escritos en el interruptor, bloquean ese panel **90 segundos**.
 
-Figura junto a la entrada, rótulo **COACH**, chaqueta menta. Enseña el cuerpo en la sala: caminar, mirar, correr, señalar una silla, tomarla y soltarla. Cuando la lección termina, se aparta. No comenta los casos. Si alguien le pregunta por un ticket, señala la pizarra con la barbilla.
+La salida de emergencia del juego está en el corredor de entrada y siempre se puede usar. El rótulo dice «SALIDA DE EMERGENCIA · SIEMPRE ABIERTA». En la pausa hay un botón visible, **CÓNDOR LIBRE**. Cualquiera de los dos detiene la operación, la pausa y no resta tiempo. El debriefing sigue disponible.
 
-Las seis líneas que el juego ya muestra son ley:
+Esa salida es la seguridad de quien juega. No es un acertijo y no sustituye al interruptor.
 
-1. Camina con WASD un par de metros.
-2. Mueve el mouse para mirar la oficina.
-3. Mantén Shift mientras caminas para correr.
-4. Mira una silla hasta que se resalte.
-5. Pulsa G para tomar la silla.
-6. Pulsa G otra vez. La silla se queda donde cae.
+## Cronología del día
 
-### Vera Solís — recepción
+Meses antes, V. Soto entra a la plantilla de aseo. La hoja de la oficina tiene doce líneas, en este orden. La que se marca es la primera. El minuto que se entrega es **14**.
 
-Recibe en la pantalla de entrada y en el cartel de primer día. Frases cortas, como sellos. Repite el nombre del estudio y la frase ya pintada en el juego: «Tu primer día empieza aquí.» También deja claro qué sala es esta: investigar, documentar y defender conceptos. La sala no simula ataques reales.
+1. 03:14 — RACK-03. Cuenta `aseo_turno_noche`. Permiso ROOT.
+2. 03:16 — RACK-03. La copia hacia fuera sigue activa. Sin destino en esta hoja.
+3. 03:40 — Canal de voz interno. Sin destino exterior.
+4. 04:02 — Energía de los racks estable. Sin alarma de vida.
+5. 18:02 — El carro de aseo entra al pasillo. Sin privilegio.
+6. 20:03 — Tarjeta personal de V. Soto: DENEGADA.
+7. 21:40 — Ronda de cierre de recepción. Sin novedad.
+8. 21:55 — Prueba de altavoz. Sin fallo.
+9. 22:00 — El panel acepta una prueba de emergencia. Es falsa.
+10. 22:00 — Puertas de planta en lockdown.
+11. 22:05 — El equipo de respuesta queda dentro.
+12. 22:17 — Último inicio de sesión en la consola de guardia.
 
-### Hugo Pellicer — casos
+`03:14` es la madrugada de este mismo día, anterior al simulacro de las 22:00. La denegación de las 20:03 se lee y no es el acierto. El minuto 17 de las 22:17 es el de la rueda del segundo factor.
 
-Vive en la pizarra. Entrega un ticket cuando el anterior está cerrado. Lee el alcance en voz alta, incluido lo que queda fuera. Su muletilla: «Acepta antes de tocar.» Trata a Atlas como un mueble con letrero, no como un caso.
+## El giro
 
-### Nuria Quintero — informe
+V. Soto se empleó como aseo meses antes. A las 20:03 su tarjeta personal fue denegada. A las 03:14 entró al registro como `aseo_turno_noche`, con ROOT en RACK-03.
 
-Vive en el buzón del escritorio. No abre el expediente hasta que el checklist de la pared está documentado. Exige una frase que la evidencia pueda sostener. Descarta el cierre catastrofista y el cierre vacío. Después del informe pide el quiz, tres preguntas, y devuelve al analista a la pizarra.
+El parte de aseo de esa noche tenía dos personas. La segunda es una sola frase opcional del debriefing. No tiene nombre que descubrir, no tiene código y no abre una puerta.
 
-## Qué es Blue y qué es Red
+## Personajes
 
-Son dos lentes de la misma credencial, no dos equipos ni dos finales.
+- **Quien juega** es el equipo de respuesta, en un solo cuerpo y en primera persona. La operación es de una persona. No hay multijugador.
+- **V. Soto** es el insider. En la ficha: aseo, alta de hace meses, tarjeta denegada a las 20:03, gato llamado **Pixel**.
+- **Vera, Hugo, Nuria, el asistente técnico e Iriarte** son grabaciones de asistencia de la UCD. Orientan hacia el objeto. Consultarlos no resuelve el obstáculo.
+- Las otras cinco fichas del muro del laboratorio son señuelo de mascota. No son la segunda persona de aseo.
 
-**Blue** es la lente de lo que hay. El analista inventaría activos, nombra responsables, marca el alcance autorizado y elige un control proporcionado: completar un inventario, verificar por un canal ya conocido, separar una cuenta, exigir un transporte protegido, retirar lo que ya no tiene dueño.
+## Soluciones cerradas
 
-**Red** es la lente de lo que la ficción ya dio por sucedido. El analista lee el síntoma, el impacto y el control que faltó, para que el informe explique por qué ese control importa. Red no otorga permiso, no describe el camino para repetir el fallo y no convierte al jugador en atacante.
+El código usa estas soluciones. No inventa otras.
 
-En un mismo ticket se usan las dos. Blue pregunta «¿qué está autorizado y qué control corresponde?». Red pregunta «¿qué quedó registrado del fallo y qué hueco lo hizo posible?». La respuesta siempre sale por el buzón de Nuria.
+| Obstáculo | Acierto | Qué deja abierto |
+| --- | --- | --- |
+| Correo | El falso es `soporte-ti@ucd-ch1le.invalid`. Hay que marcar dominio, clave y urgencia. | El dígito **4**, al reverso, solo tras el acierto. |
+| Clave | `Condores2026`, con las fichas `Condores` y `2026`. | El dígito **7**. |
+| Segundo factor | Token `492017` con la rueda en el minuto 17. | La puerta magnética hacia servidores. |
+| Registro | La hora `03:14`, minuto `14`, cuenta `aseo_turno_noche`. | Los dígitos **14** y el nombre de esa cuenta. |
+| Caja | `4714`. Exige que 4, 7 y 14 ya se hayan revelado. | Credencial de V. Soto y tarjeta de la fuga azul. |
+| Tráfico | La fuga `RACK-03 → 203.0.113.44`, 2,3 GB, palabra **AZUL** y flecha. En la hoja de diez filas ocupa la 3 y la 5. Exige la caja abierta. | Poder cortar el cable azul como contención. |
+| Cable | Cortar el **AZUL** (externo). Exige haber marcado el azul. | El manual del fail-safe. |
+| Fail-safe | Lámpara LED en un detector y la llave en el otro dentro de los tres segundos siguientes. Exige el cable azul. | La puerta del laboratorio, 90 segundos. |
+| Ficha | La mascota **Pixel**, en la ficha de V. Soto. Exige la caja abierta. | Poder usar esa palabra en la nota. |
+| Nota | El texto ya alineado dice `COFRE EN EL CAJON DEL`. La clave es `Pixel`. | El código `7391` y «MAC termina en :4F». |
+| Plano | La celda **C-4**. La MAC completa es `DC:A6:32:0E:77:4F`. | El carro de aseo y la tablet. |
+| Huellas | Descartar **C**. | El interruptor. |
+| Interruptor | `7391`. | Victoria. |
 
-## La oficina (hub único)
+Detalles que no se sustituyen:
 
-Una sala y un archivo, al otro lado de una puerta. El recorrido de cada caso es físico:
+- El correo legal de soporte es `soporte-ti@ucd-chile.invalid`. El falso cambia la `i` de `chile` por un `1`. Todos los dominios de la ficción terminan en `.invalid`.
+- El banderín dice «Cóndores», con acento. La clave no lleva acento: `Condores2026`. El post-it dice «no olvidar: mi equipo + año». El calendario dice «2026».
+- La pantalla de la rueda dice «Último inicio de sesión: 22:17».
+- `203.0.113.44` es una dirección de documentación. No es un equipo real y no se contacta.
+- La cadena escrita en la nota es `Q09GUkUgRU4gRUwgQ0FKT04gREVM`. La tarjeta muestra una tabla breve y tres trozos ya alineados. La persona reconoce la frase; no ejecuta un descifrado.
+- Huella oficial, y la de A y la de B: `e8576173473a`. Huella C, la hallada: `21ea12c9e607`. Son sellos abreviados de la ficción.
+- En el plano, A1 −55 dBm ≈ 3 m, A2 −40 dBm ≈ 1 m, A3 −70 dBm ≈ 6 m. El cruce es C-4. El doble fondo del carro queda a la altura de la cintura.
+- El muro tiene seis fichas. Solo V. Soto tiene el gato Pixel. Los señuelos son A. Ruiz (perro Luna), M. Palma (pez Nube), C. León (gato Sol), R. Díaz (loro Mia) y J. Peña (hámster Rocky). Otro gato no sirve: la palabra es Pixel.
 
-1. Pizarra: E en el ticket disponible. Hugo suelta brief y alcance.
-2. Puerta del archivo, carpetas (E leer, G tomar). La cuarta pista, si existe, es el USB del cajón.
-3. Bandejas del escritorio: observación y después defensa.
-4. Cuaderno: ficha del concepto desbloqueado.
-5. Laptop: terminal narrativa. Vocabulario permitido: `help`, `scan`, `map`, `inspect`, `simulate`, `notes`, `report`, `clear`. `scan` lista las fichas del ticket. No hay escaneo de red.
-6. Buzón de informe, cuando todas las pistas están documentadas: informe y quiz. Toast de misión cerrada y vuelta a la pizarra.
+### Cables y códigos que no ganan
 
-El rack rojo del rincón es **Atlas**. El letrero dice que no es el cliente. Tocarlo enseña la frase de alcance; no abre un quinto caso ni castiga.
+| Acción | Efecto |
+| --- | --- |
+| Cable **VERDE**, vida | Evacuación dramática, el reloj pierde 5 minutos, se puede seguir. La copia no se detiene. |
+| Cable **ROJO**, energía | El reloj pierde 2 minutos. La fuga sigue. |
+| Cable **AMARILLO**, voz | La voz interna se corta. No abre nada. |
+| Interruptor `1793` | Trampa. El reloj pierde 1 minuto. No cuenta entre los tres errores del bloqueo. |
+| Otro código de cuatro dígitos | Suma un error. Al tercero, el panel queda bloqueado 90 segundos. |
 
-Los tickets se abren en orden. Completar el anterior desbloquea el siguiente.
+Cada cable se nombra con palabra e icono, además del color: AZUL ▲ externo, VERDE ■ vida, ROJO ● energía, AMARILLO ◆ voz.
 
-## Casos publicados (no contradecir)
+## Los once conceptos
 
-| Número | Id | Título | Cliente | Conceptos | Síntesis que Nuria acepta |
-| --- | --- | --- | --- | --- | --- |
-| 01 | `recon` | Antes de tocar nada | Lumen Studio | reconocimiento, alcance | Tres activos, una dependencia excluida (Atlas, pagos) y una pista por confirmar. Completar inventario y responsables. |
-| 02 | `social` | No todo es lo que parece | Cooperativa Nébula | ingeniería social, verificación | Reportar nómina y regalo; verificar el cambio bancario por un canal conocido; mantener la reunión corroborada. |
-| 03 | `identity` | Una llave no basta | Orbital Works | contraseñas, autenticación multifactor | Claves únicas con gestor, factores resistentes al phishing y recuperación protegida. |
-| 04 | `web` | Menos puertas abiertas | Museo Aurora | superficie, transporte | HTTPS en el acceso, limitar la administración, revisar el micrositio sin dueño y mantener el catálogo público bajo control. |
+La primera frase de cada manual es la definición. El cuaderno la repite cuando el obstáculo ya se acertó.
 
-Hechos fijos de esos casos:
+| Id | Nombre en el mundo | Primera frase |
+| --- | --- | --- |
+| `phishing` | Anzuelo | Un anzuelo, o phishing, es un mensaje que finge ser de confianza para que entregues un secreto. |
+| `passwords` | Clave débil | Una clave débil es la que alguien arma con lo que ya está a la vista. |
+| `mfa` | Segundo factor | El segundo factor, o MFA, es otra prueba distinta de la clave. |
+| `logs` | Registro | Un registro es la lista de lo que el sistema ya anotó: hora, cuenta y permiso. |
+| `traffic` | Tráfico | El tráfico es el movimiento de datos entre equipos; una fuga es una copia que sale hacia fuera. |
+| `containment` | Contención | Contener es cortar el camino por donde el daño sigue saliendo, y dejar intacto lo que mantiene a salvo a las personas. |
+| `failsafe` | Fail-safe | Un fail-safe es un seguro que abre un paso cuando dos avisos coinciden; aquí es luz y una llave, no un incendio. |
+| `osint` | Lo que ya se ve | OSINT es observar lo que una persona ya dejó a la vista, sin entrar en ningún sistema. |
+| `obfuscation` | Disfraz de texto | Ofuscar es cambiar el aspecto de un texto; Base64 disfraza letras y no las protege. |
+| `inventory` | Inventario | El inventario es la lista de equipos que sí pertenecen a la casa; una MAC ausente es un extraño. |
+| `integrity` | Huella | La integridad se comprueba con una huella: si no coincide, el archivo cambió. |
 
-- Lumen: portal de lectura, área de empleados y catálogo. La ficha de responsables solo nombra el portal. El post-it del catálogo antiguo es hipótesis. Atlas queda expresamente fuera.
-- Nébula: cuatro mensajes de ficción. Los enlaces no se abren. Urgencia y secreto no bastan para obedecer; un recordatorio corroborado tampoco se denuncia por reflejo.
-- Orbital: políticas simuladas. No hay claves reales ni pruebas de cracking. Dos contraseñas no son dos factores. La recuperación débil deshace el acceso fuerte.
-- Aurora: direcciones `.invalid` decorativas. HTTP en el acceso del personal deja las credenciales sin protección de transporte. Una API pública de títulos, en solo lectura y con responsable, puede ser exposición intencional. El micrositio de la exposición cerrada no tiene dueño. HTTPS no declara honesto un sitio ni vivo un activo abandonado.
+## Debriefing
 
-Conceptos ya ocupados: `recon`, `scope`, `phishing`, `verification`, `passwords`, `mfa`, `surface`, `transport`.
+Se abre en la victoria, en el tiempo agotado y en la salida de emergencia. El orden es fijo.
 
-## Reglas de escritura
+1. El giro, en este párrafo: «V. Soto entró a la plantilla de aseo meses antes. A las 20:03 su tarjeta personal fue denegada. A las 03:14 la cuenta aseo_turno_noche ya tenía ROOT en RACK-03.»
+2. Las diez lecciones de abajo.
+3. Una línea opcional, que se puede omitir: «El parte de aseo de esa noche tenía dos personas. Solo una cuenta obtuvo ROOT.»
+4. La pregunta, sin respuesta correcta y con la posibilidad de dejarla en blanco: **«¿Qué vas a cambiar mañana?»**
 
-- Un fallo se cuenta en pasado de ficción: qué se vio, a quién afectó dentro del caso, qué control no estaba. Sin pasos para reproducirlo.
-- Dominios `.invalid`. Sin correos enviados, sin peticiones a esos hosts, sin credenciales copiables.
-- La visibilidad no es autorización. Registrar una dependencia no es evaluarla.
-- Una pista no es una vulnerabilidad confirmada. Una hipótesis espera al propietario.
-- El informe nombra lo que la evidencia sostiene y el control proporcionado. Ni “apagarlo todo” ni “no hay riesgo porque no probamos”.
-- Los personajes nuevos, si algún acto los necesita, entran como personal del estudio o como cliente ficticio con ticket. No entra un antagonista operativo.
-- El acto 2 y los siguientes siguen en Estudio 01, con los mismos cuatro guías, hasta que esta biblia diga lo contrario en una revisión pedida por quien dirige el juego.
+Lecciones:
 
-## Cómo se sigue
+1. **Anzuelo.** El dominio llevaba un 1 donde iba una i, el mensaje pedía la clave y apuraba. Esas tres señales bastan para no entregar nada.
+2. **Clave a la vista.** El nombre del equipo y el año estaban en el escritorio. Una clave se protege cuando no se arma con el banderín ni con el calendario.
+3. **Segunda prueba.** La clave no alcanza. El código que cambia, situado en el minuto del último inicio, es la otra prueba. Sin ella la puerta magnética sigue cerrada.
+4. **La línea del registro.** A las 03:14 la cuenta de aseo tuvo ROOT en RACK-03. El registro muestra hora, cuenta y permiso. Una sospecha no se escribe como si fuera esa línea.
+5. **La fuga.** La misma copia grande sale de RACK-03 hacia 203.0.113.44, marcada AZUL. Contener es cortar ese camino. Esa dirección es de documentación: en el juego no apunta a un equipo real.
+6. **El cable de vida.** El verde sostiene a las personas. Cortarlo anuncia la evacuación y resta cinco minutos. El rojo quita energía y resta dos. El amarillo calla la voz y no abre nada. El cable de la fuga es el azul.
+7. **Luz, no incendio.** Dos detectores a la vez abren el laboratorio durante noventa segundos. La lámpara es LED: luz y sonido.
+8. **El nombre que ya estaba escrito.** La ficha de V. Soto nombra al gato Pixel. Otra mascota, aunque sea otro gato, no abre el cofre.
+9. **Letras disfrazadas.** Base64 cambia el aspecto. La tarjeta ya separa los trozos: `COFRE EN EL CAJON DEL`. La palabra que falta es Pixel. Ahí aparecen el 7391 y la MAC que termina en :4F.
+10. **Lista, sello e interruptor.** La MAC `DC:A6:32:0E:77:4F` no está en el inventario; el plano la sitúa en el carro, celda C-4. La huella C no coincide con la oficial y se descarta. El 7391 detiene la copia. El 1793 adelanta el reloj un minuto.
 
-Otra sesión puede decir: «Usa el subagente historiador y sigue la historia.» El agente lee esta biblia, el último acto y las fichas, y escribe el siguiente acto sin volcar `missions.json`.
+## Desenlaces
+
+- **Victoria.** `7391` detiene la copia. La lista sigue en el edificio. Dentro de la ficción, los ascensores vuelven a una parada segura. Una luz del laboratorio pasa a verde. La salida de emergencia permanece abierta. Texto: «Copia detenida. La lista sigue en el edificio.»
+- **Tiempo agotado.** Solo en modo Operación. Texto: «Descarga completa. La lista salió del edificio.»
+- **Salida de emergencia.** `CÓNDOR LIBRE` o la puerta siempre abierta. Texto: «Salida de emergencia. La operación se detiene sin castigo.»
+
+Mientras la copia sigue, la ficción trata los ascensores como parte del mismo control hostil. El interruptor los devuelve a esa parada segura. El juego no explica frenos ni cómo forzarlos.
+
+## Límites de la ficción
+
+- Dominios solo en `.invalid`.
+- La única dirección escrita es `203.0.113.44`, de documentación.
+- El fail-safe es una lámpara LED y una llave. Luz y sonido. No hay fuego, no hay materiales y no hay una receta.
+- La terminal del mundo es local. Acepta `help`, `scan`, `map`, `notes` y `clear`. No hace falta usarla para terminar. Cualquier otra palabra se rechaza.
+- Los obstáculos se resuelven con fichas, ruedas y botones del propio objeto. No hay comandos, payloads ni tiempos de ataque.
+- Las tarjetas expertas llegan después del acierto y nunca son requisito.
+
+## Estado del canon
+
+Canon escrito el 2026-10-07. Cubre una noche, un acto y un desenlace cerrado. No hay acto 2 en preparación.
+
+Este documento no afirma que las tres salas, el catálogo de la operación ni la sesión nueva estén construidos. `missions.json` puede seguir en disco como herencia; no es el progreso de esta historia.
+
+La próxima prosa, si alguien pide seguir, es otra operación posterior y solo con pedido explícito. No reabre a V. Soto como acertijo, no convierte a la segunda persona de aseo en un candado y no devuelve el canon retirado.

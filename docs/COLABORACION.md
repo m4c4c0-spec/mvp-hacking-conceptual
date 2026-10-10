@@ -12,9 +12,9 @@ Convención de rutas:
 | `Assets/_Project/` | Este lado | EthicalLab: Domain / Application / Infrastructure / Presentation / Shared. |
 | `Assets/Scenes/Hub.unity`, `Boot.unity` | Este lado | Hub primera persona por `IInteractor`. |
 | `Assets/Tests/EditMode/UseCaseTests.cs` | Este lado | StartMission → SubmitReport, sin Play Mode. |
-| `web/` | Este lado | Cliente jugable que espeja las reglas de `AcademySession`. |
 | `docs/`, `scripts/` | Este lado | Plan, contrato, Steam, bitácora, validación, firmas. |
-| `unity-stub/` | Este lado | Solo el mapa web ↔ `InteractionAction`. |
+
+El cliente de navegador (`web/`), sus tests (`scripts/test-session.mjs`, `scripts/test-scoring.mjs`) y `unity-stub/` se eliminaron. No forman parte del producto. La fase de misiones con id `web` sigue en `missions.json`.
 
 Si aparece un archivo nuevo fuera de estas carpetas, se trata como cambio del otro desarrollador hasta que se clasifique.
 
@@ -411,3 +411,23 @@ Archivos nuestros nuevos/cambiados: `Shared/Result.cs` (`InteractableId` con `Ki
 ## 2026-09-22 00:40 — Harness .NET sin Unity (EthicalLab)
 
 `scripts/test-dotnet.sh` + `Tools/{EthicalLab.Pure,EthicalLab.PureTests,EthicalLab.SyntaxCheck}`: compila Shared/Domain/Application como netstandard2.1 / C# 9, corre `Assets/Tests/EditMode/*.cs` con NUnit 3 y parsea todo `Assets/**/*.cs` con Roslyn. Resultado hoy: 0 errores, 3/3 tests, 53 archivos sin errores de sintaxis (incluye vuestros `Assets/Scripts` y `Assets/Editor`). `.gitignore` deja pasar `Tools/**/*.csproj`. No cubre errores de tipo contra `UnityEngine`; eso sigue siendo el editor. El JSON no cambió.
+
+## 2026-09-30 01:54:59 — Revisión Godot
+
+- Validación: FALLÓ · revisar salida del monitor
+
+## 2026-09-30 01:57:31 — Revisión Godot
+
+- Editado: `Godot/Game/Levels/office.tscn`
+- Editado: `Godot/tools/bake_office.gd`
+- Validación: OK
+
+## 2026-09-30 02:03:04 — Revisión Godot
+
+- Editado: `scripts/export-godot.sh`
+- Validación: OK
+
+## 2026-09-30 02:06:24 — Revisión Godot
+
+- Editado: `scripts/test-godot.sh`
+- Validación: OK

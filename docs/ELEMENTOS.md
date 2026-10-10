@@ -506,14 +506,6 @@
 - **Qué hace**: Validación más exhaustiva de missions.json (Node.js)
 - **Uso**: `node scripts/validate-content.mjs`
 
-### test-session.mjs
-- **Propósito**: Tests de sesión web (legacy de prototipo web/)
-- **Estado**: Complementario, EthicalLab es la versión canónica
-
-### test-scoring.mjs
-- **Propósito**: Tests de scoring web
-- **Estado**: Complementario
-
 ---
 
 ## Cómo extender
