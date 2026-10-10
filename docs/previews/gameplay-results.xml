@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Passed" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:17:05Z" duration="9.9172109">
+  <test-suite type="TestSuite" id="1027" name="Blue Red Analyst Academy" fullname="Blue Red Analyst Academy" runstate="Runnable" testcasecount="15" result="Passed" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:17:05Z" duration="9.917211" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1022" name="EthicalLab.PlayModeTests.dll" fullname="/tmp/analyst-academy-unity.SDk1H1/Library/ScriptAssemblies/EthicalLab.PlayModeTests.dll" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:17:05Z" duration="9.912163" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="22498" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1023" name="EthicalLab" fullname="EthicalLab" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:17:05Z" duration="9.911872" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1024" name="Tests" fullname="EthicalLab.Tests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:17:05Z" duration="9.911704" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1010" name="HubGameplayTests" fullname="EthicalLab.Tests.HubGameplayTests" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:17:03Z" duration="7.840068" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1017" name="DemoResetRequiresConfirmationAndPersistsCleanProgress" fullname="EthicalLab.Tests.HubGameplayTests.DemoResetRequiresConfirmationAndPersistsCleanProgress" methodname="DemoResetRequiresConfirmationAndPersistsCleanProgress" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" seed="357051346" result="Passed" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:16:55Z" duration="0.471200" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1014" name="DrawerClueIsReachableAndReturnsToItsMovingParent" fullname="EthicalLab.Tests.HubGameplayTests.DrawerClueIsReachableAndReturnsToItsMovingParent" methodname="DrawerClueIsReachableAndReturnsToItsMovingParent" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" seed="1735819556" result="Passed" start-time="2026-09-27 22:16:55Z" end-time="2026-09-27 22:16:57Z" duration="1.802494" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1011" name="FourCasesCanBeCompletedThroughWorldAndReportUi" fullname="EthicalLab.Tests.HubGameplayTests.FourCasesCanBeCompletedThroughWorldAndReportUi" methodname="FourCasesCanBeCompletedThroughWorldAndReportUi" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" seed="440470676" result="Passed" start-time="2026-09-27 22:16:57Z" end-time="2026-09-27 22:17:01Z" duration="3.904301" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1013" name="LockedTicketsAndEarlyReportCannotAdvanceTheCase" fullname="EthicalLab.Tests.HubGameplayTests.LockedTicketsAndEarlyReportCannotAdvanceTheCase" methodname="LockedTicketsAndEarlyReportCannotAdvanceTheCase" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" seed="839591439" result="Passed" start-time="2026-09-27 22:17:01Z" end-time="2026-09-27 22:17:02Z" duration="0.416481" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1015" name="MenuPausesMissionTimeAndResumeRestoresControls" fullname="EthicalLab.Tests.HubGameplayTests.MenuPausesMissionTimeAndResumeRestoresControls" methodname="MenuPausesMissionTimeAndResumeRestoresControls" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" seed="1059067149" result="Passed" start-time="2026-09-27 22:17:02Z" end-time="2026-09-27 22:17:02Z" duration="0.616075" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1016" name="TerminalAcceptsEnterAndRejectsNonNarrativeCommands" fullname="EthicalLab.Tests.HubGameplayTests.TerminalAcceptsEnterAndRejectsNonNarrativeCommands" methodname="TerminalAcceptsEnterAndRejectsNonNarrativeCommands" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" seed="849924126" result="Passed" start-time="2026-09-27 22:17:02Z" end-time="2026-09-27 22:17:03Z" duration="0.338784" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1012" name="WrongTrayKeepsClueHeldUntilObservationAndDefenseAreCorrect" fullname="EthicalLab.Tests.HubGameplayTests.WrongTrayKeepsClueHeldUntilObservationAndDefenseAreCorrect" methodname="WrongTrayKeepsClueHeldUntilObservationAndDefenseAreCorrect" classname="EthicalLab.Tests.HubGameplayTests" runstate="Runnable" seed="46487844" result="Passed" start-time="2026-09-27 22:17:03Z" end-time="2026-09-27 22:17:03Z" duration="0.283150" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1018" name="HubStartupTests" fullname="EthicalLab.Tests.HubStartupTests" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-27 22:17:03Z" end-time="2026-09-27 22:17:05Z" duration="2.070795" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1019" name="BootLoadsOnePlayableOfficeAndWaitsForEntry" fullname="EthicalLab.Tests.HubStartupTests.BootLoadsOnePlayableOfficeAndWaitsForEntry" methodname="BootLoadsOnePlayableOfficeAndWaitsForEntry" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" seed="2107861178" result="Passed" start-time="2026-09-27 22:17:03Z" end-time="2026-09-27 22:17:04Z" duration="0.818758" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1021" name="ModeledDoorBlocksWhenClosedAndAllowsPassageWhenOpen" fullname="EthicalLab.Tests.HubStartupTests.ModeledDoorBlocksWhenClosedAndAllowsPassageWhenOpen" methodname="ModeledDoorBlocksWhenClosedAndAllowsPassageWhenOpen" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" seed="568228665" result="Passed" start-time="2026-09-27 22:17:04Z" end-time="2026-09-27 22:17:05Z" duration="1.099797" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1020" name="ReloadingHubDoesNotDuplicateWorldAndScreenRemainsUsable" fullname="EthicalLab.Tests.HubStartupTests.ReloadingHubDoesNotDuplicateWorldAndScreenRemainsUsable" methodname="ReloadingHubDoesNotDuplicateWorldAndScreenRemainsUsable" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" seed="1507858664" result="Passed" start-time="2026-09-27 22:17:05Z" end-time="2026-09-27 22:17:05Z" duration="0.138460" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /tmp/analyst-academy-unity.SDk1H1/gameplay-final.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

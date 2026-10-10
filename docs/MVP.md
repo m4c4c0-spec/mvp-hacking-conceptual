@@ -10,8 +10,7 @@ Pitch: laboratorio narrativo. El jugador es junior en una consultora; cada misi�
 - Glosario: cada hallazgo desbloquea definición + importancia + defensa.
 
 **Hecho en contenido:** 4 misiones y 8 fichas en `Assets/Resources/Content/missions.json`.  
-**Hecho en Unity:** sesión, terminal ficticia, oficina procedimental, stub XR (`Assets/Scripts/`).  
-**Hecho en web:** el mismo loop jugable en el navegador, espejando esas reglas.
+**Hecho en Unity:** sesión, terminal ficticia, oficina procedimental, stub XR (`Assets/Scripts/`).
 
 ## Semana 2 — Tres misiones conceptuales
 

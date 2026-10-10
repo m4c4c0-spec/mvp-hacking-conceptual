@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-27 22:05:43Z" end-time="2026-09-27 22:05:45Z" duration="2.1478209">
+  <test-suite type="TestSuite" id="1019" name="Blue Red Analyst Academy" fullname="Blue Red Analyst Academy" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-27 22:05:43Z" end-time="2026-09-27 22:05:45Z" duration="2.147821" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1014" name="EthicalLab.PlayModeTests.dll" fullname="/tmp/analyst-academy-unity.SDk1H1/Library/ScriptAssemblies/EthicalLab.PlayModeTests.dll" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-27 22:05:43Z" end-time="2026-09-27 22:05:45Z" duration="2.143106" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="19398" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1015" name="EthicalLab" fullname="EthicalLab" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-27 22:05:43Z" end-time="2026-09-27 22:05:45Z" duration="2.142848" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1016" name="Tests" fullname="EthicalLab.Tests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-27 22:05:43Z" end-time="2026-09-27 22:05:45Z" duration="2.142675" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1010" name="HubStartupTests" fullname="EthicalLab.Tests.HubStartupTests" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-27 22:05:43Z" end-time="2026-09-27 22:05:45Z" duration="2.142015" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1011" name="BootLoadsOnePlayableOfficeAndWaitsForEntry" fullname="EthicalLab.Tests.HubStartupTests.BootLoadsOnePlayableOfficeAndWaitsForEntry" methodname="BootLoadsOnePlayableOfficeAndWaitsForEntry" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" seed="250377080" result="Passed" start-time="2026-09-27 22:05:43Z" end-time="2026-09-27 22:05:44Z" duration="0.891660" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1013" name="ModeledDoorBlocksWhenClosedAndAllowsPassageWhenOpen" fullname="EthicalLab.Tests.HubStartupTests.ModeledDoorBlocksWhenClosedAndAllowsPassageWhenOpen" methodname="ModeledDoorBlocksWhenClosedAndAllowsPassageWhenOpen" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" seed="755373336" result="Passed" start-time="2026-09-27 22:05:44Z" end-time="2026-09-27 22:05:45Z" duration="1.105465" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1012" name="ReloadingHubDoesNotDuplicateWorldAndScreenRemainsUsable" fullname="EthicalLab.Tests.HubStartupTests.ReloadingHubDoesNotDuplicateWorldAndScreenRemainsUsable" methodname="ReloadingHubDoesNotDuplicateWorldAndScreenRemainsUsable" classname="EthicalLab.Tests.HubStartupTests" runstate="Runnable" seed="1738368793" result="Passed" start-time="2026-09-27 22:05:45Z" end-time="2026-09-27 22:05:45Z" duration="0.138795" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /tmp/analyst-academy-unity.SDk1H1/playmode-final.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
